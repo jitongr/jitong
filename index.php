@@ -2,13 +2,12 @@
 /**
  * mobile 版本
  *
- * @copyright (c) Emlog All Rights Reserved
- * $Id: index.php 2017 2011-08-29 15:42:55Z qiyuuu@gmail.com $
+ * @copyright (c) jitongr All Rights Reserved
  */
 
-require_once '../init.php';
+require_once 'init.php';
 
-define ('TEMPLATE_PATH', EMLOG_ROOT . '/m/view/');
+define ('TEMPLATE_PATH', EMLOG_ROOT . '/view/');
 
 $isgzipenable = 'n'; //手机浏览关闭gzip压缩
 $index_lognum = 5;
@@ -18,11 +17,12 @@ $action = isset($_GET['action']) ? addslashes($_GET['action']) : '';
 $cpid = isset ($_GET['cp']) ? intval ($_GET['cp']) : '';
 $akey = isset($_GET['aikey']) ? addslashes($_GET['aikey']) : '';
 // 首页
+
 if (empty ($action) && empty ($logid) && empty ($cpid)&& empty ($akey)) {
 	$Log_Model = new Log_Model();
 	$page = isset($_GET['page']) ? abs(intval ($_GET['page'])) : 1;
 	$sqlSegment = "ORDER BY top DESC ,date DESC";
-	$sta_cache = $CACHE->readCache('sta');
+	//$sta_cache = $CACHE->readCache('sta');
 	$lognum = $sta_cache['lognum'];
 	$pageurl = '?page=';
 	$logs = $Log_Model->getLogsForHome ($sqlSegment, $page, $index_lognum);
