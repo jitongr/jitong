@@ -142,7 +142,7 @@ $vfr="unlog";
 // 日志
 if (!empty ($logid)) {
 	$Log_Model = new Log_Model();
-	$Comment_Model = new Comment_Model();
+	//$Comment_Model = new Comment_Model();
 
 	$logData = $Log_Model->getOneLogForHome($logid);
 	if ($logData === false) {
@@ -154,12 +154,8 @@ if (!empty ($logid)) {
 		$cookiepwd = isset($_COOKIE ['em_logpwd_' . $logid]) ? addslashes(trim($_COOKIE ['em_logpwd_' . $logid])) : '';
 		authPassword ($postpwd, $cookiepwd, $password, $logid);
 	}
-	// comments
-	$commentPage = isset($_GET['comment-page']) ? intval($_GET['comment-page']) : 1;
-	$verifyCode = ISLOGIN == false && Option::get('comment_code') == 'y' ? "<img src=\"../include/lib/checkcode.php\" /><br /><input name=\"imgcode\" type=\"text\" />" : '';
-	$comments = $Comment_Model->getComments(2, $logid, 'n', $commentPage);
-	extract($comments);
-	$user_cache = $CACHE->readCache('user');
+
+//	$user_cache = $CACHE->readCache('user');
 
 	$Log_Model->updateViewCount($logid);
 	include View::getView('header');
@@ -209,7 +205,7 @@ if (ISLOGIN === true && $action == 'savelog') {
 	$blogid = isset($_POST['gid']) ? intval(trim($_POST['gid'])) : -1;
 	$date = isset($_POST['date']) ? addslashes($_POST['date']) : '';
 	$author = isset($_POST['author']) ? intval(trim($_POST['author'])) : UID;
-	$postTime = $Log_Model->postDate(Option::get('timezone'), $date);	
+	$postTime = $Log_Model->postDate(0, $date);	
 
 	$logData = array('title' => $title,
 		'content' => $content,
@@ -266,8 +262,7 @@ if (ISLOGIN === true && $action == 'addcom') {
         mMsg('评论失败：禁止使用管理员昵称或邮箱评论','./?post=' . $blogId);
     } elseif (strlen($content) == '' || strlen($content) > 2000) {
         mMsg('评论失败：内容不符合规范','./?post=' . $blogId);
-    } elseif (ISLOGIN == false && Option::get('comment_code') == 'y' && session_start() && $imgcode != $_SESSION['code']) {
-        mMsg('评论失败：验证码错误','./?post=' . $blogId);
+
     } else {
 		$DB = MySql::getInstance();
         $ipaddr = getIp();
@@ -278,7 +273,7 @@ if (ISLOGIN === true && $action == 'addcom') {
 			$content = '@' . addslashes($comment['poster']) . '：' . $content;
 		}
 
-		$ischkcomment = Option::get('ischkcomment');
+	
 		$hide = ROLE == 'visitor' ? $ischkcomment : 'n';
 
 		$sql = 'INSERT INTO '.DB_PREFIX."comment (date,poster,gid,comment,mail,url,hide,ip,pid)
@@ -308,7 +303,7 @@ if ($action == 'com') {
 
 		$comment = $Comment_Model->getComments(1, null, $hide, $page);
 		$cmnum = $Comment_Model->getCommentNum(null, $hide);
-		$pageurl = pagination($cmnum, Option::get('admin_perpage_num'), $page, "./?action=com&page=");
+		$pageurl = pagination($cmnum, 20, $page, "./?action=com&page=");
 	}else {
 		$comment = $CACHE->readCache('comment');
 		$pageurl = '';
@@ -347,8 +342,7 @@ if (ISLOGIN === true && $action == 'reply') {
 		mMsg('参数错误', './');
 	}
 	extract($commentArray);
-	$verifyCode = ISLOGIN == false && Option::get('comment_code') == 'y' ? "<img src=\"../include/lib/checkcode.php\" /><br /><input name=\"imgcode\" type=\"text\" />" : '';
-	include View::getView('header');
+		include View::getView('header');
 	include View::getView('reply');
 	include View::getView('footer');
 	View::output();
@@ -360,7 +354,7 @@ if ($action == 'tw') {
     $user_cache = $CACHE->readCache('user');
     $tws = $Twitter_Model->getTwitters($page);
     $twnum = $Twitter_Model->getTwitterNum();
-    $pageurl =  pagination($twnum, Option::get('index_twnum'), $page, './?action=tw&page=');
+    $pageurl =  pagination($twnum, 20, $page, './?action=tw&page=');
 
 	include View::getView('header');
 	include View::getView('twitter');
@@ -391,10 +385,7 @@ if (ISLOGIN === true && $action == 'delt') {
 	emDirect("./?action=tw");
 }
 if ($action == 'login' ||$action == 'reg' ) {
-	Option::get('login_code') == 'y' ? $ckcode = "<span>验证码</span>
-    <div class=\"val\"><img src=\"../include/lib/checkcode.php\" /><br />
-	<input name=\"imgcode\" id=\"imgcode\" type=\"text\" />
-    </div>" : $ckcode = '';
+
 	include View::getView('header');
 	include View::getView('login');
 	include View::getView('footer');
@@ -404,14 +395,14 @@ if ($action == 'auth') {
 	session_start();
 	$username = addslashes(trim($_POST['user']));
 	$password = addslashes(trim($_POST['pw']));
-	$img_code = (Option::get('login_code') == 'y' && isset ($_POST['imgcode'])) ? addslashes (trim (strtoupper ($_POST['imgcode']))) : '';
+	//$img_code = (Option::get('login_code') == 'y' && isset ($_POST['imgcode'])) ? addslashes (trim (strtoupper ($_POST['imgcode']))) : '';
 	$ispersis = true;
 	if (checkUser($username, $password, $img_code) === true) {
 		setAuthCookie($username, $ispersis);
 		if($_SESSION['onm']==1)
 		emDirect('?tem=' . time());
 		else
-		emDirect('/');
+		emDirect('.');
 	}else {
 		emDirect("?action=login");
 	}

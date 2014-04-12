@@ -277,7 +277,7 @@ function rmBreak($content){
  * @return string
  */
 function smartDate($datetemp, $dstr='Y-m-d H:i'){
-	$timezone = Option::get('timezone');
+	//$timezone = Option::get('timezone');
 	$op = '';
 	$sec = time() - $datetemp;
 	$hover = floor($sec / 3600);
@@ -341,7 +341,7 @@ function findArray($array1,$array2){
  * @param boolean $is_thumbnail 是否生成缩略图
  * @return string 文件路径
  */
-function uploadFile($fileName, $errorNum, $tmpFile, $fileSize, $type, $isIcon=false, $is_thumbnail=Option::IS_THUMBNAIL){
+function uploadFile($fileName, $errorNum, $tmpFile, $fileSize, $type, $isIcon=false){
 	require_once EMLOG_ROOT.'/include/lib/pinyin.php';
 	if ($errorNum == 1){
 		emMsg('文件大小超过系统'.ini_get('upload_max_filesize').'限制');
@@ -352,8 +352,8 @@ function uploadFile($fileName, $errorNum, $tmpFile, $fileSize, $type, $isIcon=fa
 	if (!in_array($extension, $type)){
 		emMsg('错误的文件类型');
 	}
-	if ($fileSize > Option::UPLOADFILE_MAXSIZE){
-		$ret = changeFileSize(Option::UPLOADFILE_MAXSIZE);
+	if ($fileSize > 200000){
+		$ret = changeFileSize(200000);
 		emMsg("文件大小超出{$ret}的限制");
 	}
 	//$fname =  gmdate('YmdHis').md5($fileName).'.'.$extension;
@@ -526,7 +526,7 @@ function getTimeZoneOffset($remote_tz, $origin_tz = 'UTC') {
  * 将字符串转换为时区无关的UNIX时间戳
  */
 function emStrtotime($timeStr) {
-    $timezone = Option::get('timezone');
+   // $timezone = Option::get('timezone');
     if ($timeStr) {
 	    $unixPostDate = @strtotime($timeStr);
 	    if ($unixPostDate === false) {

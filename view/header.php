@@ -29,17 +29,15 @@ a:link,a:visited,a:hover,a:active {text-decoration: none;color:#333;}
 <div id="blogname"><?php echo $blogname; ?></div>
 </div>
 <div id="navi">
-<a href="<?php echo BLOG_URL; ?>">返回PC版首页</a> 
 <a href="./" <?php if($action=='')echo 'id="active"'; ?>>首页</a> 
 <a href="./?cp=468" <?php if($cpid==468)echo 'id="active"'; ?>>ainet爱心</a>
 <a href="./?action=tw" <?php if($action=='tw')echo 'id="active"'; ?>>碎语</a> 
 <a href="./?action=com" <?php if($action=='com')echo 'id="active"'; ?>>评论</a> 
 <?php if(ISLOGIN === true): ?>
-<a href="/m/enet.php" <?php if($action=='enet')echo 'id="active"'; ?>>enet</a> 
 <a href="./?action=write" <?php if($action=='write')echo 'id="active"'; ?>>写日志</a> 
 <a href="./?action=logout">退出</a>
 <?php else:?>
-<a href="<?php echo BLOG_URL; ?>m/?action=login" <?php if($action=='login')echo 'id="active"'; ?>>登录</a>
-<a href="<?php echo BLOG_URL; ?>m/?action=reg" <?php if($action=='reg')echo 'id="active"'; ?>>注册</a>
+<a href="<?php echo BLOG_URL; ?>/?action=login" <?php if($action=='login')echo 'id="active"'; ?>>登录</a>
+<a href="<?php echo BLOG_URL; ?>/?action=reg" <?php if($action=='reg')echo 'id="active"'; ?>>注册</a>
 <?php endif;?>
 </div>

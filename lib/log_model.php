@@ -104,7 +104,7 @@ class Log_Model {
 	 * 后台获取单条日志
 	 */
 	function getOneLogForAdmin($blogId) {
-		$timezone = Option::get('timezone');
+	//	$timezone = Option::get('timezone');
 		$author = ROLE == 'admin' ? '' : 'AND author=' . UID;
 		$sql = "SELECT * FROM " . DB_PREFIX . "blog WHERE gid=$blogId $author";
 		$res = $this->db->query($sql);
@@ -129,7 +129,7 @@ class Log_Model {
 	 * 前台获取单条日志
 	 */
 	function getOneLogForHome($blogId) {
-		$timezone = Option::get('timezone');
+		//$timezone = Option::get('timezone');
 		$sql = "SELECT * FROM " . DB_PREFIX . "blog WHERE gid=$blogId ";
 		//if(ROLE != 'admin' )
 		// $sql.="and type='blog'";		
@@ -171,8 +171,8 @@ class Log_Model {
 	 * @return array
 	 */
 	function getLogsForAdmin($condition = '', $hide_state = '', $page = 1, $type = 'blog') {
-		$timezone = Option::get('timezone');
-		$perpage_num = Option::get('admin_perpage_num');
+		//$timezone = Option::get('timezone');
+	//	$perpage_num = Option::get('admin_perpage_num');
 		$start_limit = !empty($page) ? ($page - 1) * $perpage_num : 0;
 		$author = ROLE == 'admin' ? '' : 'and author=' . UID;
 		$hide_state = $hide_state ? "and hide='$hide_state'" : '';
@@ -288,7 +288,7 @@ class Log_Model {
 	 * @return date
 	 */
 	function postDate($timezone = 8, $postDate = null, $oldDate = null) {
-		$timezone = Option::get('timezone');
+		//$timezone = Option::get('timezone');
 		$localtime = time();
 		$logDate = $oldDate ? $oldDate : $localtime;
 		$unixPostDate = '';
