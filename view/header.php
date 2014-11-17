@@ -37,7 +37,7 @@ a:link,a:visited,a:hover,a:active {text-decoration: none;color:#333;}
 <a href="./?action=write" <?php if($action=='write')echo 'id="active"'; ?>>写日志</a> 
 <a href="./?action=logout">退出</a>
 <?php else:?>
-<a href="<?php echo BLOG_URL; ?>/?action=login" <?php if($action=='login')echo 'id="active"'; ?>>登录</a>
-<a href="<?php echo BLOG_URL; ?>/?action=reg" <?php if($action=='reg')echo 'id="active"'; ?>>注册</a>
+<a href="<?php echo BLOG_URL; ?>?action=login" <?php if($action=='login')echo 'id="active"'; ?>>登录</a>
+<a href="<?php echo BLOG_URL; ?>?action=reg" <?php if($action=='reg')echo 'id="active"'; ?>>注册</a>
 <?php endif;?>
 </div>
