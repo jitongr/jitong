@@ -6,7 +6,7 @@ if(!defined('EMLOG_ROOT')) {exit('error!');}
 ?>
 <!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-<script src="http://tjs.sjs.sinajs.cn/t35/apps/opent/js/frames/client.js" language="JavaScript"></script>
+<ssscript src="http://tjs.sjs.sinajs.cn/t35/apps/opent/js/frames/client.js" language="JavaScript"></script>
 <head>
 <title><?php echo $hhtitle.'-'.Option::get('blogname'); ?></title>
 <style type="text/css" id="internalStyle">
@@ -26,6 +26,7 @@ a:link,a:visited,a:hover,a:active {text-decoration: none;color:#333;}
 .cominfo{text-align:right; color:#999999; border-bottom:1px solid #DDDDDD; padding:8px 0px;font-size:12px;}
 .texts{width:92%; height:200px;}.excerpt{width:92%; height:100px;}
 </style>
+<script type="text/javascript" src="/content/js/jquery-1.8.2.min.js"></script>
 </head>
 <body>
 <div id="top">
