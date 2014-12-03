@@ -66,4 +66,4 @@ define('TPLS_PATH', EMLOG_ROOT.'/views/');
 //define('DYNAMIC_BLOGURL', getBlogUrl());
 //前台模板URL
 //define('TEMPLATE_URL', 	TPLS_URL.Option::get('nonce_templet').'/');
-$blogname="祭童儿";
+$blogname="祭童园";
