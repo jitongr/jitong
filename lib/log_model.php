@@ -86,16 +86,17 @@ class Log_Model {
 	 * @param string $type
 	 * @return int
 	 */
-	function getLogNum($hide = 'n', $condition = '', $type = 'blog', $spot = 0) {
+	function getLogNum($hide = 'n', $condition = '', $type = '', $spot = 0) {
 		$hide_state = $hide ? "and hide='$hide'" : '';
-
+if($type!='')
+$ttpp="and type='$type'";
 		if ($spot == 0) {
 			$author = '';
 		}else {
 			$author = ROLE == 'admin' ? '' : 'and author=' . UID;
 		}
 
-		$res = $this->db->query("SELECT gid FROM " . DB_PREFIX . "blog WHERE type='$type' $hide_state $author $condition");
+		$res = $this->db->query("SELECT gid FROM " . DB_PREFIX . "blog WHERE 1 $ttpp $hide_state $author $condition");
 		$LogNum = $this->db->num_rows($res);
 		return $LogNum;
 	}
@@ -170,14 +171,16 @@ class Log_Model {
 	 * @param string $type
 	 * @return array
 	 */
-	function getLogsForAdmin($condition = '', $hide_state = '', $page = 1, $type = 'blog') {
+	function getLogsForAdmin($condition = '', $hide_state = '', $page = 1, $type = '') {
 		//$timezone = Option::get('timezone');
 	//	$perpage_num = Option::get('admin_perpage_num');
+	if($type!='')
+$ttpp="type='$type'";
 		$start_limit = !empty($page) ? ($page - 1) * $perpage_num : 0;
 		$author = ROLE == 'admin' ? '' : 'and author=' . UID;
 		$hide_state = $hide_state ? "and hide='$hide_state'" : '';
 		$limit = "LIMIT $start_limit, " . $perpage_num;
-		$sql = "SELECT * FROM " . DB_PREFIX . "blog WHERE type='$type' $author $hide_state $condition $limit";
+		$sql = "SELECT * FROM " . DB_PREFIX . "blog WHERE $ttpp $author $hide_state $condition $limit";
 		$res = $this->db->query($sql);
 		$logs = array();
 		while ($row = $this->db->fetch_array($res)) {
@@ -200,32 +203,27 @@ class Log_Model {
 	 * @param int $perPageNum
 	 * @return array
 	 */
-	function getLogsForHome($condition = '', $page = 1, $perPageNum) {
+	function getLogsForHome($condition = '', $page = 1, $perPageNum,$type = '') {
 	//	$timezone = Option::get('timezone');
+	if($type!='')
+    $ttpp="b.type='$type' and";
 		$start_limit = !empty($page) ? ($page - 1) * $perPageNum : 0;
 		$limit = $perPageNum ? "LIMIT $start_limit, $perPageNum" : '';
-		$sql = "SELECT * FROM " . DB_PREFIX . "blog WHERE type='blog' and hide='n' $condition $limit";
+		$sql = "SELECT b.*,s.sortname  FROM " . DB_PREFIX . "blog b 
+		left join " . DB_PREFIX . "sort s on s.sid=b.sortid WHERE $ttpp b.hide='n' $condition $limit";
 		//if(ROLE == 'admin' )
 		//$sql = "SELECT * FROM " . DB_PREFIX . "blog WHERE 1 $condition $limit";
 		$res = $this->db->query($sql);
 		$logs = array();
 		while ($row = $this->db->fetch_array($res)) {
-			$row['date'] += $timezone * 3600;
-			$row['log_title'] = htmlspecialchars(trim($row['title']));
-			//$row['log_url'] = Url::log($row['gid']);
-			$row['logid'] = $row['gid'];
-		    $cookiePassword = isset($_COOKIE['em_logpwd_' . $row['gid']]) ? addslashes(trim($_COOKIE['em_logpwd_' . $row['gid']])) : '';
-      /*      if (!empty($row['password']) && $cookiePassword != $row['password']) {
-                $row['excerpt'] = '<p>[该日志已设置加密，请点击标题输入密码访问]</p>';
-            }else {
-                if (!empty($row['excerpt'])) {
-                    $row['excerpt'] .= '<p class="readmore"><a href="' . Url::log($row['logid']) . '">阅读全文&gt;&gt;</a></p>';
-                }
-            } */
-			$row['log_description'] = empty($row['excerpt']) ? breakLog($row['content'], $row['gid']) : $row['excerpt'];
-			$row['attachment'] = '';
-			$row['tag'] = '';
-			$logs[] = $row;
+			$row2['date'] = date("Y-m-d H:i:s",$row['date']);
+			$row2['title'] = ($row['title']);
+			$row2['logid'] = $row['gid'];
+	        $row2['pic'] = '';
+            $row2['author'] = '';
+			$row2['content'] = strip_tags(subString($row['content'],0,200));
+			$row2['brand'] = $row['sortname'];
+			$logs[]=$row2;
 		}
 		return $logs;
 	}

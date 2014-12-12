@@ -52,3 +52,20 @@ a:link,a:visited,a:hover,a:active {text-decoration: none;color:#333;}
 <a href="<?php echo BLOG_URL; ?>cruboy.php?action=login" <?php if($action=='about')echo 'id="active"'; ?> >登录</a>
 <?php endif;?>
 </div>
+<div id="navi">
+<a href="/?cp=-7" >钉十字架</a>
+<a href="/?cp=-1" >酷刑</a> 
+<a href="/?cp=-2" >幼童</a> 
+<a href="/?cp=-3" >孩子</a> 
+<a href="/?cp=-47" >脱光衣服</a>
+<a href="/?cp=-5" >吊起来</a> 
+<a href="/?cp=-4" >鞭打</a> 
+<a href="/?cp=-97" >祭童儿</a> 
+
+<a href="<?php echo BLOG_URL; ?>" >首页</a> 
+<?php if(ISLOGIN === true): echo $userData['username']; ?>
+<a href="<?php echo BLOG_URL; ?>?action=logout" >退出</a> 
+<?php else:?>
+<a href="<?php echo BLOG_URL; ?>?action=login" <?php if($action=='login')echo 'id="active"'; ?> >登录</a>
+<?php endif;?>
+</div>

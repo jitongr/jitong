@@ -2,8 +2,8 @@
 
 <div id="m">
 <?php foreach($logs as $value): ?>
-<div class="title"><a href="<?php echo BLOG_URL; ?>?post=<?php echo $value['logid'];?>"><?php echo $value['log_title']; ?></a></div>
-<div class="info"><?php echo gmdate('Y-n-j G:i', $value['date']); ?></div>
+<div class="title"><a href="<?php echo BLOG_URL; ?>?post=<?php echo $value['logid'];?>"><?php echo $value['title']; ?></a></div>
+<div class="info"><?php echo $value['date']; ?>[<?php echo $value['brand']; ?>]</div>
 <div class="info2">
 评论:<?php echo $value['comnum']; ?> 阅读:<?php echo $value['views']; ?> 
 <?php if(ROLE == 'admin' || $value['author'] == UID): ?>

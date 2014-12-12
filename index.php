@@ -10,7 +10,7 @@ require_once 'init.php';
 define ('TEMPLATE_PATH', EMLOG_ROOT . '/view/');
 
 $isgzipenable = 'n'; //手机浏览关闭gzip压缩
-$index_lognum = 5;
+$index_lognum = 10;
 
 $logid = isset ($_GET['post']) ? intval ($_GET['post']) : '';
 $action = isset($_GET['action']) ? addslashes($_GET['action']) : '';
@@ -22,8 +22,7 @@ if (empty ($action) && empty ($logid) && empty ($cpid)&& empty ($akey)) {
 	$Log_Model = new Log_Model();
 	$page = isset($_GET['page']) ? abs(intval ($_GET['page'])) : 1;
 	$sqlSegment = "ORDER BY top DESC ,date DESC";
-	//$sta_cache = $CACHE->readCache('sta');
-	$lognum = $sta_cache['lognum'];
+	$lognum = $Log_Model->getLogNum();
 	$pageurl = '?page=';
 	$logs = $Log_Model->getLogsForHome ($sqlSegment, $page, $index_lognum);
 	$page_url = pagination($lognum, $index_lognum, $page, $pageurl);
@@ -33,6 +32,19 @@ if (empty ($action) && empty ($logid) && empty ($cpid)&& empty ($akey)) {
 	include View::getView('footer');
 	View::output();
 }
+
+if ($action == 'list') {
+	$Log_Model = new Log_Model();
+	$page = isset($_GET['page']) ? abs(intval ($_GET['page'])) : 1;
+	$sqlSegment = "ORDER BY top DESC ,date DESC";
+	$lognum = $Log_Model->getLogNum();
+	$pageurl = '?page=';
+	$logs = $Log_Model->getLogsForHome ($sqlSegment, $page, $index_lognum);
+	$page_url = pagination($lognum, $index_lognum, $page, $pageurl);
+   echo json_encode($logs);
+    exit;
+}
+
 if (!empty ($akey) &&$_SESSION['views']>2) {
 	$atitle="查询‘".$akey."’的结果：";
 		$ltime = time();
@@ -83,7 +95,7 @@ $uid=UID;
 if (ISLOGIN !== true&&(
 empty($_SESSION['oauth2']["user_id"])||empty($_SESSION['u_name']))){
 $vfr="unlog";
-	$sqadd="order by Rand() limit 5";
+	$sqadd="order by Rand() limit 3000";
 }else {
 	$vfr="mview";
    $sqadd="order by a.relation_id,a.best_frame_id LIMIT 4000";

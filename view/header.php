@@ -41,3 +41,12 @@ a:link,a:visited,a:hover,a:active {text-decoration: none;color:#333;}
 <a href="<?php echo BLOG_URL; ?>?action=reg" <?php if($action=='reg')echo 'id="active"'; ?>>注册</a>
 <?php endif;?>
 </div>
+<? if($cp):?>
+<div id="navi">
+<a href="<?php echo BLOG_URL; ?>?cp=2821" >十字架</a> 
+<a href="<?php echo BLOG_URL; ?>?cp=16608" >幼童</a> 
+<a href="<?php echo BLOG_URL; ?>?cp=23206" >脱光衣服</a>
+<a href="<?php echo BLOG_URL; ?>?cp=57676" >鞭打</a> 
+<a href="<?php echo BLOG_URL; ?>?cp=27602">吊起来打</a>
+</div>
+<? endif;?>

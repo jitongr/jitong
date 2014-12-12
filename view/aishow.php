@@ -4,7 +4,7 @@
    	<li>
 	<h3><span>ainet   语义网络</span></h3>
 	<ul id="logserch">
-	<form name="keycp" method="get" action="<?php echo BLOG_URL; ?>m/index.php">
+	<form name="keycp" method="get" action="<?php echo BLOG_URL; ?>index.php">
 	<input name="aikey"  type="text" value="" style="width:120px;"/>
 	<input type="submit" id="logserch_logserch" value="搜索" />
 	</form>
