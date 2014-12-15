@@ -16,12 +16,12 @@
 <?php if($pDa['visible'] == true ): ?>
 <a href="<?php echo BLOG_URL; ?>cruboy.php?id=<?php echo $pDa['id']; ?>">
 <?php echo $pDa['text']; ?></a>&nbsp;
-<a href="do.php?del=<?php echo $pDa['id'];?>"><font size="1">[删]</font></a>
+
 <?php else:?>
 
 <SPAN style="TEXT-DECORATION: line-through"><a href="<?php echo BLOG_URL; ?>?cp=<?php echo $pDa['id']; ?>">
 <?php echo $pDa['text']; ?></a></SPAN>&nbsp;
-<a href="do.php?res=<?php echo $pDa['id'];?>"><font size="1">[留]</font></a>
+
 <?php endif;?>
 
 关系数<?php echo $pDa['f3']; ?>
@@ -82,7 +82,7 @@ foreach($concepts2 as $value):
 </div>
 <?php endforeach; ?>
 <br>
-	<form name="addcp" method="post" action="<?php echo BLOG_URL; ?>m/doadd.php?action=addcp">
+	<form name="addcp" method="post" action="<?php echo BLOG_URL; ?>doadd.php?action=addcp">
     添加“<?php echo $pDa['text']; ?>”的关联概念：<br>
     <input type="hidden" name="cp0s" value=<?php echo $pDa['text']; ?> />
     <input type="hidden" name="cid" value=<?php echo -$pDa['id']; ?> />
