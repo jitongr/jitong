@@ -9,8 +9,8 @@
 	<input type="submit" id="logserch_logserch" value="搜索" />
 	</form>
 	</ul>
-	</li><form name="keycp" method="get" action="toddler.php">
-            <span><img src="/m/boy.jpg" border="0"></span><br><br>
+	</li><form name="keycp" method="get" action="/toddler.php">
+            <span><img src="/jitong/boy.jpg" border="0"></span><br><br>
             <input id="searchValue" name="k" type="text" value="<?php echo $akey; ?>" 
                 style="font-size:16; width:300px; height:20px;" />       
             <input type="submit" id="logserch_logserch" value="输 入" 

@@ -102,6 +102,9 @@ if(isset($_GET['keyword']))
 		$ltime = time();
 	$DB->query("INSERT INTO viewlog (method,viewid,concept,uid,sina_uid,date,text,loginip) VALUES (
 				'keyword','$vsid','0','$uid','$usersina_id','$ltime','$akey','$gip')");
+	if(empty ($akey))
+	$sql = "SELECT * FROM cruboy_concept order by Rand()  LIMIT 10";
+	else
 	$sql = "SELECT * FROM cruboy_concept WHERE text LIKE '%$akey%'order by f3 desc LIMIT 1000";
 			$res = $DB->query($sql);
 		

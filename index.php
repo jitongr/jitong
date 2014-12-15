@@ -18,7 +18,7 @@ $cpid = isset ($_GET['cp']) ? intval ($_GET['cp']) : '';
 $akey = isset($_GET['aikey']) ? addslashes($_GET['aikey']) : '';
 // 首页
 
-if (empty ($action) && empty ($logid) && empty ($cpid)&& empty ($akey)) {
+if (empty ($action) && empty ($logid) && empty ($cpid)&& !isset($_GET['aikey'])) {
 	$Log_Model = new Log_Model();
 	$page = isset($_GET['page']) ? abs(intval ($_GET['page'])) : 1;
 	$sqlSegment = "ORDER BY top DESC ,date DESC";
@@ -45,11 +45,14 @@ if ($action == 'list') {
     exit;
 }
 
-if (!empty ($akey) &&$_SESSION['views']>2) {
+if (isset($_GET['aikey']) &&$_SESSION['views']>2) {
 	$atitle="查询‘".$akey."’的结果：";
 		$ltime = time();
 	$DB->query("INSERT INTO viewlog (method,viewid,concept,uid,sina_uid,date,text,loginip) VALUES (
 				'keyword','$vsid','0','$uid','$usersina_id','$ltime','$akey','$gip')");
+	if(empty ($akey))
+	$sql = "SELECT * FROM conceptnet_concept  order by Rand()  LIMIT 10";
+	else
 	$sql = "SELECT * FROM conceptnet_concept WHERE text LIKE '%$akey%'order by f3 desc LIMIT 1000";
 			$res = $DB->query($sql);
 		
@@ -154,7 +157,7 @@ $vfr="unlog";
 // 日志
 if (!empty ($logid)) {
 	$Log_Model = new Log_Model();
-	//$Comment_Model = new Comment_Model();
+	$Comment_Model = new Comment_Model();
 
 	$logData = $Log_Model->getOneLogForHome($logid);
 	if ($logData === false) {
@@ -168,7 +171,10 @@ if (!empty ($logid)) {
 	}
 
 //	$user_cache = $CACHE->readCache('user');
+	$commentPage = isset($_GET['comment-page']) ? intval($_GET['comment-page']) : 1;
 
+	$comments = $Comment_Model->getComments(2, $logid, 'n', $commentPage);
+	extract($comments);
 	$Log_Model->updateViewCount($logid);
 	include View::getView('header');
 	include View::getView('single');
@@ -228,6 +234,7 @@ if (ISLOGIN === true && $action == 'savelog') {
 		'allow_remark' => 'y',
 		'allow_tb' => 'y',
 		'hide' => 'n',
+		'type' => 'page',
 		'password' => ''
 		);
 
@@ -238,7 +245,7 @@ if (ISLOGIN === true && $action == 'savelog') {
 		$blogid = $Log_Model->addlog($logData);
 		$Tag_Model->addTag($tagstring, $blogid);
 	}
-	$CACHE->updateCache();
+	//$CACHE->updateCache();
 	emDirect("./");
 }
 if (ISLOGIN === true && $action == 'dellog') {
@@ -259,9 +266,9 @@ if (ISLOGIN === true && $action == 'addcom') {
     $blogId = isset($_GET['gid']) ? intval($_GET['gid']) : - 1;
     $pid = isset($_GET['pid']) ? intval($_GET['pid']) : 0;
 
-        $CACHE = Cache::getInstance();
-        $user_cache = $CACHE->readCache('user');
-		$name = addslashes($user_cache[UID]['name_orig']);
+      //  $CACHE = Cache::getInstance();
+     //   $user_cache = $CACHE->readCache('user');
+	//	$name = addslashes($user_cache[UID]['name_orig']);
 
 	if($Comment_Model->isLogCanComment($blogId) === false){
         mMsg('评论失败：该日志已关闭评论','./?post=' . $blogId);
@@ -292,7 +299,7 @@ if (ISLOGIN === true && $action == 'addcom') {
 				VALUES ('$utctimestamp','$name','$blogId','$content','$mail','$url','$hide','$ipaddr','$pid')";
 		$ret = $DB->query($sql);
 		$cid = $DB->insert_id();
-		$CACHE = Cache::getInstance();
+	//	$CACHE = Cache::getInstance();
 
 		if ($hide == 'n') {
 			$DB->query('UPDATE '.DB_PREFIX."blog SET comnum = comnum + 1 WHERE gid='$blogId'");
