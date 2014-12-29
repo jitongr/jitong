@@ -90,7 +90,7 @@ exit;
 			 $row2[rela]=$qDqq2[name];
 		$concepts2[]=$row2;
 		}
-	include View::getView('head');
+	include View::getView('header');
 	include View::getView('cpshow');
 	include View::getView('footer');
 	View::output();
@@ -132,13 +132,13 @@ if(isset($_GET['keyword']))
 	$concepts[]=$row;
 		}
 		$hhtitle=$akey;
-    include View::getView('head');
+    include View::getView('header');
 	include View::getView('cruboy');
 	include View::getView('footer');
 	View::output();
 }
 $hhtitle=$akey;
-    include View::getView('head');
+    include View::getView('header');
 	include View::getView('cruboy');
 	include View::getView('footer');
 

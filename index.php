@@ -18,12 +18,12 @@ $cpid = isset ($_GET['cp']) ? intval ($_GET['cp']) : '';
 $akey = isset($_GET['aikey']) ? addslashes($_GET['aikey']) : '';
 // 首页
 
-if (empty ($action) && empty ($logid) && empty ($cpid)&& !isset($_GET['aikey'])) {
+if ($action == 'bloglist') {
 	$Log_Model = new Log_Model();
 	$page = isset($_GET['page']) ? abs(intval ($_GET['page'])) : 1;
 	$sqlSegment = "ORDER BY top DESC ,date DESC";
 	$lognum = $Log_Model->getLogNum();
-	$pageurl = '?page=';
+	$pageurl = '?action=bloglist&page=';
 	$logs = $Log_Model->getLogsForHome ($sqlSegment, $page, $index_lognum);
 	$page_url = pagination($lognum, $index_lognum, $page, $pageurl);
     $_SESSION['onm']=1;
@@ -44,14 +44,13 @@ if ($action == 'list') {
    echo json_encode($logs);
     exit;
 }
-
-if (isset($_GET['aikey']) &&$_SESSION['views']>2) {
-	$atitle="查询‘".$akey."’的结果：";
+if (isset($_GET['aikey']) ) {
+	$atitle="查询'".$akey."'的结果：";
 		$ltime = time();
 	$DB->query("INSERT INTO viewlog (method,viewid,concept,uid,sina_uid,date,text,loginip) VALUES (
 				'keyword','$vsid','0','$uid','$usersina_id','$ltime','$akey','$gip')");
 	if(empty ($akey))
-	$sql = "SELECT * FROM conceptnet_concept  order by Rand()  LIMIT 10";
+	$sql = "SELECT * FROM conceptnet_concept  order by Rand()  LIMIT 20";
 	else
 	$sql = "SELECT * FROM conceptnet_concept WHERE text LIKE '%$akey%'order by f3 desc LIMIT 1000";
 			$res = $DB->query($sql);
@@ -85,7 +84,49 @@ if (isset($_GET['aikey']) &&$_SESSION['views']>2) {
 	include View::getView('footer');
 	View::output();
 }
-if (!empty ($cpid) &&$_SESSION['views']>2) 
+else
+if(empty ($action) && empty ($logid) && empty ($cpid))
+{
+	$atitle="祭童园：";
+		$ltime = time();
+	
+	
+	$sql = "SELECT * FROM cruboy_concept order by Rand()  LIMIT 10";
+
+			$res = $DB->query($sql);
+		
+			while ($row = $DB->fetch_array($res)) {
+			$o.=$row[id].$row[text].' ';
+		// $sql2 = "SELECT * FROM cruboy_assertion WHERE concept1_id='$row[id]' or concept2_id='$row[id]' LIMIT 2";
+		$sql2 = "SELECT a.concept1_id,a.concept2_id,
+		a.relation_id,a.best_frame_id,cruboy_concept.text FROM cruboy_assertion a LEFT JOIN
+		cruboy_concept ON a.concept2_id=cruboy_concept.id
+		WHERE concept1_id='$row[id]'";
+			$aDa = $DB->once_fetch_array($sql2);
+		
+		$row[tx1]=$aDa[text];
+	 $row[re1]=$aDa[relation_id];
+	 $row[fi1]=$aDa[best_frame_id];
+		 $sql3 = "SELECT a.concept1_id,a.concept2_id,
+		a.relation_id,a.best_frame_id,cruboy_concept.text FROM cruboy_assertion a LEFT JOIN
+		cruboy_concept ON a.concept1_id=cruboy_concept.id
+		WHERE concept2_id='$row[id]'";
+			$aDa3 = $DB->once_fetch_array($sql3);
+		
+		$row[tx2]=$aDa3[text];
+	 $row[re2]=$aDa3[relation_id];
+	 $row[fi2]=$aDa3[best_frame_id];
+	$concepts[]=$row;
+		}
+		$DB->query("INSERT INTO viewlog (method,viewid,concept,uid,sina_uid,date,text,loginip) VALUES (
+				'jt','$vsid','0','$uid','$usersina_id','$ltime','$o','$gip')");
+    include View::getView('header');
+	include View::getView('cruboy');
+	include View::getView('footer');
+	View::output();
+}
+
+if (!empty ($cpid) ) 
 {$usersina_id= intval($_SESSION['oauth2']["user_id"]);
 	$DB = MySql::getInstance();
 $concepts=array();
