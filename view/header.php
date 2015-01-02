@@ -64,8 +64,17 @@ a:link,a:visited,a:hover,a:active {text-decoration: none;color:#333;}
 <a href="/?cp=-47" >脱光衣服</a>
 <a href="/?cp=-5" >吊起来</a> 
 <a href="/?cp=-4" >鞭打</a> 
-<a href="/?cp=-97" >祭童儿</a> 
-
+<a href="/?cp=-97" >祭童儿</a> ++
+<a href="<?php echo BLOG_URL; ?>?cp=48" <?php if($cpid==48)echo 'id="active"'; ?>>志愿者</a></li>
+<a href="<?php echo BLOG_URL; ?>?cp=72" <?php if($cpid==72)echo 'id="active"'; ?>>home</a></li>
+<a href="<?php echo BLOG_URL; ?>?cp=468" <?php if($cpid==468)echo 'id="active"'; ?>>爱心</a></li>
+<a href="<?php echo BLOG_URL; ?>?cp=405" <?php if($cpid==405)echo 'id="active"'; ?>>善良</a></li>
+<a href="<?php echo BLOG_URL; ?>?cp=136" <?php if($cpid==136)echo 'id="active"'; ?>>知识</a></li>
+<a href="<?php echo BLOG_URL; ?>?cp=182" <?php if($cpid==182)echo 'id="active"'; ?>>爱</a></li>
+<a href="<?php echo BLOG_URL; ?>?cp=27310"<?php if($cpid==27310)echo 'id="active"'; ?> >儿童</a> </li>
+<a href="<?php echo BLOG_URL; ?>?cp=798" <?php if($cpid==798)echo 'id="active"'; ?>>孩子</a> </li>
+<a href="<?php echo BLOG_URL; ?>?cp=54" <?php if($cpid==54)echo 'id="active"'; ?>>学习</a></li>
+<a href="<?php echo BLOG_URL; ?>?cp=653" <?php if($cpid==653)echo 'id="active"'; ?>>上学</a> </li>
 
 
 </div>
