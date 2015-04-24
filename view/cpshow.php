@@ -2,7 +2,7 @@
 
 <div id="m">
    	<li>
-	<h3><span>cruboy   语义网络</span></h3>
+	<h3><span>cruboy</span></h3>
 	<ul id="logserch">
 	<form name="keycp" method="get" action="<?php echo BLOG_URL; ?>cruboy.php">
 	<input name="keyword"  type="text" value="" style="width:120px;"/>

@@ -137,6 +137,13 @@ if(isset($_GET['keyword']))
 	include View::getView('footer');
 	View::output();
 }
+if(isset($_GET['cruboylist']))
+{
+	include View::getView('header');
+	include View::getView('cruboylist');
+	include View::getView('footer');
+	View::output();
+}
 $hhtitle=$akey;
     include View::getView('header');
 	include View::getView('cruboy');
