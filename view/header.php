@@ -10,7 +10,7 @@ echo '<?xml version="1.0" encoding="UTF-8"?>';
 body{background-color:#FFFFFF; font-size:14px; margin: 0; padding:0;font-family: Helvetica, Arial, sans-serif;-webkit-text-size-adjust: none;}
 a:link,a:visited,a:hover,a:active {text-decoration: none;color:#333;}
 #top{background-color:#32598B; padding:10px 8px;}#footer{background-color:#EFEFEF; color:#666666; padding:5px;text-align:center;font-weight:bold;}
-#page{text-align:center;font-size:26px; color: #CCCCCC}#page a:link,a:active,a:visited,a:hover{padding:0px 6px;}#m{padding:10px;}
+#page{text-align:center;font-size:26px; color: #CCCCCC}#page #m{padding:10px;}
 #blogname{font-weight:bold; color:#FFFFFF; font-size:14px;}
 #navi{background:#EFEFEF; padding:3px 0px; text-align:left;}#active{font-weight:bold; font-size:16px;}
 .title{font-weight:bold; margin:10px 0px 5px 0px;}.title a:link, a:active,a:visited,a:hover{color:#333360; text-decoration:none}

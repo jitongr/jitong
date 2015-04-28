@@ -139,6 +139,8 @@ if(isset($_GET['keyword']))
 }
 if(isset($_GET['cruboylist']))
 {
+	$sql = "SELECT * FROM cruboy_concept";
+	$res = $DB->query($sql);
 	include View::getView('header');
 	include View::getView('cruboylist');
 	include View::getView('footer');
