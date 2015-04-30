@@ -10,7 +10,7 @@ session_start();
 header('Content-Type: text/html; charset=UTF-8');
 
 define('EMLOG_ROOT', dirname(__FILE__));
-
+date_default_timezone_set('PRC'); 
 if (!isset($_SERVER["HTTP_APPNAME"])) {//非SAE平台下运行，加载普通核心
     define("IS_SAE",FALSE);
 }else{
