@@ -27,7 +27,7 @@ if ($action == 'bloglist') {
 	$logs = $Log_Model->getLogsForHome ($sqlSegment, $page, $index_lognum);
 	$page_url = pagination($lognum, $index_lognum, $page, $pageurl);
     $_SESSION['onm']=1;
-	include View::getView('header');
+	include View::getView('head');
 	include View::getView('log');
 	include View::getView('footer');
 	View::output();
