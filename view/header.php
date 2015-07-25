@@ -30,7 +30,7 @@ a:link,a:visited,a:hover,a:active {text-decoration: none;color:#333;}
 </div>
 <div id="navi">
 <a href="./" <?php if($action=='')echo 'id="active"'; ?>>首页</a> 
-<a href="<?php echo BLOG_URL; ?>./?action=bloglist" >祭文</a>
+<a href="<?php echo BLOG_URL; ?>./?action=list" >祭文</a>
 <a href="./?action=com" <?php if($action=='com')echo 'id="active"'; ?>>评论</a> 
 <a href="cruboy.php?cruboylist" <?php if($action=='cruboylist')echo 'id="active"'; ?>>cruboylist</a> 
 <?php if(ISLOGIN === true): ?>

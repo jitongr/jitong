@@ -41,7 +41,7 @@ class Log_Model {
 	 * @param int $blogId
 	 */
 	function updateLog($logData, $blogId) {
-		$sql = "SELECT * FROM " . DB_PREFIX . "blog WHERE gid=$blogId ";
+	/*	$sql = "SELECT * FROM " . DB_PREFIX . "blog WHERE gid=$blogId ";
 		$res = $this->db->query($sql);
 		$row = $this->db->fetch_array($res);
 			$kItem = array();
@@ -57,7 +57,7 @@ class Log_Model {
 		$this->db->query("INSERT INTO " . DB_PREFIX . 
 		"blog_history ($field ,moddate,moduid,modip) 
 		VALUES ($values ,'".$ltime."','".UID."','$gip')");
-		
+		*/
 		
 		$author = ROLE == 'admin' ? '' : 'and author=' . UID;
 		$Item = array();
@@ -86,17 +86,8 @@ class Log_Model {
 	 * @param string $type
 	 * @return int
 	 */
-	function getLogNum($hide = 'n', $condition = '', $type = '', $spot = 0) {
-		$hide_state = $hide ? "and hide='$hide'" : '';
-if($type!='')
-$ttpp="and type='$type'";
-		if ($spot == 0) {
-			$author = '';
-		}else {
-			$author = ROLE == 'admin' ? '' : 'and author=' . UID;
-		}
-
-		$res = $this->db->query("SELECT gid FROM " . DB_PREFIX . "blog WHERE 1 $ttpp $hide_state $author $condition");
+	function getLogNum($condition = '') {
+		$res = $this->db->query("SELECT gid FROM " . DB_PREFIX . "blog WHERE hide='s' $condition");
 		$LogNum = $this->db->num_rows($res);
 		return $LogNum;
 	}
@@ -203,16 +194,13 @@ $ttpp="type='$type'";
 	 * @param int $perPageNum
 	 * @return array
 	 */
-	function getLogsForHome($condition = '', $page = 1, $perPageNum,$type = '') {
-	//	$timezone = Option::get('timezone');
-	if($type!='')
-    $ttpp="b.type='$type' and";
+	function getLogsForHome($condition = '', $page = 1, $perPageNum) {
+
 		$start_limit = !empty($page) ? ($page - 1) * $perPageNum : 0;
 		$limit = $perPageNum ? "LIMIT $start_limit, $perPageNum" : '';
 		$sql = "SELECT b.*,s.sortname  FROM " . DB_PREFIX . "blog b 
-		left join " . DB_PREFIX . "sort s on s.sid=b.sortid WHERE $ttpp b.hide='n' $condition $limit";
-		//if(ROLE == 'admin' )
-		//$sql = "SELECT * FROM " . DB_PREFIX . "blog WHERE 1 $condition $limit";
+		left join " . DB_PREFIX . "sort s on s.sid=b.sortid WHERE b.hide='s' $condition $limit";
+
 		$res = $this->db->query($sql);
 		$logs = array();
 		while ($row = $this->db->fetch_array($res)) {

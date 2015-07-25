@@ -21,17 +21,30 @@ if ($action == 'list') {
 	$Log_Model = new Log_Model();
 	$page = isset($_GET['page']) ? abs(intval ($_GET['page'])) : 1;
 	$sqlSegment = "ORDER BY top DESC ,date DESC";
-	 $lognum = $Log_Model->getLogNum('s');
-	$pageurl = '?action=bloglist&page=';
-	$logs = $Log_Model->getLogsForHome ($sqlSegment, $page, $index_lognum,'s');
+	 $lognum = $Log_Model->getLogNum();
+	$pageurl = '?action=list&page=';
+	$logs = $Log_Model->getLogsForHome ($sqlSegment, $page, $index_lognum);
 	$page_url = pagination($lognum, $index_lognum, $page, $pageurl);
     $_SESSION['onm']=1;
 	include View::getView('head');
+	include View::getView('log_list');
+	include View::getView('footer');
+	View::output();
+}
+if ($action == 'li') {
+	$Log_Model = new Log_Model();
+	$page = isset($_GET['page']) ? abs(intval ($_GET['page'])) : 1;
+	$sqlSegment = "ORDER BY top DESC ,date DESC";
+	 $lognum = $Log_Model->getLogNum();
+	$pageurl = '?action=li&page=';
+	$logs = $Log_Model->getLogsForHome ($sqlSegment, $page, $index_lognum);
+	$page_url = pagination($lognum, $index_lognum, $page, $pageurl);
+    $_SESSION['onm']=1;
+	include View::getView('header');
 	include View::getView('log');
 	include View::getView('footer');
 	View::output();
 }
-
 if ($action == 'listjson') {
 	$Log_Model = new Log_Model();
 	$page = isset($_GET['page']) ? abs(intval ($_GET['page'])) : 1;
@@ -273,8 +286,7 @@ if (ISLOGIN === true && $action == 'savelog') {
 		'date' => $postTime,
 		'allow_remark' => 'y',
 		'allow_tb' => 'y',
-		'hide' => 'n',
-		'type' => 'page',
+		'hide' => 's',
 		'password' => ''
 		);
 
@@ -410,7 +422,7 @@ if (ISLOGIN === true && $action == 'reply') {
 if ($action == 'tw') {
     $Twitter_Model = new Twitter_Model();
     $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
-    $user_cache = $CACHE->readCache('user');
+  //  $user_cache = $CACHE->readCache('user');
     $tws = $Twitter_Model->getTwitters($page);
     $twnum = $Twitter_Model->getTwitterNum();
     $pageurl =  pagination($twnum, 20, $page, './?action=tw&page=');
