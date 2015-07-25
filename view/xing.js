@@ -2,45 +2,46 @@
  * Created by Administrator on 2014/12/19.
  */
 var PointList = [
-        {id: 0, x: 377, y: 389, r: 61.5, name: "信息化", nameX: 354, nameY: 361, information: ""},
-        {id: 1, x: 336, y: 292, r: 17, name: "认证公司", nameX: 358, nameY: 286, information: ""},
-        {id: 2, x: 295, y: 283, r: 14.5, name: "商圈", nameX: 313, nameY: 273, information: ""},
-        {id: 3, x: 182, y: 335, r: 31.5, name: "生产厂商", nameX: 103, nameY: 370, information: ""},
-        {id: 4, x: 166, y: 402, r: 14.5, name: "阿里小贷", nameX: 108, nameY: 430, information: ""},
-        {id: 5, x: 266, y: 410, r: 11, name: "银行网商贷", nameX: 203, nameY: 439, information: ""},
-        {id: 6, x: 298, y: 461, r: 9, name: "渠道商", nameX: 255, nameY: 479, information: ""},
-        {id: 7, x: 319, y: 524, r: 14.5, name: "第三方服务商", nameX: 240, nameY: 566, information: ""},
-        {id: 10, x: 526, y: 513, r: 61.5, name: "创造性的生活", nameX: 485, nameY: 498, information: ""},
-        {id: 11, x: 645, y: 463, r: 22.5, name: "余额宝", nameX: 674, nameY: 467, information: ""},
-        {id: 12, x: 665, y: 499, r: 8, name: "保险公司", nameX: 681, nameY: 499, information: ""},
-        {id: 13, x: 666, y: 544, r: 6, name: "招财宝", nameX: 681, nameY: 544, information: ""},
-        {id: 14, x: 564, y: 612, r: 8.5, name: "基金公司", nameX: 511, nameY: 638, information: "。"},
-        {id: 20, x: 1106, y: 372, r: 61.5, name: "继童利世", nameX: 1087, nameY: 349, information: "济童。"},
-        {id: 21, x: 1098, y: 248, r: 29.5, name: "商家", nameX: 1134, nameY: 236, information: ""},
-        {id: 22, x: 1025, y: 227, r: 14.5, name: "店铺装修设计机构", nameX: 1052, nameY: 217, information: ""},
-        {id: 23, x: 958, y: 243, r: 10, name: "ISV", nameX: 968, nameY: 230, information: "。"},
-        {id: 24, x: 929, y: 263, r: 17.5, name: "淘女郎", nameX: 879, nameY: 287, information: ""},
-        {id: 25, x: 979, y: 466, r: 7, name: "电商招聘机构", nameX: 910, nameY: 496, information: "。"},
-        {id: 26, x: 1031, y: 275, r: 7, name: "电商培训机构", nameX: 962, nameY: 303, information: "。"},
-        {id: 27, x: 897, y: 368, r: 9, name: "代运营商", nameX: 844, nameY: 388, information: ""},
-        {id: 28, x: 923, y: 430, r: 14.5, name: "客服外包商", nameX: 857, nameY: 459, information: "。"},
-        {id: 29, x: 944, y: 448, r: 7, name: "VC/PE", nameX: 904, nameY: 470, information: ""},
-        {id: 30, x: 744, y: 223, r: 61.5, name: "感情", nameX: 722, nameY: 199, information: ""},
-        {id: 31, x: 856, y: 177, r: 13.5, name: "商场", nameX: 875, nameY: 174, information: ""},
-        {id: 32, x: 833, y: 125, r: 7.5, name: "汽车厂商", nameX: 846, nameY: 123, information: ""},
-        {id: 33, x: 817, y: 106, r: 10.5, name: "药店", nameX: 834, nameY: 100, information: ""},
-        {id: 34, x: 738, y: 90, r: 16, name: "餐厅", nameX: 758, nameY: 82, information: ""},
-        {id: 35, x: 705, y: 106, r: 10.5, name: "电影院", nameX: 656, nameY: 121, information: ""},
-        {id: 36, x: 665, y: 166, r: 7.5, name: "KTV", nameX: 636, nameY: 180, information: ""},
-        {id: 41, x: 454, y: 189, r: 15.5, name: "搜索评价体系", nameX: 481, nameY: 183, information: ""},
-        {id: 42, x: 606, y: 296, r: 21, name: "银行支付系统", nameX: 506, nameY: 318, information: ""},
-        {id: 43, x: 582, y: 316, r: 11, name: "支付宝", nameX: 530, nameY: 336, information: ""},
-        {id: 44, x: 755, y: 337, r: 20, name: "物流公司", nameX: 693, nameY: 374, information: ""},
-        {id: 45, x: 792, y: 420, r: 11, name: "支付宝", nameX: 742, nameY: 444, information: ""},
-        {id: 46, x: 824, y: 415, r: 21, name: "银行支付系统", nameX: 748, nameY: 466, information: ""},
-        {id: 47, x: 720, y: 570, r: 7, name: "淘宝客", nameX: 736, nameY: 566, information: ""},
-        {id: 48, x: 853, y: 583, r: 7, name: "导购网站", nameX: 869, nameY: 595, information: "。"},
-        {id: 49, x: 1016, y: 518, r: 11.5, name: "搜索评价体系", nameX: 1041, nameY: 526, information: "。"}
+        {id: 0, x: 377, y: 389, r: 61.5, name: "济童", nameX: 354, nameY: 361, information: ""},
+        {id: 1, x: 336, y: 292, r: 17, name: "饥饿", nameX: 358, nameY: 286, information: ""},
+        {id: 2, x: 295, y: 283, r: 14.5, name: "寒冷", nameX: 313, nameY: 273, information: ""},
+        {id: 3, x: 182, y: 335, r: 31.5, name: "困苦", nameX: 103, nameY: 370, information: ""},
+        {id: 4, x: 166, y: 402, r: 14.5, name: "疾病", nameX: 108, nameY: 430, information: ""},
+        {id: 5, x: 266, y: 410, r: 11, name: "被劳役", nameX: 203, nameY: 439, information: ""},
+        {id: 6, x: 298, y: 461, r: 9, name: "孤寂", nameX: 255, nameY: 479, information: ""},
+        {id: 7, x: 319, y: 524, r: 14.5, name: "被虐待", nameX: 270, nameY: 566, information: ""},
+        {id: 10, x: 526, y: 513, r: 61.5, name: "遗童", nameX: 485, nameY: 498, information: ""},
+        {id: 11, x: 645, y: 463, r: 22.5, name: "前世害死的儿童", nameX: 634, nameY: 467, information: ""},
+        {id: 12, x: 665, y: 499, r: 8, name: "婴灵", nameX: 681, nameY: 499, information: ""},
+		 {id: 15, x: 675, y: 469, r: 8, name: "前家族孽害孩童", nameX: 671, nameY: 479, information: ""},
+        {id: 13, x: 666, y: 544, r: 6, name: "难童", nameX: 681, nameY: 544, information: ""},
+        {id: 14, x: 564, y: 612, r: 8.5, name: "夭折的孩童", nameX: 511, nameY: 638, information: "。"},
+        {id: 20, x: 1106, y: 372, r: 61.5, name: "祭童", nameX: 1087, nameY: 349, information: "济童。"},
+        {id: 21, x: 1098, y: 248, r: 29.5, name: "苦难", nameX: 1134, nameY: 236, information: ""},
+        {id: 22, x: 1025, y: 227, r: 14.5, name: "鞭打", nameX: 1052, nameY: 217, information: ""},
+        {id: 23, x: 958, y: 243, r: 10, name: "绑在树上", nameX: 968, nameY: 230, information: "。"},
+        {id: 24, x: 929, y: 263, r: 17.5, name: "吊起来", nameX: 879, nameY: 287, information: ""},
+        {id: 25, x: 979, y: 466, r: 7, name: "被卖身", nameX: 950, nameY: 496, information: "。"},
+        {id: 26, x: 1031, y: 275, r: 7, name: "赤身裸体", nameX: 962, nameY: 303, information: "。"},
+        {id: 27, x: 897, y: 368, r: 9, name: "反绑双手", nameX: 844, nameY: 388, information: ""},
+        {id: 28, x: 923, y: 430, r: 14.5, name: "钉十字架", nameX: 857, nameY: 459, information: "。"},
+        {id: 29, x: 944, y: 448, r: 7, name: "捆绑脚", nameX: 904, nameY: 470, information: ""},
+        {id: 30, x: 744, y: 223, r: 61.5, name: "继童", nameX: 722, nameY: 199, information: ""},
+        {id: 31, x: 856, y: 177, r: 13.5, name: "圣洁", nameX: 875, nameY: 174, information: ""},
+        {id: 32, x: 833, y: 125, r: 7.5, name: "少年", nameX: 846, nameY: 123, information: ""},
+        {id: 33, x: 817, y: 106, r: 10.5, name: "孩童", nameX: 834, nameY: 100, information: ""},
+        {id: 34, x: 738, y: 90, r: 16, name: "天真", nameX: 758, nameY: 82, information: ""},
+        {id: 35, x: 705, y: 106, r: 10.5, name: "幼小", nameX: 656, nameY: 121, information: ""},
+        {id: 36, x: 665, y: 166, r: 7.5, name: "单纯", nameX: 636, nameY: 180, information: ""},
+        {id: 41, x: 454, y: 189, r: 15.5, name: "念佛、祷告", nameX: 481, nameY: 183, information: ""},
+        {id: 42, x: 606, y: 296, r: 21, name: "佛童", nameX: 576, nameY: 298, information: ""},
+        {id: 43, x: 582, y: 316, r: 11, name: "小天使", nameX: 530, nameY: 336, information: ""},
+        {id: 44, x: 755, y: 337, r: 20, name: "十字架", nameX: 693, nameY: 374, information: ""},
+        {id: 45, x: 792, y: 420, r: 11, name: "小耶稣", nameX: 742, nameY: 444, information: ""},
+        {id: 46, x: 824, y: 415, r: 21, name: "绑十字架", nameX: 798, nameY: 456, information: ""},
+        {id: 47, x: 720, y: 570, r: 7, name: "孤儿", nameX: 736, nameY: 566, information: ""},
+        {id: 48, x: 853, y: 583, r: 7, name: "被活埋", nameX: 869, nameY: 595, information: "。"},
+        {id: 49, x: 1016, y: 518, r: 11.5, name: "被献祭", nameX: 1041, nameY: 526, information: "。"}
     ],
 //大图下的白色阴影
     BgList = [
@@ -72,18 +73,18 @@ var PointList = [
         {point0Id: 0, to: ">", point1Id: 5},
         {point0Id: 0, to: ">", point1Id: 6},
         {point0Id: 0, to: ">", point1Id: 7},
-        {point0Id: 1, to: ">", point1Id: 3},
+        {point0Id: 1, to: ">", point1Id: 0},
         {point0Id: 2, to: ">", point1Id: 3},
-        {point0Id: 3, to: "<", point1Id: 1},
+      //  {point0Id: 3, to: "<", point1Id: 1},
         {point0Id: 3, to: "<", point1Id: 2},
         {point0Id: 3, to: "<", point1Id: 4},
         {point0Id: 3, to: "<", point1Id: 5},
         {point0Id: 3, to: "<", point1Id: 6},
-        {point0Id: 3, to: "<", point1Id: 7},
+     //   {point0Id: 3, to: "<", point1Id: 7},
         {point0Id: 4, to: ">", point1Id: 3},
         {point0Id: 5, to: ">", point1Id: 3},
         {point0Id: 6, to: ">", point1Id: 3},
-        {point0Id: 7, to: ">", point1Id: 3},
+        {point0Id: 7, to: ">", point1Id: 0},
         {point0Id: 10, to: "<", point1Id: 11},
         {point0Id: 10, to: "<", point1Id: 12},
         {point0Id: 10, to: "<", point1Id: 13},
@@ -553,13 +554,13 @@ $(document).ready(function () {
     saleImage = new Image;
     o2oImage = new Image;
     pointImage = new Image;
-    backgroundImage.src = "imgs/bg.jpg";
-    backshadowImage.src = "imgs/bgPoints.png";
-    b2bImage.src = "imgs/icon0.png";
-    xiaofeiImage.src = "imgs/icon10.png";
-    saleImage.src = "imgs/icon20.png";
-    o2oImage.src = "imgs/icon30.png";
-    pointImage.src = "imgs/point.png";
+    backgroundImage.src = "/jt/imgs/bg.jpg";
+    backshadowImage.src = "templates/images/bgPoints.png";
+    b2bImage.src = "templates/images/icon0.png";
+    xiaofeiImage.src = "templates/images/icon10.png";
+    saleImage.src = "templates/images/icon20.png";
+    o2oImage.src = "templates/images/icon30.png";
+    pointImage.src = "templates/images/point.png";
 
 
     window.requestAnimFrame = (function () {
@@ -663,7 +664,7 @@ $(document).ready(function () {
             timer++
         } else {
             timer = 0;
-            description.text = "钰林人生要素图";
+            description.text = "继童行全图";
         }
         for (c = 0; c < pointHolder.length; c++){
             pointHolder[c].display();
