@@ -215,7 +215,37 @@ $ttpp="type='$type'";
 		}
 		return $logs;
 	}
-
+function getLogsForHome2($condition = '', $page = 1, $perPageNum,$type='') {
+		$timezone = Option::get('timezone');
+		$start_limit = !empty($page) ? ($page - 1) * $perPageNum : 0;
+		$limit = $perPageNum ? "LIMIT $start_limit, $perPageNum" : '';
+		if(!empty($type)){
+			$hstate =" and type='$type'";
+		}
+		$sql = "SELECT * FROM " . DB_PREFIX . "blog WHERE hide='s' $hstate $condition $limit";
+		
+		$res = $this->db->query($sql);
+		$logs = array();
+		while ($row = $this->db->fetch_array($res)) {
+			$row['date'] += $timezone * 3600;
+			$row['log_title'] = htmlspecialchars(trim($row['title']));
+			//$row['log_url'] = Url::log($row['gid']);
+			$row['logid'] = $row['gid'];
+		    $cookiePassword = isset($_COOKIE['em_logpwd_' . $row['gid']]) ? addslashes(trim($_COOKIE['em_logpwd_' . $row['gid']])) : '';
+            if (!empty($row['password']) && $cookiePassword != $row['password']) {
+                $row['excerpt'] = '<p>[该日志已设置加密，请点击标题输入密码访问]</p>';
+            }else {
+                if (!empty($row['excerpt'])) {
+                    $row['excerpt'] .= '<p class="readmore"><a href="' . Url::log($row['logid']) . '">阅读全文&gt;&gt;</a></p>';
+                }
+            }
+			$row['log_description'] = empty($row['excerpt']) ? breakLog($row['content'], $row['gid']) : $row['excerpt'];
+			$row['attachment'] = '';
+			$row['tag'] = '';
+			$logs[] = $row;
+		}
+		return $logs;
+	}
 	/**
 	 * 删除日志
 	 *

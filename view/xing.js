@@ -554,13 +554,13 @@ $(document).ready(function () {
     saleImage = new Image;
     o2oImage = new Image;
     pointImage = new Image;
-    backgroundImage.src = "/jt/imgs/bg.jpg";
-    backshadowImage.src = "templates/images/bgPoints.png";
-    b2bImage.src = "templates/images/icon0.png";
-    xiaofeiImage.src = "templates/images/icon10.png";
-    saleImage.src = "templates/images/icon20.png";
-    o2oImage.src = "templates/images/icon30.png";
-    pointImage.src = "templates/images/point.png";
+    backgroundImage.src = "view/crufyzyl.jpg";
+    backshadowImage.src = "view/bgPoints.png";
+    b2bImage.src = "view/icon0.png";
+    xiaofeiImage.src = "view/icon10.png";
+    saleImage.src = "view/icon20.png";
+    o2oImage.src = "view/icon30.png";
+    pointImage.src = "view/point.png";
 
 
     window.requestAnimFrame = (function () {

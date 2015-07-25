@@ -1,28 +1,14 @@
 <?php
 require_once '../init.php';
 $DB=MySql::getInstance();
-	        $cage=intval($_GET['age']);
-			$cage+=16;
-			$cap=($_GET['p']);
-			if($cap=="head")
-				$cage+=1;
-			if($cap=="lefthand")
-				$cage+=2;
-			if($cap=="righthand")
-				$cage+=3;
-			if($cap=="legs")
-				$cage+=4;
-			if($cap=="feet")
-				$cage+=5;
-			$_SESSION['onm']=0;
-			$res3="select * from emlog_blog where gid=$cage ";
-			$valuz=$DB->once_fetch_array($res3);
+	 $cage=intval($_GET['age']);
+	$res3="select * from emlog_blog where gid=$cage ";
+	$valuz=$DB->once_fetch_array($res3);
+include "view/header.php";
 ?>
-
 <div id="content">
-<a href="/" >首页</a>&nbsp;&nbsp;<a href="/content" >index</a>&nbsp;&nbsp;<a href="/content/tongtu.php" >tongtu</a>&nbsp;&nbsp;<a href="/content/jitong.php" >jitong</a>&nbsp;&nbsp;<a href="/content/xing.php" >xing</a>
 	<div id="crucify"></div>
-<img alt="内心孩童" src="<?php echo BLOG_URL; ?>content/templates/children.jpg" align="left" usemap="#boys" />
+<img alt="内心孩童" src="view/children.jpg" align="left" usemap="#boys" />
 <map name="boys">
      <area class="text" id="name" shape="rect" coords="182,158,252,312" 
        href="jitong.php?age=11#crucify" target="_self" title="11岁男孩-吉童"/>
@@ -66,4 +52,6 @@ $DB=MySql::getInstance();
 <br><br><h2><a href="?post=<?php echo $valuz['gid']; ?>"><?php echo $valuz['title']; ?></a></h2>
 <?php echo $valuz['content']; ?></DIV>
 
-
+<?
+include "view/footer.php";
+?>

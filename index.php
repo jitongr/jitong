@@ -23,12 +23,12 @@ if ($action == 'list') {
 	$sqlSegment = "ORDER BY top DESC ,date DESC";
 	 $lognum = $Log_Model->getLogNum();
 	$pageurl = '?action=list&page=';
-	$logs = $Log_Model->getLogsForHome ($sqlSegment, $page, $index_lognum);
+	$logs = $Log_Model->getLogsForHome2 ($sqlSegment, $page, $index_lognum);
 	$page_url = pagination($lognum, $index_lognum, $page, $pageurl);
     $_SESSION['onm']=1;
 	include View::getView('head');
 	include View::getView('log_list');
-	include View::getView('footer');
+	include View::getView('foot');
 	View::output();
 }
 if ($action == 'li') {
