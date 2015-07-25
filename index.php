@@ -1,6 +1,5 @@
 <?php
 /**
- * mobile 版本
  *
  * @copyright (c) jitongr All Rights Reserved
  */
@@ -18,13 +17,13 @@ $cpid = isset ($_GET['cp']) ? intval ($_GET['cp']) : '';
 $akey = isset($_GET['aikey']) ? addslashes($_GET['aikey']) : '';
 // 首页
 
-if ($action == 'bloglist') {
+if ($action == 'list') {
 	$Log_Model = new Log_Model();
 	$page = isset($_GET['page']) ? abs(intval ($_GET['page'])) : 1;
 	$sqlSegment = "ORDER BY top DESC ,date DESC";
-	$lognum = $Log_Model->getLogNum();
+	 $lognum = $Log_Model->getLogNum('s');
 	$pageurl = '?action=bloglist&page=';
-	$logs = $Log_Model->getLogsForHome ($sqlSegment, $page, $index_lognum);
+	$logs = $Log_Model->getLogsForHome ($sqlSegment, $page, $index_lognum,'s');
 	$page_url = pagination($lognum, $index_lognum, $page, $pageurl);
     $_SESSION['onm']=1;
 	include View::getView('head');
@@ -33,7 +32,7 @@ if ($action == 'bloglist') {
 	View::output();
 }
 
-if ($action == 'list') {
+if ($action == 'listjson') {
 	$Log_Model = new Log_Model();
 	$page = isset($_GET['page']) ? abs(intval ($_GET['page'])) : 1;
 	$sqlSegment = "ORDER BY top DESC ,date DESC";
