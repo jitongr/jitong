@@ -1,5 +1,5 @@
 <?php
-require_once '../init.php';
+require_once 'init.php';
 $DB=MySql::getInstance();
 	        $cage=intval($_GET['age']);
 			$cage+=47;
