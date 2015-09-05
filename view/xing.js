@@ -11,9 +11,9 @@ var PointList = [
         {id: 6, x: 298, y: 461, r: 9, name: "孤寂", nameX: 255, nameY: 479, information: ""},
         {id: 7, x: 319, y: 524, r: 14.5, name: "被虐待", nameX: 270, nameY: 566, information: ""},
         {id: 10, x: 526, y: 513, r: 61.5, name: "遗童", nameX: 485, nameY: 498, information: ""},
-        {id: 11, x: 645, y: 463, r: 22.5, name: "前世害死的儿童", nameX: 634, nameY: 467, information: ""},
+        {id: 11, x: 645, y: 463, r: 22.5, name: "前世害死的儿童", nameX:600, nameY: 440, information: ""},
         {id: 12, x: 665, y: 499, r: 8, name: "婴灵", nameX: 681, nameY: 499, information: ""},
-		 {id: 15, x: 675, y: 469, r: 8, name: "前家族孽害孩童", nameX: 671, nameY: 479, information: ""},
+		 {id: 15, x: 675, y: 469, r: 8, name: "前家族孽害孩童", nameX: 640, nameY: 460, information: ""},
         {id: 13, x: 666, y: 544, r: 6, name: "难童", nameX: 681, nameY: 544, information: ""},
         {id: 14, x: 564, y: 612, r: 8.5, name: "夭折的孩童", nameX: 511, nameY: 638, information: "。"},
         {id: 20, x: 1106, y: 372, r: 61.5, name: "祭童", nameX: 1087, nameY: 349, information: "济童。"},
@@ -150,7 +150,7 @@ var PointList = [
         {point0Id: 34, to: ">", point1Id: 30},
         {point0Id: 35, to: ">", point1Id: 30},
         {point0Id: 36, to: ">", point1Id: 30}
-    ], WIDTH = 1366, HEIGHT = 701, time = 0, mouseX = 0, mouseY = 0, mouseOverObject = null, timer = 0;
+    ], WIDTH = 1180, HEIGHT = 701, time = 0, mouseX = 0, mouseY = 0, mouseOverObject = null, timer = 0;
 
 $(document).ready(function () {
 
@@ -346,8 +346,8 @@ $(document).ready(function () {
                 context.lineWidth = 6.62;
                 context.strokeStyle = this.color;
                 context.stroke();
-                context.font = 0 === this.id || 30 === this.id ? "14px Arial" : "13px 'Microsoft YaHei', 微软雅黑";
-                context.fillStyle = "#000";
+                context.font = "28px 'Microsoft YaHei', 微软雅黑";
+                context.fillStyle = "#f00";
                 context.save();
                 context.translate(this.nameX, this.nameY);
                 context.rotate(-20 * Math.PI / 180);
@@ -370,8 +370,8 @@ $(document).ready(function () {
             } else{
                 context.fillStyle = this.color;
                 context.fill();
-                this.id > 40 ? context.font = "11.34px 'Microsoft YaHei', 微软雅黑" : (context.globalAlpha = this.highlight ? null === mouseOverObject ? .8 : 1 : .1, context.font = "10.48px 'Microsoft YaHei', 微软雅黑");
-                context.fillStyle = "#000";
+                this.id > 40 ? context.font = "18px 'Microsoft YaHei', 微软雅黑" : (context.globalAlpha = this.highlight ? null === mouseOverObject ? .8 : 1 : .1, context.font = "18px 'Microsoft YaHei', 微软雅黑");
+                context.fillStyle = this.id > 30 && this.id < 37 ? "#f8f":"#ff4";
                 context.save();
                 context.translate(this.nameX, this.nameY);
                 context.rotate(-20 * Math.PI / 180);
@@ -554,7 +554,7 @@ $(document).ready(function () {
     saleImage = new Image;
     o2oImage = new Image;
     pointImage = new Image;
-    backgroundImage.src = "view/crufyzyl.jpg";
+    backgroundImage.src = "view/xalll.jpg";
     backshadowImage.src = "view/bgPoints.png";
     b2bImage.src = "view/icon0.png";
     xiaofeiImage.src = "view/icon10.png";
@@ -664,7 +664,7 @@ $(document).ready(function () {
             timer++
         } else {
             timer = 0;
-            description.text = "继童行全图";
+            description.text = "祭童刑全图";
         }
         for (c = 0; c < pointHolder.length; c++){
             pointHolder[c].display();
