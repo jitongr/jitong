@@ -17,15 +17,15 @@ if(!defined('EMLOG_ROOT')) {exit('error!');}
 <img src="view/jitong.jpg" height="180" width="960"  usemap="#hjitong" />
 <map name="hjitong">
      <area class="text" id="name" shape="rect" coords="376,59,396,114" 
-       href="<?php echo BLOG_URL; ?>jitongw" target="_self" title="祭童"/>
+       href="<?php echo BLOG_URL; ?>?jitongw" target="_self" title="祭童"/>
         <area class="text" id="name" shape="rect" coords="426,98,448,155" 
-       href="<?php echo BLOG_URL; ?>afflicted" target="_self" title="苦难"/>
+       href="<?php echo BLOG_URL; ?>?afflicted" target="_self" title="苦难"/>
        <area class="text" id="name" shape="rect" coords="554,74,579,128" 
-       href="<?php echo BLOG_URL; ?>virgin" target="_self" title="童贞"/>
+       href="<?php echo BLOG_URL; ?>?virgin" target="_self" title="童贞"/>
        <area class="text" id="name" shape="rect" coords="686,95,706,148" 
-       href="<?php echo BLOG_URL; ?>beat" target="_self" title="吊打"/>
+       href="<?php echo BLOG_URL; ?>?beat" target="_self" title="吊打"/>
        <area class="text" id="name" shape="rect" coords="837,59,863,177" 
-       href="<?php echo BLOG_URL; ?>crux" target="_self" title="钉十字架"/>
+       href="<?php echo BLOG_URL; ?>?crux" target="_self" title="钉十字架"/>
 
  </map>
 </div>

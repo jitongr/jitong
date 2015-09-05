@@ -216,7 +216,7 @@ $ttpp="type='$type'";
 		return $logs;
 	}
 function getLogsForHome2($condition = '', $page = 1, $perPageNum,$type='') {
-		$timezone = Option::get('timezone');
+
 		$start_limit = !empty($page) ? ($page - 1) * $perPageNum : 0;
 		$limit = $perPageNum ? "LIMIT $start_limit, $perPageNum" : '';
 		if(!empty($type)){
@@ -227,7 +227,7 @@ function getLogsForHome2($condition = '', $page = 1, $perPageNum,$type='') {
 		$res = $this->db->query($sql);
 		$logs = array();
 		while ($row = $this->db->fetch_array($res)) {
-			$row['date'] += $timezone * 3600;
+
 			$row['log_title'] = htmlspecialchars(trim($row['title']));
 			//$row['log_url'] = Url::log($row['gid']);
 			$row['logid'] = $row['gid'];
@@ -240,8 +240,7 @@ function getLogsForHome2($condition = '', $page = 1, $perPageNum,$type='') {
                 }
             }
 			$row['log_description'] = empty($row['excerpt']) ? breakLog($row['content'], $row['gid']) : $row['excerpt'];
-			$row['attachment'] = '';
-			$row['tag'] = '';
+
 			$logs[] = $row;
 		}
 		return $logs;

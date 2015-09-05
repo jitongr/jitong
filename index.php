@@ -16,12 +16,14 @@ $action = isset($_GET['action']) ? addslashes($_GET['action']) : '';
 $cpid = isset ($_GET['cp']) ? intval ($_GET['cp']) : '';
 $akey = isset($_GET['aikey']) ? addslashes($_GET['aikey']) : '';
 // 首页
-
-if ($action == 'list') {
+if(isset($_GET['jitongw']))$tjts=-2;if(isset($_GET['afflicted']))$tjts=-3;
+if(isset($_GET['virgin']))$tjts=-4;if(isset($_GET['beat']))$tjts=-5;if(isset($_GET['crux']))$tjts=-6;
+if ($action == 'list'||$tjts<0) {
 	$Log_Model = new Log_Model();
 	$page = isset($_GET['page']) ? abs(intval ($_GET['page'])) : 1;
-	$sqlSegment = "ORDER BY top DESC ,date DESC";
-	 $lognum = $Log_Model->getLogNum();
+	if($tjts<0)  $sqlSegment="and sortid=$tjts ";
+	$sqlSegment .= "ORDER BY top DESC ,edittime DESC";
+	 $lognum = $Log_Model->getLogNum( $sqlSegment);
 	$pageurl = '?action=list&page=';
 	$logs = $Log_Model->getLogsForHome2 ($sqlSegment, $page, $index_lognum);
 	$page_url = pagination($lognum, $index_lognum, $page, $pageurl);
@@ -34,7 +36,7 @@ if ($action == 'list') {
 if ($action == 'li') {
 	$Log_Model = new Log_Model();
 	$page = isset($_GET['page']) ? abs(intval ($_GET['page'])) : 1;
-	$sqlSegment = "ORDER BY top DESC ,date DESC";
+	$sqlSegment = "ORDER BY top DESC ,edittime DESC";
 	 $lognum = $Log_Model->getLogNum();
 	$pageurl = '?action=li&page=';
 	$logs = $Log_Model->getLogsForHome ($sqlSegment, $page, $index_lognum);

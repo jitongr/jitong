@@ -2,20 +2,20 @@
  * Created by Administrator on 2014/12/19.
  */
 var PointList = [
-        {id: 0, x: 377, y: 389, r: 61.5, name: "济童", nameX: 354, nameY: 361, information: ""},
+        {id: 0, x: 377, y: 389, r: 61.5, name: "济童", nameX: 350, nameY: 360, information: ""},
         {id: 1, x: 336, y: 292, r: 17, name: "饥饿", nameX: 358, nameY: 286, information: ""},
         {id: 2, x: 295, y: 283, r: 14.5, name: "寒冷", nameX: 313, nameY: 273, information: ""},
         {id: 3, x: 182, y: 335, r: 31.5, name: "困苦", nameX: 103, nameY: 370, information: ""},
-        {id: 4, x: 166, y: 402, r: 14.5, name: "疾病", nameX: 108, nameY: 430, information: ""},
+        {id: 4, x: 166, y: 402, r: 14.5, name: "疾病", nameX: 108, nameY: 410, information: ""},
         {id: 5, x: 266, y: 410, r: 11, name: "被劳役", nameX: 203, nameY: 439, information: ""},
         {id: 6, x: 298, y: 461, r: 9, name: "孤寂", nameX: 255, nameY: 479, information: ""},
-        {id: 7, x: 319, y: 524, r: 14.5, name: "被虐待", nameX: 270, nameY: 566, information: ""},
-        {id: 10, x: 526, y: 513, r: 61.5, name: "遗童", nameX: 485, nameY: 498, information: ""},
+        {id: 7, x: 319, y: 524, r: 14.5, name: "被虐待", nameX: 270, nameY: 546, information: ""},
+        {id: 10, x: 526, y: 513, r: 61.5, name: "遗童", nameX: 489, nameY: 488, information: ""},
         {id: 11, x: 645, y: 463, r: 22.5, name: "前世害死的儿童", nameX:600, nameY: 440, information: ""},
-        {id: 12, x: 665, y: 499, r: 8, name: "婴灵", nameX: 681, nameY: 499, information: ""},
+        {id: 12, x: 665, y: 499, r: 8, name: "夭折的孩童", nameX: 681, nameY: 499, information: ""},
 		 {id: 15, x: 675, y: 469, r: 8, name: "前家族孽害孩童", nameX: 640, nameY: 460, information: ""},
         {id: 13, x: 666, y: 544, r: 6, name: "难童", nameX: 681, nameY: 544, information: ""},
-        {id: 14, x: 564, y: 612, r: 8.5, name: "夭折的孩童", nameX: 511, nameY: 638, information: "。"},
+        {id: 14, x: 564, y: 612, r: 8.5, name: "婴灵", nameX: 511, nameY: 638, information: "。"},
         {id: 20, x: 1106, y: 372, r: 61.5, name: "祭童", nameX: 1087, nameY: 349, information: "济童。"},
         {id: 21, x: 1098, y: 248, r: 29.5, name: "苦难", nameX: 1134, nameY: 236, information: ""},
         {id: 22, x: 1025, y: 227, r: 14.5, name: "鞭打", nameX: 1052, nameY: 217, information: ""},
@@ -24,9 +24,9 @@ var PointList = [
         {id: 25, x: 979, y: 466, r: 7, name: "被卖身", nameX: 950, nameY: 496, information: "。"},
         {id: 26, x: 1031, y: 275, r: 7, name: "赤身裸体", nameX: 962, nameY: 303, information: "。"},
         {id: 27, x: 897, y: 368, r: 9, name: "反绑双手", nameX: 844, nameY: 388, information: ""},
-        {id: 28, x: 923, y: 430, r: 14.5, name: "钉十字架", nameX: 857, nameY: 459, information: "。"},
+        {id: 28, x: 923, y: 430, r: 14.5, name: "钉十字架", nameX: 857, nameY: 410, information: "。"},
         {id: 29, x: 944, y: 448, r: 7, name: "捆绑脚", nameX: 904, nameY: 470, information: ""},
-        {id: 30, x: 744, y: 223, r: 61.5, name: "继童", nameX: 722, nameY: 199, information: ""},
+        {id: 30, x: 744, y: 223, r: 61.5, name: "继童", nameX: 718, nameY: 194, information: ""},
         {id: 31, x: 856, y: 177, r: 13.5, name: "圣洁", nameX: 875, nameY: 174, information: ""},
         {id: 32, x: 833, y: 125, r: 7.5, name: "少年", nameX: 846, nameY: 123, information: ""},
         {id: 33, x: 817, y: 106, r: 10.5, name: "孩童", nameX: 834, nameY: 100, information: ""},
@@ -40,8 +40,8 @@ var PointList = [
         {id: 45, x: 792, y: 420, r: 11, name: "小耶稣", nameX: 742, nameY: 444, information: ""},
         {id: 46, x: 824, y: 415, r: 21, name: "绑十字架", nameX: 798, nameY: 456, information: ""},
         {id: 47, x: 720, y: 570, r: 7, name: "孤儿", nameX: 736, nameY: 566, information: ""},
-        {id: 48, x: 853, y: 583, r: 7, name: "被活埋", nameX: 869, nameY: 595, information: "。"},
-        {id: 49, x: 1016, y: 518, r: 11.5, name: "被献祭", nameX: 1041, nameY: 526, information: "。"}
+        {id: 48, x: 853, y: 583, r: 7, name: "被活埋", nameX: 800, nameY: 595, information: "。"},
+        {id: 49, x: 1016, y: 518, r: 11.5, name: "被献祭", nameX: 941, nameY: 556, information: "。"}
     ],
 //大图下的白色阴影
     BgList = [
@@ -350,7 +350,7 @@ $(document).ready(function () {
                 context.fillStyle = "#f00";
                 context.save();
                 context.translate(this.nameX, this.nameY);
-                context.rotate(-20 * Math.PI / 180);
+               // context.rotate(-20 * Math.PI / 180);
                 context.fillText(this.name, 0, 0);
                 context.restore();
 
@@ -374,7 +374,7 @@ $(document).ready(function () {
                 context.fillStyle = this.id > 30 && this.id < 37 ? "#f8f":"#ff4";
                 context.save();
                 context.translate(this.nameX, this.nameY);
-                context.rotate(-20 * Math.PI / 180);
+               // context.rotate(-20 * Math.PI / 180);
                 context.fillText(this.name, 0, 0);
                 context.restore();
             }
@@ -554,7 +554,7 @@ $(document).ready(function () {
     saleImage = new Image;
     o2oImage = new Image;
     pointImage = new Image;
-    backgroundImage.src = "view/xalll.jpg";
+    backgroundImage.src = "view/xall.jpg";
     backshadowImage.src = "view/bgPoints.png";
     b2bImage.src = "view/icon0.png";
     xiaofeiImage.src = "view/icon10.png";
@@ -664,7 +664,7 @@ $(document).ready(function () {
             timer++
         } else {
             timer = 0;
-            description.text = "祭童刑全图";
+            description.text = "祭童刑图";
         }
         for (c = 0; c < pointHolder.length; c++){
             pointHolder[c].display();
