@@ -22,7 +22,7 @@ if ($action == 'list'||$tjts<0) {
 	$Log_Model = new Log_Model();
 	$page = isset($_GET['page']) ? abs(intval ($_GET['page'])) : 1;
 	if($tjts<0)  $sqlSegment="and sortid=$tjts ";
-	$sqlSegment .= "ORDER BY top DESC ,edittime DESC";
+	$sqlSegment .= "ORDER BY top DESC ,gid DESC";
 	 $lognum = $Log_Model->getLogNum( $sqlSegment);
 	$pageurl = '?action=list&page=';
 	$logs = $Log_Model->getLogsForHome2 ($sqlSegment, $page, $index_lognum);
