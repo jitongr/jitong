@@ -61,11 +61,14 @@ if ($action == 'listjson') {
    echo json_encode($logs);
     exit;
 }
+////搜索
 if (isset($_GET['aikey']) ) {
-	$atitle="查询'".$akey."'的结果：";
-		$ltime = time();
-	$DB->query("INSERT INTO viewlog (method,viewid,concept,uid,sina_uid,date,text,loginip) VALUES (
-				'keyword','$vsid','0','$uid','$usersina_id','$ltime','$akey','$gip')");
+	$atitle="搜索'".$akey."'的结果：";
+		$ltime = date('Y-m-d H:i:s');
+		$gip=getIp();   
+$uid=UID;
+	$DB->query("INSERT INTO viewlog (method,viewid,concept,uid,sina_uid,vtime,text,loginip) VALUES (
+				'jtsearch','$vsid','0','$uid','$usersina_id','$ltime','$akey','$gip')");
 	if(empty ($akey))
 	$sql = "SELECT * FROM conceptnet_concept  order by Rand()  LIMIT 20";
 	else
@@ -102,11 +105,13 @@ if (isset($_GET['aikey']) ) {
 	View::output();
 }
 else
+//////首页
 if(empty ($action) && empty ($logid) && empty ($cpid))
 {
 	$atitle="祭童园：";
-		$ltime = time();
-	
+		$ltime = date('Y-m-d H:i:s');
+	$gip=getIp();   
+$uid=UID;
 	
 	$sql = "SELECT * FROM cruboy_concept order by Rand()  LIMIT 10";
 
@@ -118,7 +123,7 @@ if(empty ($action) && empty ($logid) && empty ($cpid))
 		$sql2 = "SELECT a.concept1_id,a.concept2_id,
 		a.relation_id,a.best_frame_id,cruboy_concept.text FROM cruboy_assertion a LEFT JOIN
 		cruboy_concept ON a.concept2_id=cruboy_concept.id
-		WHERE concept1_id='$row[id]'";
+		WHERE concept1_id='$row[id]' order by Rand() limit 1";
 			$aDa = $DB->once_fetch_array($sql2);
 		
 		$row[tx1]=$aDa[text];
@@ -127,7 +132,7 @@ if(empty ($action) && empty ($logid) && empty ($cpid))
 		 $sql3 = "SELECT a.concept1_id,a.concept2_id,
 		a.relation_id,a.best_frame_id,cruboy_concept.text FROM cruboy_assertion a LEFT JOIN
 		cruboy_concept ON a.concept1_id=cruboy_concept.id
-		WHERE concept2_id='$row[id]'";
+		WHERE concept2_id='$row[id]' order by Rand() limit 1";
 			$aDa3 = $DB->once_fetch_array($sql3);
 		
 		$row[tx2]=$aDa3[text];
@@ -135,14 +140,14 @@ if(empty ($action) && empty ($logid) && empty ($cpid))
 	 $row[fi2]=$aDa3[best_frame_id];
 	$concepts[]=$row;
 		}
-		$DB->query("INSERT INTO viewlog (method,viewid,concept,uid,sina_uid,date,text,loginip) VALUES (
-				'jt','$vsid','0','$uid','$usersina_id','$ltime','$o','$gip')");
+		$DB->query("INSERT INTO viewlog (method,viewid,concept,uid,sina_uid,vtime,text,loginip) VALUES (
+				'jthome','$vsid','0','$uid','$usersina_id','$ltime','$o','$gip')");
     include View::getView('header');
 	include View::getView('cruboy');
 	include View::getView('footer');
 	View::output();
 }
-
+//////内容页
 if (!empty ($cpid) ) 
 {$usersina_id= intval($_SESSION['oauth2']["user_id"]);
 	$DB = MySql::getInstance();
@@ -152,21 +157,21 @@ $atitle="";
 $gip=getIp();   
 $uid=UID;
 		$vsid=intval($_SESSION['views']);
-	$ltime = time();
-if (ISLOGIN !== true&&(
-empty($_SESSION['oauth2']["user_id"])||empty($_SESSION['u_name']))){
-$vfr="unlog";
+	$ltime = date('Y-m-d H:i:s');
+   if (ISLOGIN !== true&&(
+   empty($_SESSION['oauth2']["user_id"])||empty($_SESSION['u_name']))){
+  $vfr="jtunlog";
 	$sqadd="order by Rand() limit 3000";
-}else {
-	$vfr="mview";
+  }else {
+	$vfr="jtview";
    $sqadd="order by a.relation_id,a.best_frame_id LIMIT 4000";
-}
+  }
 	$DB->query("UPDATE conceptnet_concept SET words=words+1 WHERE id='$cpid'");
 	$sq1 = "SELECT * FROM conceptnet_concept WHERE id='$cpid'";
 	$pDa = $DB->once_fetch_array($sq1);
 	
 	$hhtitle=$pDa[text];
-	$DB->query("INSERT INTO viewlog (method,viewid,concept,uid,sina_uid,date,text,loginip) VALUES (
+	$DB->query("INSERT INTO viewlog (method,viewid,concept,uid,sina_uid,vtime,text,loginip) VALUES (
 				'$vfr','$vsid','$cpid','$uid','$usersina_id','$ltime','$pDa[text]','$gip')");
 	$sq2 = "SELECT a.concept1_id,a.concept2_id,
 		a.relation_id,a.best_frame_id,conceptnet_concept.* FROM conceptnet_assertion a LEFT JOIN

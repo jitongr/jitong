@@ -1,21 +1,24 @@
-<?php if(!defined('EMLOG_ROOT')) {exit('error!');}?>
+<?php if(!defined('EMLOG_ROOT')) {exit('error!');}
+//   style="font-size:16; width:300px; height:20px;" style="width:60px; height:22px; text-align:center; font-size:12;"
+?>
 
 <div id="m">
     <li>
-	<h3><span>cruboy </span></h3>
+	<h3><span>jitong </span></h3>
 	<ul id="logserch">
 	<form name="keycp" method="get" action="<?php echo BLOG_URL; ?>cruboy.php">
 	<input name="keyword"  type="text" value="<?php echo $akey; ?>" style="width:120px;"/>
 	<input type="submit" id="logserch_logserch" value="搜索" />
 	</form>
 	</ul>
-	</li><form name="keycp" method="get" action="/toddler.php">
-            <span><img src="/jitong/boy.jpg" border="0"></span><br><br>
-            <input id="searchValue" name="k" type="text" value="<?php echo $akey; ?>" 
-                style="font-size:16; width:300px; height:20px;" />       
-            <input type="submit" id="logserch_logserch" value="输 入" 
-               style="width:60px; height:22px; text-align:center; font-size:12;" />
+    <h3><span><img src="/jitong/boy.jpg" border="0"></span></h3>
+    <ul id="logsch">
+    <form name="keycp" method="get" action="<?php echo BLOG_URL; ?>">
+    <input id="searchValue" name="aikey" type="text" value="<?php echo $akey; ?>"   />       
+    <input type="submit" id="logserch_logserch" value="搜索全"   />
         </form>
+        </ul>
+	</li>
 <?php echo $atitle;?>    
 
 	<?php 

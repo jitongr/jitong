@@ -19,11 +19,11 @@ $atitle="";
 $gip=getIp();   
 $uid=UID;
 		$vsid=intval($_SESSION['views']);
-//概念详细页
+//详细页
 if(isset ($_GET['cp']))
 {
 	$cpid = intval ($_GET['cp']) ;
-	$ltime = time();
+	$ltime = date('Y-m-d H:i:s');
 /*	$DB->query("INSERT INTO viewlog (method,viewid,concept,uid,sina_uid,date,text,loginip) VALUES (
 				'old','$vsid','$cpid','$uid','$usersina_id','$ltime','','$gip')");
 	header('Location: /index.php');
@@ -48,8 +48,8 @@ exit;
 	$pDa = $DB->once_fetch_array($sq1);
 	
 	$hhtitle=$pDa[text];
-	$DB->query("INSERT INTO viewlog (method,viewid,concept,uid,sina_uid,date,text,loginip) VALUES (
-				'view','$vsid','$cpid','$uid','$usersina_id','$ltime','$pDa[text]','$gip')");
+	$DB->query("INSERT INTO viewlog (method,viewid,concept,uid,sina_uid,vtime,text,loginip) VALUES (
+				'jtcruview','$vsid','$cpid','$uid','$usersina_id','$ltime','$pDa[text]','$gip')");
 	
 	$sq2 = "SELECT a.concept1_id,a.concept2_id,
 		a.relation_id,a.best_frame_id,cruboy_concept.* FROM cruboy_assertion a LEFT JOIN
@@ -99,9 +99,9 @@ if(isset($_GET['keyword']))
 {
 	$akey = addslashes($_GET['keyword']);
 	$atitle="查询‘".$akey."’的结果：";
-		$ltime = time();
-	$DB->query("INSERT INTO viewlog (method,viewid,concept,uid,sina_uid,date,text,loginip) VALUES (
-				'keyword','$vsid','0','$uid','$usersina_id','$ltime','$akey','$gip')");
+		$ltime = date('Y-m-d H:i:s');
+	$DB->query("INSERT INTO viewlog (method,viewid,concept,uid,sina_uid,vtime,text,loginip) VALUES (
+				'jtcrusearch','$vsid','0','$uid','$usersina_id','$ltime','$akey','$gip')");
 	if(empty ($akey))
 	$sql = "SELECT * FROM cruboy_concept order by Rand()  LIMIT 10";
 	else
