@@ -127,30 +127,9 @@ class Log_Model {
 		// $sql.="and type='blog'";		
 		$res = $this->db->query($sql);
 		$row = $this->db->fetch_array($res);
-		if ($row) {
-			$logData = array(
-			    'log_title' => htmlspecialchars($row['title']),
-				'timestamp' => $row['date'],
-				'date' => $row['date'] + $timezone * 3600,
-				'logid' => intval($row['gid']),
-				'sortid' => intval($row['sortid']),
-				'type' => $row['type'],
-				'author' => $row['author'],
-				'tbscode' => substr(md5(gmdate('YndG')), 0, 6),
-				'log_content' => rmBreak($row['content']),
-				'views' => intval($row['views']),
-				'comnum' => intval($row['comnum']),
-				'tbcount' => intval($row['tbcount']),
-				'top' => $row['top'],
-				'attnum' => intval($row['attnum']),
-				'allow_remark' => $row['allow_remark'],
-				'allow_tb' => $row['allow_tb'],
-				'password' => $row['password']
-				);
-			return $logData;
-		}else {
-			return false;
-		}
+
+			return $row ;
+
 	}
 
 	/**

@@ -7,6 +7,11 @@
 	      <select name="sort" id="sort">
 			<?php
 			$sorts[] = array('sid'=>-1, 'sortname'=>'选择分类...');
+				$sorts[] = array('sid'=>-2, 'sortname'=>'祭童');
+					$sorts[] = array('sid'=>-3, 'sortname'=>'苦难');
+						$sorts[] = array('sid'=>-4, 'sortname'=>'童贞');
+							$sorts[] = array('sid'=>-5, 'sortname'=>'打');
+								$sorts[] = array('sid'=>-6, 'sortname'=>'十字架');
 			foreach($sorts as $val):
 			$flg = $val['sid'] == $sortid ? 'selected' : '';
 			?>

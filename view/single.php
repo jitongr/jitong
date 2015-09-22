@@ -1,13 +1,13 @@
 <?php if(!defined('EMLOG_ROOT')) {exit('error!');}?>
 
 <div id="m">
-	<div class="posttitle"><?php echo $log_title; ?></div>
-	<div class="postinfo">post by:<?php echo $user_cache[$author]['name'];?> <?php echo gmdate('Y-n-j G:i', $date); ?>
+	<div class="posttitle"><?php echo $title; ?></div>
+	<div class="postinfo">作者：<?=$logData['author']?> 发布：<?php echo $logData['addtime']; ?> 修改：<?php echo $logData['edittime']; ?> 
 	<?php if(ROLE == 'admin' || $author == UID): ?>
-	<a href="./?action=dellog&gid=<?php echo $logid;?>">删除</a>
+	<a href="./?action=write&id=<?php echo $logid;?>">编辑</a>
 	<?php endif;?>
 	</div>
-	<div class="postcont"><?php echo $log_content; ?></div>
+	<div class="postcont"><?php echo $content; ?></div>
 	<div class="t">评论：</div>
 	<div class="c">
 		<?php foreach($commentStacks as $cid):

@@ -5,7 +5,7 @@ echo '<?xml version="1.0" encoding="UTF-8"?>';
 <!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title><?php echo $blogname; ?></title>
+<title><?php echo $title; ?>[<?php echo $blogname; ?>]</title>
 <style type="text/css" id="internalStyle">
 body{background-color:#FFFFFF; font-size:14px; margin: 0; padding:0;font-family: Helvetica, Arial, sans-serif;-webkit-text-size-adjust: none;}
 a:link,a:visited,a:hover,a:active {text-decoration: none;color:#333;}
@@ -32,7 +32,7 @@ a:link,a:visited,a:hover,a:active {text-decoration: none;color:#333;}
 <a href="./" <?php if($action=='')echo 'id="active"'; ?>>首页</a> 
 <a href="./?action=list" >祭童文</a>
 <a href="./?action=li" >祭文</a>
-<a href="cruboy.php?cruboylist" <?php if($action=='cruboylist')echo 'id="active"'; ?>>刑受</a> 
+<a href="cruboy.php?list" <?php if($action=='cruboylist')echo 'id="active"'; ?>>刑受</a> 
 <a href="jitong.php" >祭童</a>
 <a href="tongtu.php" >童图</a>
 <a href="xing.php" >刑图</a>

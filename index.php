@@ -21,9 +21,12 @@ if(isset($_GET['virgin']))$tjts=-4;if(isset($_GET['beat']))$tjts=-5;if(isset($_G
 if ($action == 'list'||$tjts<0) {
 	$Log_Model = new Log_Model();
 	$page = isset($_GET['page']) ? abs(intval ($_GET['page'])) : 1;
-	if($tjts<0)  $sqlSegment="and sortid=$tjts ";
+	 $lognum = $Log_Model->getLogNum( $sqlSegment);//echo $lognum;
+	 if($tjts<0) { $sqlSegment="and sortid=$tjts ";
+	  $index_lognum=$lognum;
+}
 	$sqlSegment .= "ORDER BY top DESC ,gid DESC";
-	 $lognum = $Log_Model->getLogNum( $sqlSegment);
+
 	$pageurl = '?action=list&page=';
 	$logs = $Log_Model->getLogsForHome2 ($sqlSegment, $page, $index_lognum);
 	$page_url = pagination($lognum, $index_lognum, $page, $pageurl);
@@ -39,7 +42,7 @@ if ($action == 'li') {
 	$sqlSegment = "ORDER BY top DESC ,edittime DESC";
 	 $lognum = $Log_Model->getLogNum();
 	$pageurl = '?action=li&page=';
-	$logs = $Log_Model->getLogsForHome ($sqlSegment, $page, $index_lognum);
+	$logs = $Log_Model->getLogsForHome2 ($sqlSegment, $page, $index_lognum);
 	$page_url = pagination($lognum, $index_lognum, $page, $pageurl);
     $_SESSION['onm']=1;
 	include View::getView('header');
@@ -278,24 +281,23 @@ if (ISLOGIN === true && $action == 'savelog') {
 	$blogid = isset($_POST['gid']) ? intval(trim($_POST['gid'])) : -1;
 	$date = isset($_POST['date']) ? addslashes($_POST['date']) : '';
 	$author = isset($_POST['author']) ? intval(trim($_POST['author'])) : UID;
-	$postTime = $Log_Model->postDate(0, $date);	
-
+	
 	$logData = array('title' => $title,
 		'content' => $content,
 		'excerpt' => $excerpt,
 		'author' => $author,
 		'sortid' => $sort,
-		'date' => $postTime,
+		'edittime' => date('Y-m-d H:i:s'),
 		'allow_remark' => 'y',
 		'allow_tb' => 'y',
-		'hide' => 's',
-		'password' => ''
+		'hide' => 's'
 		);
 
 	if ($blogid > 0) {
 		$Log_Model->updateLog($logData, $blogid);
 		$Tag_Model->updateTag($tagstring, $blogid);
 	}else {
+		$logData['addtime'] = date('Y-m-d H:i:s');
 		$blogid = $Log_Model->addlog($logData);
 		$Tag_Model->addTag($tagstring, $blogid);
 	}
