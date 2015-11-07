@@ -375,17 +375,20 @@ if (ISLOGIN === true && $action == 'addcom') {
     }
 }
 if ($action == 'com') {
+	$Comment_Model = new Comment_Model();
 	if (ISLOGIN === true) {
 		$hide = '';
 		$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 
-		$Comment_Model = new Comment_Model();
+		
 
 		$comment = $Comment_Model->getComments(1, null, $hide, $page);
 		$cmnum = $Comment_Model->getCommentNum(null, $hide);
 		$pageurl = pagination($cmnum, 20, $page, "./?action=com&page=");
 	}else {
-		$comment = $CACHE->readCache('comment');
+		//$comment = $CACHE->readCache('comment');
+		$comment = $Comment_Model->getComments(1, null, $hide, 1);
+		$cmnum = $Comment_Model->getCommentNum(null, $hide);
 		$pageurl = '';
 	}
 	include View::getView('header');
