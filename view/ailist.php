@@ -2,7 +2,7 @@
 
 <div id="m">
     <li>
-	<h3><span>ainet 语义网络</span></h3>
+	<h3><span>jitong net</span></h3>
 	<ul id="logserch">
 	<form name="keycp" method="get" action="<?php echo BLOG_URL; ?>index.php">
 	<input name="aikey"  type="text" value="<?php echo $akey; ?>" style="width:120px;"/>

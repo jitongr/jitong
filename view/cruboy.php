@@ -5,17 +5,11 @@
 <div id="m">
     <li>
 	<h3><span>jitong </span></h3>
-	<ul id="logserch">
-	<form name="keycp" method="get" action="<?php echo BLOG_URL; ?>cruboy.php">
-	<input name="keyword"  type="text" value="<?php echo $akey; ?>" style="width:120px;"/>
-	<input type="submit" id="logserch_logserch" value="搜索" />
-	</form>
-	</ul>
     <h3><span><img src="/jitong/boy.jpg" border="0"></span></h3>
     <ul id="logsch">
     <form name="keycp" method="get" action="<?php echo BLOG_URL; ?>">
     <input id="searchValue" name="aikey" type="text" value="<?php echo $akey; ?>"   />       
-    <input type="submit" id="logserch_logserch" value="搜索全"   />
+    <input type="submit" id="logserch_logserch" value="全搜索"   />
         </form>
         </ul>
 	</li>
@@ -28,12 +22,12 @@ foreach($concepts as $value):
 <div class="comcont">
 &nbsp;&nbsp;
 <?php if($value['visible'] == true ): ?>
-<a href="<?php echo BLOG_URL; ?>cruboy.php?cp=<?php echo $value['id']; ?>">
+<a href="<?php echo BLOG_URL; ?>?cp=<?php echo $value['id']; ?>">
 <?php echo $value['text']; ?></a>&nbsp;
 
 <?php else:?>
 
-<SPAN style="TEXT-DECORATION: line-through"><a href="<?php echo BLOG_URL; ?>cruboy.php?cp=<?php echo $value['id']; ?>">
+<SPAN style="TEXT-DECORATION: line-through"><a href="<?php echo BLOG_URL; ?>?cp=<?php echo $value['id']; ?>">
 <?php echo $value['text']; ?></a></SPAN>&nbsp;
 
 <?php endif;?>

@@ -42,7 +42,7 @@ echo "请登录或授权后查看！";
 exit;
 }
 */	
-	$DB->query("UPDATE cruboy_concept SET words=words+1 WHERE id='$cpid'");
+	$DB->query("UPDATE cru boy_concept SET words=words+1 WHERE id='$cpid'");
 
 	$sq1 = "SELECT * FROM cruboy_concept WHERE id='$cpid'";
 	$pDa = $DB->once_fetch_array($sq1);
@@ -100,7 +100,7 @@ if(isset($_GET['keyword']))
 	$akey = addslashes($_GET['keyword']);
 	$atitle="查询‘".$akey."’的结果：";
 		$ltime = date('Y-m-d H:i:s');
-	$DB->query("INSERT INTO viewlog (method,viewid,concept,uid,sina_uid,vtime,text,loginip) VALUES (
+	$DB->query("INSERT INTO vie wlog (method,viewid,concept,uid,sina_uid,vtime,text,loginip) VALUES (
 				'jtcrusearch','$vsid','0','$uid','$usersina_id','$ltime','$akey','$gip')");
 	if(empty ($akey))
 	$sql = "SELECT * FROM cruboy_concept order by Rand()  LIMIT 10";
@@ -140,7 +140,7 @@ if(isset($_GET['keyword']))
 if(isset($_GET['list'])||isset($_GET['show']))
 {
 	
-	$sql = "SELECT * FROM cruboy_concept";
+	$sql = "SELECT * FROM cruboy _concept";
 	$res = $DB->query($sql);
 	include View::getView('header');
 	include View::getView('cruboylist');

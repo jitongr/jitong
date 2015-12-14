@@ -33,17 +33,7 @@ if(!defined('EMLOG_ROOT')) {exit('error!');}
 <? if(!isset($cpidd)):?><div id="wrap"><? endif;?>
   <div id="nav">
     <ul>
-	<li class="<?php echo $action=='' ? 'current' : 'common';?>"><a href="/jitong">首页</a></li>
-
-<li class="common"><a href="/jitong?cp=jty">祭童图</a></li>
-<li class="common"><a href="/jitong?page=1&jt">祭童文</a></li>
-
-    <?php 
-	if(ISLOGIN === true ): ?>
-   
-	<li class="common"><?php echo $userData['username']; ?>祭<a href="<?php echo BLOG_URL; ?>admin/?action=logout">出</a></li>
-	<?php else: ?>
-	<li class="common"><a href="<?php echo BLOG_URL; ?>admin/">登录</a></li>
-	<?php endif; ?>
+	<li class="<?php echo $action=='' ? 'current' : 'common';?>"><a href="/jitong">回首页</a></li>
+	<li class="common"><?php echo $userData['username']; ?> 祭</li>
    	</ul>
   </div><!-- end #nav-->

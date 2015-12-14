@@ -23,8 +23,8 @@ if ($action == 'list'||$tjts<0) {
 	$page = isset($_GET['page']) ? abs(intval ($_GET['page'])) : 1;
 	 $lognum = $Log_Model->getLogNum( $sqlSegment);//echo $lognum;
 	 if($tjts<0) { $sqlSegment="and sortid=$tjts ";
-	  $index_lognum=$lognum;
-}
+	           $index_lognum=$lognum;
+             }
 	$sqlSegment .= "ORDER BY top DESC ,gid DESC";
 
 	$pageurl = '?action=list&page=';
@@ -35,7 +35,7 @@ if ($action == 'list'||$tjts<0) {
 	include View::getView('log_list');
 	include View::getView('foot');
 	View::output();
-}
+}else
 if ($action == 'li') {
 	$Log_Model = new Log_Model();
 	$page = isset($_GET['page']) ? abs(intval ($_GET['page'])) : 1;
@@ -49,7 +49,7 @@ if ($action == 'li') {
 	include View::getView('log');
 	include View::getView('footer');
 	View::output();
-}
+}else
 if ($action == 'listjson') {
 	$Log_Model = new Log_Model();
 	$page = isset($_GET['page']) ? abs(intval ($_GET['page'])) : 1;
@@ -60,6 +60,16 @@ if ($action == 'listjson') {
 	$page_url = pagination($lognum, $index_lognum, $page, $pageurl);
    echo json_encode($logs);
     exit;
+}else
+if($action == 'xingshou')
+{
+	
+	$sql = "SELECT * FROM conceptnet_concept where cruboy <0 ";
+	$res = $DB->query($sql);
+	include View::getView('header');
+	include View::getView('cruboylist');
+	include View::getView('footer');
+	View::output();
 }
 ////搜索
 if (isset($_GET['aikey']) ) {
@@ -67,7 +77,7 @@ if (isset($_GET['aikey']) ) {
 		$ltime = date('Y-m-d H:i:s');
 		$gip=getIp();   
 $uid=UID;
-	$DB->query("INSERT INTO viewlog (method,viewid,concept,uid,sina_uid,vtime,text,loginip) VALUES (
+	$DB->query("INSERT INTO viewlogjt (method,viewid,concept,uid,sina_uid,vtime,text,loginip) VALUES (
 				'jtsearch','$vsid','0','$uid','$usersina_id','$ltime','$akey','$gip')");
 	if(empty ($akey))
 	$sql = "SELECT * FROM conceptnet_concept  order by Rand()  LIMIT 20";
@@ -113,7 +123,7 @@ if(empty ($action) && empty ($logid) && empty ($cpid))
 	$gip=getIp();   
 $uid=UID;
 	
-	$sql = "SELECT * FROM cruboy_concept order by Rand()  LIMIT 10";
+	$sql = "SELECT * FROM conceptnet_concept where cruboy <0 order by Rand()  LIMIT 10";
 
 			$res = $DB->query($sql);
 		
@@ -121,8 +131,8 @@ $uid=UID;
 			$o.=$row[id].$row[text].' ';
 		// $sql2 = "SELECT * FROM cruboy_assertion WHERE concept1_id='$row[id]' or concept2_id='$row[id]' LIMIT 2";
 		$sql2 = "SELECT a.concept1_id,a.concept2_id,
-		a.relation_id,a.best_frame_id,cruboy_concept.text FROM cruboy_assertion a LEFT JOIN
-		cruboy_concept ON a.concept2_id=cruboy_concept.id
+		a.relation_id,a.best_frame_id,c.text FROM conceptnet_assertion a LEFT JOIN
+		conceptnet_concept c ON a.concept2_id=c.id
 		WHERE concept1_id='$row[id]' order by Rand() limit 1";
 			$aDa = $DB->once_fetch_array($sql2);
 		
@@ -130,8 +140,8 @@ $uid=UID;
 	 $row[re1]=$aDa[relation_id];
 	 $row[fi1]=$aDa[best_frame_id];
 		 $sql3 = "SELECT a.concept1_id,a.concept2_id,
-		a.relation_id,a.best_frame_id,cruboy_concept.text FROM cruboy_assertion a LEFT JOIN
-		cruboy_concept ON a.concept1_id=cruboy_concept.id
+		a.relation_id,a.best_frame_id,c.text FROM conceptnet_assertion a LEFT JOIN
+		conceptnet_concept c ON a.concept1_id=c.id
 		WHERE concept2_id='$row[id]' order by Rand() limit 1";
 			$aDa3 = $DB->once_fetch_array($sql3);
 		
@@ -140,7 +150,7 @@ $uid=UID;
 	 $row[fi2]=$aDa3[best_frame_id];
 	$concepts[]=$row;
 		}
-		$DB->query("INSERT INTO viewlog (method,viewid,concept,uid,sina_uid,vtime,text,loginip) VALUES (
+		$DB->query("INSERT INTO viewlogjt (method,viewid,concept,uid,sina_uid,vtime,text,loginip) VALUES (
 				'jthome','$vsid','0','$uid','$usersina_id','$ltime','$o','$gip')");
     include View::getView('header');
 	include View::getView('cruboy');
@@ -171,7 +181,7 @@ $uid=UID;
 	$pDa = $DB->once_fetch_array($sq1);
 	
 	$hhtitle=$pDa[text];
-	$DB->query("INSERT INTO viewlog (method,viewid,concept,uid,sina_uid,vtime,text,loginip) VALUES (
+	$DB->query("INSERT INTO viewlogjt (method,viewid,concept,uid,sina_uid,vtime,text,loginip) VALUES (
 				'$vfr','$vsid','$cpid','$uid','$usersina_id','$ltime','$pDa[text]','$gip')");
 	$sq2 = "SELECT a.concept1_id,a.concept2_id,
 		a.relation_id,a.best_frame_id,conceptnet_concept.* FROM conceptnet_assertion a LEFT JOIN

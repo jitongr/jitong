@@ -32,11 +32,11 @@ a:link,a:visited,a:hover,a:active {text-decoration: none;color:#333;}
 <a href="./" <?php if($action=='')echo 'id="active"'; ?>>首页</a> 
 <a href="./?action=list" >祭童文</a>
 <a href="./?action=li" >祭文</a>
-<a href="cruboy.php?list" <?php if($action=='cruboylist')echo 'id="active"'; ?>>刑受</a> 
+<a href="./?action=xingshou" <?php if($action=='xingshou')echo 'id="active"'; ?>>刑受</a> 
 <a href="jitong.php" >祭童</a>
 <a href="tongtu.php" >童图</a>
 <a href="xing.php" >刑图</a>
-<a href="?action=com" <?php if($action=='com')echo 'id="active"'; ?>>评论</a> 
+<a href="./?action=com" <?php if($action=='com')echo 'id="active"'; ?>>评论</a> 
 
 <?php if(ISLOGIN === true): ?>
 <a href="./?action=write" <?php if($action=='write')echo 'id="active"'; ?>>写日志</a> 
