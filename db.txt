@@ -1,0 +1,95 @@
+CREATE TABLE IF NOT EXISTS `jt_viewlog` (
+  `id` int(11) NOT NULL auto_increment,
+  `method` varchar(12) NOT NULL,
+  `viewid` int(6) NOT NULL default '0',
+  `concept` int(11) NOT NULL default '0',
+  `uid` int(10) unsigned NOT NULL default '0',
+  `vtime` datetime NOT NULL,
+  `text` varchar(360) NOT NULL default '',
+  `loginip` char(20) NOT NULL default '',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8
+
+
+CREATE TABLE IF NOT EXISTS `cruboy_concept2` (
+  `id` int(11) NOT NULL auto_increment,
+  `text` varchar(200) NOT NULL,
+  `imgid` int(11) NOT NULL default '0',
+  `backimgid` int(11) NOT NULL default '0',
+  `url` varchar(200) NOT NULL,
+  `info` varchar(255) NOT NULL default '',
+  `ctop` int(4) NOT NULL default '0',
+  `cleft` int(4) NOT NULL default '0',
+  `num_assertions` int(11) NOT NULL default '0',
+  `words` int(11) NOT NULL default '0',
+  `blogid` int(10) NOT NULL default '0',
+  `visible` tinyint(1) NOT NULL default '0',
+  sort	tinyint(4)
+  
+  `style` tinyint(4) NOT NULL default '0',-
+  `cruboy` tinyint(3) NOT NULL default '0',-
+  `f1` int(11) NOT NULL default '0',
+  `f2` int(11) NOT NULL default '0',
+  `f3` int(11) NOT NULL default '0',
+  `edittime` int(11) NOT NULL default '0',
+  `uid` int(10) NOT NULL default '0',
+  hn
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8
+
+CREATE TABLE IF NOT EXISTS `cruboy_assertion2` (
+  `id` int(11) NOT NULL auto_increment,
+  `relation_id` int(11) NOT NULL default '0',
+  `concept1_id` int(11) NOT NULL default '0',
+  `concept2_id` int(11) NOT NULL default '0',
+  `score` int(11) NOT NULL default '0',
+  `atop1` int(4) NOT NULL default '0',
+  `aleft1` int(4) NOT NULL default '0',
+  `atop2` int(4) NOT NULL default '0',
+  `aleft2` int(4) NOT NULL default '0',
+  `itop1` int(11) NOT NULL default '0',
+  `ileft1` int(11) NOT NULL default '0',
+  `itop2` int(11) NOT NULL default '0',
+  `ileft2` int(11) NOT NULL default '0',
+  `best_frame_id` int(5) NOT NULL default '0',
+  `abid` int(10) NOT NULL default '0',
+  `seq` int(4) NOT NULL default '0',
+  visible	tinyint(1)			
+	good	int(10)			
+	bad	int(10)			 
+	creator	int(11)			
+	edittime	int(11)			
+	uid	int(10)	
+  `edittime` int(11) NOT NULL default '0',
+  `uid` int(10) NOT NULL default '0',
+  PRIMARY KEY  (`id`),
+  KEY `assertions_1ef32bca` (`concept2_id`),
+  KEY `assertions_49612959` (`concept1_id`),
+  KEY `assertions_b9eab798` (`relation_id`),
+  KEY `assertions_a648f606` (`best_frame_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8
+
+
+
+update conceptnet_frame f,conceptnet_assertion a set f.n1=a.count(1) where f.id=a.best_frame_id
+
+update conceptnet_frame f,conceptnet_assertion a set f.n1=count(a.1) where f.id=a.best_frame_id
+
+UPDATE sites A 
+INNER JOIN (SELECT *, COUNT(*) idcount FROM comments GROUP BY siteurl) as B
+  ON B.siteurl = A.siteurl
+SET A.commentcount = B.idcount
+
+UPDATE conceptnet_frame A 
+INNER JOIN (SELECT *, COUNT(*) idcount FROM conceptnet_assertion GROUP BY best_frame_id) as B
+  ON B.best_frame_id = A.id
+SET A.n1 = B.idcount
+
+UPDATE conceptnet_frame A 
+INNER JOIN (SELECT *, COUNT(*) idcount FROM cruboy_assertion2 GROUP BY best_frame_id) as B
+  ON B.best_frame_id = A.id
+SET A.n2 = B.idcount
+
+
+
+
