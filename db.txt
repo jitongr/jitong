@@ -71,14 +71,6 @@ CREATE TABLE IF NOT EXISTS `cruboy_assertion2` (
 
 
 
-update conceptnet_frame f,conceptnet_assertion a set f.n1=a.count(1) where f.id=a.best_frame_id
-
-update conceptnet_frame f,conceptnet_assertion a set f.n1=count(a.1) where f.id=a.best_frame_id
-
-UPDATE sites A 
-INNER JOIN (SELECT *, COUNT(*) idcount FROM comments GROUP BY siteurl) as B
-  ON B.siteurl = A.siteurl
-SET A.commentcount = B.idcount
 
 UPDATE conceptnet_frame A 
 INNER JOIN (SELECT *, COUNT(*) idcount FROM conceptnet_assertion GROUP BY best_frame_id) as B
@@ -89,6 +81,42 @@ UPDATE conceptnet_frame A
 INNER JOIN (SELECT *, COUNT(*) idcount FROM cruboy_assertion2 GROUP BY best_frame_id) as B
   ON B.best_frame_id = A.id
 SET A.n2 = B.idcount
+
+
+DROP  `question_yn` ,
+DROP  `question1` ,
+DROP  `question2` ;
+ALTER TABLE  `conceptnet_frame` CHANGE  `text`  `text` VARCHAR( 200 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT  ''
+update `conceptnet_frame` set `text`=REPLACE(`text`,' ','')
+update `conceptnet_frame` set `text`=REPLACE(`text`,'¡£','')
+
+ALTER TABLE  `conceptnet_relation` ADD  `n1` INT NOT NULL DEFAULT  '0'
+
+UPDATE `conceptnet_relation` A 
+INNER JOIN (SELECT *, COUNT(*) idcount FROM conceptnet_assertion GROUP BY relation_id) as B
+  ON relation_id= A.id
+SET A.n1 = B.idcount
+ALTER TABLE  `conceptnet_relation` ADD  `n2` INT NOT NULL DEFAULT  '0'
+
+UPDATE `conceptnet_relation` A 
+INNER JOIN (SELECT *, COUNT(*) idcount FROM cruboy_assertion2 GROUP BY relation_id) as B
+  ON relation_id= A.id
+SET A.n2 = B.idcount
+
+
+ALTER TABLE  `conceptnet_relation` ADD  `nf` INT NOT NULL DEFAULT  '0'
+
+UPDATE `conceptnet_relation` A 
+INNER JOIN (SELECT *, COUNT(*) idcount FROM conceptnet_frame GROUP BY relation_id) as B
+  ON relation_id= A.id
+SET A.nf = B.idcount
+
+
+
+
+
+
+
 
 
 
