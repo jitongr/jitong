@@ -111,7 +111,18 @@ INNER JOIN (SELECT *, COUNT(*) idcount FROM conceptnet_frame GROUP BY relation_i
   ON relation_id= A.id
 SET A.nf = B.idcount
 
-
+CREATE TABLE IF NOT EXISTS `vasslog` (
+  `id` int  NOT NULL auto_increment,
+  `cpid` int(11) NOT NULL default '0',
+  `rid` int(11) NOT NULL default '0',
+  `method` varchar(10) NOT NULL default '',
+  `edate` datetime NOT NULL,
+  `uid` int(11) NOT NULL default '0',
+  `content` text NOT NULL,
+  `ip` varchar(128) NOT NULL default '',
+  `seid` varchar(100) NOT NULL default '',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 
 
 
 
