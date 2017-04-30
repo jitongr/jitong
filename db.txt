@@ -124,11 +124,18 @@ CREATE TABLE IF NOT EXISTS `vasslog` (
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 
 
+ALTER TABLE  `conceptnet_concept` ADD  `imgsize`  int NOT NULL DEFAULT  '0' AFTER  `imgid`;
+UPDATE  `jitongr`.`conceptnet_concept` SET  `imgid` =  '273',
+`imgsize` =  '-1' WHERE  `conceptnet_concept`.`id` =12591 LIMIT 1 ;
+ALTER TABLE  `conceptnet_concept` DROP  `backimgid`;
 
+ALTER TABLE  `emlog_attachment` ADD  `cnum` TINYINT NOT NULL DEFAULT  '0' AFTER  `blogid`;
+ALTER TABLE  `emlog_attachment` ADD  `uid` INT NOT NULL DEFAULT  '0';
+ALTER TABLE  `emlog_attachment` CHANGE  `cid`  `cid0` INT( 11 ) NOT NULL DEFAULT  '0';
 
-
-
-
-
-
-
+update  `emlog_attachment` set cnum=1 where aid in (select imgid from `conceptnet_concept` where imgid >0 );
+ALTER TABLE  `conceptnet_assertion` ADD  `img1` INT NOT NULL DEFAULT  '0' AFTER  `ileft2`;
+ALTER TABLE  `conceptnet_assertion` ADD  `img2` INT NOT NULL DEFAULT  '0' AFTER  `img1`;
+ALTER TABLE  `conceptnet_assertion` ADD  `imgsize1` SMALLINT NOT NULL DEFAULT  '0' AFTER  `best_frame_id`;
+ALTER TABLE  `conceptnet_assertion` ADD  `imgsize2` SMALLINT NOT NULL DEFAULT  '0' AFTER  `imgsize1`;
+ALTER TABLE  `conceptnet_assertion` ADD  `infos` VARCHAR( 255 ) NOT NULL DEFAULT  ''
