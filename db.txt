@@ -138,4 +138,6 @@ ALTER TABLE  `conceptnet_assertion` ADD  `img1` INT NOT NULL DEFAULT  '0' AFTER 
 ALTER TABLE  `conceptnet_assertion` ADD  `img2` INT NOT NULL DEFAULT  '0' AFTER  `img1`;
 ALTER TABLE  `conceptnet_assertion` ADD  `imgsize1` SMALLINT NOT NULL DEFAULT  '0' AFTER  `best_frame_id`;
 ALTER TABLE  `conceptnet_assertion` ADD  `imgsize2` SMALLINT NOT NULL DEFAULT  '0' AFTER  `imgsize1`;
-ALTER TABLE  `conceptnet_assertion` ADD  `infos` VARCHAR( 255 ) NOT NULL DEFAULT  ''
+ALTER TABLE  `conceptnet_assertion` ADD  `infos` VARCHAR( 255 ) NOT NULL DEFAULT  '';
+ALTER TABLE  `emlog_images` CHANGE  `content`  `content` VARBINARY( 8000 ) NOT NULL;
+
