@@ -17,17 +17,11 @@ foreach($concepts as $value):
 
 <div class="comcont">
 &nbsp;&nbsp;
-<?php if($value['visible'] == true ): ?>
+
 <a href="<?php echo BLOG_URL; ?>?cp=<?php echo $value['id']; ?>">
 <?php echo $value['text']; ?></a>&nbsp;
 
-<?php else:?>
 
-<SPAN style="TEXT-DECORATION: line-through">
-<a href="<?php echo BLOG_URL; ?>?cp=<?php echo $value['id']; ?>">
-<?php echo $value['text']; ?></a></SPAN>&nbsp;
-
-<?php endif;?>
 (<?php echo $value['f3']; ?>)
 
 <?php echo $value['fi1'].$value['tx1']; ?>||

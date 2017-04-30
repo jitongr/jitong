@@ -13,12 +13,8 @@
     
 <div class="comcont">
 &nbsp;&nbsp;
-<?php if($pDa['visible'] == true ): ?>
+
 <?php echo $pDa['text']; ?>&nbsp;
-<?php else:?>
-<SPAN style="TEXT-DECORATION: line-through">
-<?php echo $pDa['text']; ?></SPAN>&nbsp;
-<?php endif;?>
 
 （前向<?php echo $pDa['f1']; ?>
 后向<?php echo $pDa['f2']; ?>）
@@ -31,14 +27,10 @@ foreach($concepts as $value):
 ?>
 <div class="comcont">
 &nbsp;&nbsp;<?php echo $value['aid']; ?>
-<?php if($value['visible'] == true ): ?>
+
 <a href="<?php echo BLOG_URL; ?>?cp=<?php echo $value['id']; ?>">
 <?php echo $value['text']; ?></a>&nbsp;
-<?php else:?>
-<SPAN style="TEXT-DECORATION: line-through">
-<a href="<?php echo BLOG_URL; ?>?cp=<?php echo $value['id']; ?>">
-<?php echo $value['text']; ?></a></SPAN>&nbsp;
-<?php endif;?>
+
 
 <?php echo " +".$value['best_frame_id'].' '.$value['rela'].":".$value['frame']; ?>
 </div>
@@ -51,26 +43,54 @@ foreach($concepts2 as $value):
 ?>
 <div class="comcont">
 &nbsp;&nbsp;<?php echo $value['aid']; ?>
-<?php if($value['visible'] == true ): ?>
+
 <a href="<?php echo BLOG_URL; ?>?cp=<?php echo $value['id']; ?>">
 <?php echo $value['text']; ?></a>&nbsp;
-<?php else:?>
-<SPAN style="TEXT-DECORATION: line-through">
-<a href="<?php echo BLOG_URL; ?>?cp=<?php echo $value['id']; ?>">
-<?php echo $value['text']; ?></a></SPAN>&nbsp;
-<?php endif;?>
 
 <?php echo " -".$value['best_frame_id'].' '.$value['rela'].":".$value['frame']; ?>
 </div>
 <?php endforeach; ?>
 <br>
-	<form name="addcp" method="post" action="<?php echo BLOG_URL; ?>doadd.php?action=addcp">
-    添加“<?php echo $pDa['text']; ?>”的关联概念：<br>
-    <input type="hidden" name="cp0s" value=<?php echo $pDa['text']; ?> />
-    <input type="hidden" name="cid" value=<?php echo $pDa['id']; ?> />
-    关系号：<input name="addrel"  type="text" value="" style="width:80px;"/>
-	名称：<input name="addname"  type="text" value="" style="width:120px;"/>
-	<input type="submit" id="addcpsubmit" value="添加" />
-    33：{1}会让你想要{2}。 34：{1}会让你{2}。 35：{1}之后可能会发生的事情是{2}。 36：因为{1}所以{2}。 37：{1}可能会带来{2}。 38：{1}可能会引起{2}。 40：{1}的时候，首先要{2}。 45：{1}是{2}的一部分。 46：{1}可以用{2}制成。 47：{1}由{2}组成。 50：{1}是一种{2}。 51：{1}在{2}里。 55：{1}在{2}外。 57：你可以在{2}找到{1}。 58：{2}有{1}。 60：{2}的时候可能会用到{1}。 63：{1}能做的事情有{2}。 64：{1}会{2}。 65：你会{1}因为你{2}。 66：{1}是为了{2}。 67：想要有{2}应该要{1}。 68：当你想要{2}的时候你可能会{1}。 69：{2}的时候会想要{1}。 70：{1}喜欢{2}。 71：{1}想要{2}。 72：{1}不想要{2}。 73：{1}害怕{2}。 75：{1}痛恨{2}。 79：{1}是{2}的。84：{2}可能代表{1}。 89：{1}代表{2}。 92：{1}的时候，你会{2}。 95：在{1}，你会{2}。   
-</form>
+	<form id="addcp<?php echo $valid;?>" >
+    添加
+    <input id="sch" type="radio" value="0" name="dirs" checked />
+    <label for="sch" >前向(1="<?php echo $pDa['text']; ?>")</label> 
+	<input id="sch1" type="radio" value="1" name="dirs" />
+	<label for="sch1" >反向(2="<?php echo $pDa['text']; ?>")</label> 
+	的关联概念：<br>
+	关系：
+    <select dir="ltr" name="addrel" id="darom" >
+	    <?
+	      $sql2p="select * from conceptnet_frame $dadda order by relation_id asc,n2 desc";
+	  $res=$DB->query($sql2p);
+         while($arr=$DB->fetch_array($res))
+                {
+            ?>
+   <option value="<?=$arr['id']?>" <? if($arr['id']==83) echo "selected";?>>
+         【<?=$arr['relation_id']?>】<?=$arr['text']?>(<?=$arr['n2']?>)
+        </option>
+        <?  }	?>
+	</select> 
+	</select> 分类<select name="sort" >
+	 <?php 
+	$sub[0]='默认';$sub[1]='概念';if(ROLE=='admin'){ $sub[2]='分类';}$sub[3]='记事';$sub[4]='人';$sub[5]='地方';$sub[6]='时间';
+foreach ($sub as $k=>$v) {	
+?><option value="<?=$k?>" <? if($k==$pDa['sort']) echo 'selected="selected"';?> ><?=$v?></option>	
+<?php } ?></select>
+	<? if(ROLE=='admin'):?><br>名称：<textarea name="addname" rows="4" /></textarea><? else:?>
+    名称：<input name="addname"  type="text" value="" style="width:120px;"/>
+    <? endif;?>
+     <input type="hidden" name="cruboy" value="<?php echo $pDa['cruboy']; ?>" />
+    <input type="hidden" name="cp0s" value="<?php echo $pDa['text']; ?>" />
+    <input type="hidden" name="cid" value="<?php echo $pDa['id']; ?>" />
+        <input type="hidden" name="valid" value="<?php echo $valid;?>" />
+	<a onClick=" $.ajax({
+				url:'doadd.php?action=addcp',
+				type:'POST',
+				data:$('#addcp<?php echo $valid;?>').serialize(),
+				success: function(data){
+                     alert(data);
+					}
+		});" title="添加"><img src="/m/images/tijiao.gif"></a>
+	</form>
 </div>

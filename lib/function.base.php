@@ -57,6 +57,17 @@ function htmlClean($content, $wrap=true){
 	return $content;
 }
 
+function getcptype($i){
+	$sub[0]='默认';$sub[1]='概念';
+	if(ROLE=='admin'){ $sub[2]='分类';}
+	$sub[3]='记事';$sub[4]='人';
+	$sub[5]='地方';$sub[6]='时间';
+	
+	if(!empty($i))
+	return $sub[$i];
+	else
+	return $sub;
+	}
 /**
  * 获取用户ip地址
  */
@@ -68,28 +79,7 @@ function getIp(){
 	return $ip;
 }
 
-/**
- * 获取博客地址(仅限根目录脚本使用,目前仅用于首页ajax请求)
- */
-function getBlogUrl(){
-	$phpself = isset($_SERVER['SCRIPT_NAME']) ? $_SERVER['SCRIPT_NAME'] : '';
-	if(preg_match("/^.*\//", $phpself, $matches)){
-		return 'http://'.$_SERVER['HTTP_HOST'].$matches[0];
-	}else{
-		return BLOG_URL;
-	}
-}
 
-/**
- * 检查插件
- */
-function checkPlugin($plugin) {
-    if (is_string($plugin) && preg_match("/^[\w\-\/]+\.php$/", $plugin) && file_exists(EMLOG_ROOT . '/content/plugins/' . $plugin)) {
-        return true;
-    } else {
-        return false;
-    }
-}
 
 /**
  * 验证email地址格式
@@ -218,35 +208,6 @@ function pagination($count,$perlogs,$page,$url,$anchor=''){
 	return $re;
 }
 
-/**
- * 该函数在插件中调用,挂载插件函数到预留的钩子上
- *
- * @param string $hook
- * @param string $actionFunc
- * @return boolearn
- */
-function addAction($hook, $actionFunc){
-	global $emHooks;
-	if (!@in_array($actionFunc, $emHooks[$hook])){
-		$emHooks[$hook][] = $actionFunc;
-	}
-	return true;
-}
-
-/**
- * 执行挂在钩子上的函数,支持多参数 eg:doAction('post_comment', $author, $email, $url, $comment);
- *
- * @param string $hook
- */
-function doAction($hook){
-	global $emHooks;
-	$args = array_slice(func_get_args(), 1);
-	if (isset($emHooks[$hook])){
-		foreach ($emHooks[$hook] as $function){
-			$string = call_user_func_array($function, $args);
-		}
-	}
-}
 
 /**
  * 日志分割
@@ -271,33 +232,6 @@ function rmBreak($content){
 	return $content;
 }
 
-/**
- * 时间转化函数
- *
- * @param $now
- * @param $datetemp
- * @param $dstr
- * @return string
- */
-function smartDate($datetemp, $dstr='Y-m-d H:i'){
-	$timezone = Option::get('timezone');
-	$op = '';
-	$sec = time() - $datetemp;
-	$hover = floor($sec / 3600);
-	if ($hover == 0){
-		$min = floor($sec / 60);
-		if ( $min == 0) {
-			$op = $sec.' 秒前';
-		} else {
-			$op = "$min 分钟前";
-		}
-	} elseif ($hover < 24){
-		$op = "约 {$hover} 小时前";
-	} else {
-		$op = gmdate($dstr, $datetemp + $timezone * 3600);
-	}
-	return $op;
-}
 
 /**
  * 生成一个随机的字符串
@@ -515,102 +449,7 @@ function chImageSize ($img, $max_w, $max_h){
 	return $tn ;
 }
 
-/**
- * 获取Gravatar头像
- * http://en.gravatar.com/site/implement/images/
- * @param $email
- * @param $s size
- * @param $d default avatar
- * @param $g
- */
-function getGravatar($email, $s=40, $d='mm', $g='g') {
-	$hash = md5($email);
-	$avatar = "http://www.gravatar.com/avatar/$hash?s=$s&d=$d&r=$g";
-	return $avatar;
-}
 
-/**
- * 计算时区的时差
- * @param string $remote_tz 远程时区
- * @param string $origin_tz 标准时区
- *
- */
-function getTimeZoneOffset($remote_tz, $origin_tz = 'UTC') {
-    if($origin_tz === null) {
-        if(!is_string($origin_tz = date_default_timezone_get())) {
-            return false; // A UTC timestamp was returned -- bail out!
-        }
-    }
-    $origin_dtz = new DateTimeZone($origin_tz);
-    $remote_dtz = new DateTimeZone($remote_tz);
-    $origin_dt = new DateTime('now', $origin_dtz);
-    $remote_dt = new DateTime('now', $remote_dtz);
-    $offset = $origin_dtz->getOffset($origin_dt) - $remote_dtz->getOffset($remote_dt);
-    return $offset;
-}
-
-/**
- * 将字符串转换为时区无关的UNIX时间戳
- */
-function emStrtotime($timeStr) {
-    $timezone = Option::get('timezone');
-    if ($timeStr) {
-	    $unixPostDate = @strtotime($timeStr);
-	    if ($unixPostDate === false) {
-	        return false;
-	    } else {
-            $serverTimeZone = phpversion() > '5.2' ? @date_default_timezone_get() : ini_get('date.timezone');
-            if (empty($serverTimeZone) || $serverTimeZone == 'UTC') {
-                $unixPostDate -= $timezone * 3600;
-            } else {
-                if (phpversion() > '5.2' && $serverTimeZone = date_default_timezone_get()) {
-            		/*
-            		* 如果服务器配置默认了时区，那么PHP将会把传入的时间识别为时区当地时间
-            	    * 但是我们传入的时间实际是blog配置的时区的当地时间，并不是服务器时区的当地时间
-            		* 因此，我们需要将strtotime得到的时间去掉/加上两个时区的时差，得到utc时间
-            		*/
-            		$offset = getTimeZoneOffset($serverTimeZone);
-            		// 首先减去/加上本地时区配置的时差
-            		$unixPostDate -= $timezone * 3600;
-            		// 再减去/加上服务器时区与utc的时差，得到utc时间
-            		$unixPostDate -= $offset;
-        		}
-        	}
-        }
-        return $unixPostDate;
-    } else {
-        return false;
-    }
-}
-
-/**
- * 获取指定月份的天数
- *
- * @param string $month 月份
- * @param string $year 年份
- */
-function getMonthDayNum($month, $year) {
-    switch(intval($month)){
-        case 1:
-        case 3:
-        case 5:
-        case 7:
-        case 8:
-        case 10:
-        case 12:
-            return 31;break;
-        case 2:
-            if ($year % 4 == 0) {
-                return 29;
-            } else {
-                return 28;
-            }
-            break;
-        default:
-            return 30;
-            break;
-    }
-}
 /**
  * 解压zip
  */

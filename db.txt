@@ -141,3 +141,57 @@ ALTER TABLE  `conceptnet_assertion` ADD  `imgsize2` SMALLINT NOT NULL DEFAULT  '
 ALTER TABLE  `conceptnet_assertion` ADD  `infos` VARCHAR( 255 ) NOT NULL DEFAULT  '';
 ALTER TABLE  `emlog_images` CHANGE  `content`  `content` VARBINARY( 8000 ) NOT NULL;
 
+ALTER TABLE  `jt_concept` DROP  `backimg` ,
+DROP  `backheight` ,
+DROP  `url` ,
+DROP  `num_assertions` ,
+DROP  `blogid` ,
+DROP  `visible` ,
+DROP  `cruboy` ,
+DROP  `f1` ,
+DROP  `f2` ,
+
+DROP  `uid` ;
+
+ALTER TABLE  `jt_concept` ADD  `imgsize` MEDIUMINT NOT NULL DEFAULT  '0' AFTER  `img`;
+ALTER TABLE  `jt_concept` ADD  `info` VARCHAR( 255 ) NOT NULL DEFAULT  '' AFTER  `text`;
+ALTER TABLE  `jt_concept` ADD  `sort` TINYINT NOT NULL DEFAULT  '0' AFTER  `words`
+ALTER TABLE  `jt_concept` ADD  `birth` DATE NULL DEFAULT NULL;
+ALTER TABLE  `jt_concept` ADD  `die`  DATE NULL DEFAULT NULL;
+ALTER TABLE  `jt_concept` ADD  `age` VARCHAR( 10 ) NOT NULL DEFAULT  '';
+ALTER TABLE  `jt_concept` ADD  `content` text NOT NULL ;
+
+ALTER TABLE  `jt_assertion` DROP  `score` ,
+DROP  `abid` ,
+DROP  `seq` ,
+DROP  `info` ,
+DROP  `aurl` ,
+DROP  `uid` ;
+
+ALTER TABLE  `jt_assertion` ADD  `itop1` INT NOT NULL DEFAULT  '0' AFTER  `aleft2`
+ALTER TABLE  `jt_assertion` ADD  `ileft1` INT NOT NULL DEFAULT  '0' AFTER  `itop1`;
+ALTER TABLE  `jt_assertion` ADD  `itop2` INT NOT NULL DEFAULT  '0' AFTER  `ileft1`;
+ALTER TABLE  `jt_assertion` ADD  `ileft2` INT NOT NULL DEFAULT  '0' AFTER  `itop2`;
+ALTER TABLE  `jt_assertion` ADD  `imgs1` VARCHAR( 200 ) NOT NULL DEFAULT  '' AFTER  `ileft2`
+ALTER TABLE  `jt_assertion` ADD  `imgs2` VARCHAR( 200 ) NOT NULL DEFAULT  '' AFTER  `imgs1`
+ALTER TABLE  `jt_assertion` ADD  `imgsize1` MEDIUMINT NOT NULL DEFAULT  '0' AFTER  `imgs2`;
+ALTER TABLE  `jt_assertion` ADD  `imgsize2` MEDIUMINT NOT NULL DEFAULT  '0' AFTER  `imgsize1`;
+ALTER TABLE  `jt_assertion` ADD  `infos` VARCHAR( 500 ) NOT NULL DEFAULT  '' ;
+
+ALTER TABLE  `jt_concept` ADD  `f3` INT NOT NULL DEFAULT  '0' AFTER  `sort`;
+
+UPDATE `jt_concept` A 
+INNER JOIN (SELECT  *, COUNT(*) idcount FROM jt_assertion GROUP BY concept1_id) as B
+  ON B.concept1_id= A.id
+  INNER JOIN (SELECT  *, COUNT(*) idcount2 FROM jt_assertion GROUP BY concept2_id) as C
+  ON C.concept2_id= A.id
+SET A.f3 = B.idcount+C.idcount2
+
+
+
+
+
+
+
+
+

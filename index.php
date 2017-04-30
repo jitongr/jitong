@@ -19,16 +19,16 @@ $akey = isset($_GET['aikey']) ? addslashes($_GET['aikey']) : '';
 if(isset($_GET['jitongw']))$tjts=-2;if(isset($_GET['afflicted']))$tjts=-3;
 if(isset($_GET['virgin']))$tjts=-4;if(isset($_GET['beat']))$tjts=-5;if(isset($_GET['crux']))$tjts=-6;
 if ($action == 'list'||$tjts<0) {
-	$Log_Model = new Log_Model();
+
 	$page = isset($_GET['page']) ? abs(intval ($_GET['page'])) : 1;
-	 $lognum = $Log_Model->getLogNum( $sqlSegment);//echo $lognum;
+
 	 if($tjts<0) { $sqlSegment="and sortid=$tjts ";
 	           $index_lognum=$lognum;
              }
 	$sqlSegment .= "ORDER BY top DESC ,gid DESC";
 
 	$pageurl = '?action=list&page=';
-	$logs = $Log_Model->getLogsForHome2 ($sqlSegment, $page, $index_lognum);
+
 	$page_url = pagination($lognum, $index_lognum, $page, $pageurl);
     $_SESSION['onm']=1;
 	include View::getView('head');
@@ -37,12 +37,12 @@ if ($action == 'list'||$tjts<0) {
 	View::output();
 }else
 if ($action == 'li') {
-	$Log_Model = new Log_Model();
+
 	$page = isset($_GET['page']) ? abs(intval ($_GET['page'])) : 1;
 	$sqlSegment = "ORDER BY top DESC ,edittime DESC";
-	 $lognum = $Log_Model->getLogNum();
+
 	$pageurl = '?action=li&page=';
-	$logs = $Log_Model->getLogsForHome2 ($sqlSegment, $page, $index_lognum);
+
 	$page_url = pagination($lognum, $index_lognum, $page, $pageurl);
     $_SESSION['onm']=1;
 	include View::getView('header');
@@ -64,7 +64,7 @@ if ($action == 'listjson') {
 if($action == 'xingshou')
 {
 	
-	$sql = "SELECT * FROM conceptnet_concept where cruboy <0 ";
+	$sql = "SELECT * FROM jt_concept ";
 	$res = $DB->query($sql);
 	include View::getView('header');
 	include View::getView('cruboylist');
@@ -80,17 +80,17 @@ $uid=UID;
 	$DB->query("INSERT INTO viewlogjt (method,viewid,concept,uid,sina_uid,vtime,text,loginip) VALUES (
 				'jtsearch','$vsid','0','$uid','$usersina_id','$ltime','$akey','$gip')");
 	if(empty ($akey))
-	$sql = "SELECT * FROM conceptnet_concept  order by Rand()  LIMIT 20";
+	$sql = "SELECT * FROM jt_concept  order by Rand()  LIMIT 20";
 	else
-	$sql = "SELECT * FROM conceptnet_concept WHERE text LIKE '%$akey%'order by f3 desc LIMIT 1000";
+	$sql = "SELECT * FROM jt_concept WHERE text LIKE '%$akey%'order by f3 desc LIMIT 1000";
 			$res = $DB->query($sql);
 		
 			while ($row = $DB->fetch_array($res)) {
 			
-		// $sql2 = "SELECT * FROM conceptnet_assertion WHERE concept1_id='$row[id]' or concept2_id='$row[id]' LIMIT 2";
+		// $sql2 = "SELECT * FROM jt_assertion WHERE concept1_id='$row[id]' or concept2_id='$row[id]' LIMIT 2";
 		$sql2 = "SELECT a.concept1_id,a.concept2_id,
-		a.relation_id,a.best_frame_id,conceptnet_concept.text FROM conceptnet_assertion a LEFT JOIN
-		conceptnet_concept ON a.concept2_id=conceptnet_concept.id
+		a.relation_id,a.best_frame_id,jt_concept.text FROM jt_assertion a LEFT JOIN
+		jt_concept ON a.concept2_id=jt_concept.id
 		WHERE concept1_id='$row[id]'";
 			$aDa = $DB->once_fetch_array($sql2);
 		
@@ -98,8 +98,8 @@ $uid=UID;
 	 $row[re1]=$aDa[relation_id];
 	 $row[fi1]=$aDa[best_frame_id];
 		 $sql3 = "SELECT a.concept1_id,a.concept2_id,
-		a.relation_id,a.best_frame_id,conceptnet_concept.text FROM conceptnet_assertion a LEFT JOIN
-		conceptnet_concept ON a.concept1_id=conceptnet_concept.id
+		a.relation_id,a.best_frame_id,jt_concept.text FROM jt_assertion a LEFT JOIN
+		jt_concept ON a.concept1_id=jt_concept.id
 		WHERE concept2_id='$row[id]'";
 			$aDa3 = $DB->once_fetch_array($sql3);
 		
@@ -123,7 +123,7 @@ if(empty ($action) && empty ($logid) && empty ($cpid))
 	$gip=getIp();   
 $uid=UID;
 	
-	$sql = "SELECT * FROM conceptnet_concept where cruboy <0 order by Rand()  LIMIT 10";
+	$sql = "SELECT * FROM jt_concept order by Rand()  LIMIT 10";
 
 			$res = $DB->query($sql);
 		
@@ -131,8 +131,8 @@ $uid=UID;
 			$o.=$row[id].$row[text].' ';
 		// $sql2 = "SELECT * FROM cruboy_assertion WHERE concept1_id='$row[id]' or concept2_id='$row[id]' LIMIT 2";
 		$sql2 = "SELECT a.concept1_id,a.concept2_id,
-		a.relation_id,a.best_frame_id,c.text FROM conceptnet_assertion a LEFT JOIN
-		conceptnet_concept c ON a.concept2_id=c.id
+		a.relation_id,a.best_frame_id,c.text FROM jt_assertion a LEFT JOIN
+		jt_concept c ON a.concept2_id=c.id
 		WHERE concept1_id='$row[id]' order by Rand() limit 1";
 			$aDa = $DB->once_fetch_array($sql2);
 		
@@ -140,8 +140,8 @@ $uid=UID;
 	 $row[re1]=$aDa[relation_id];
 	 $row[fi1]=$aDa[best_frame_id];
 		 $sql3 = "SELECT a.concept1_id,a.concept2_id,
-		a.relation_id,a.best_frame_id,c.text FROM conceptnet_assertion a LEFT JOIN
-		conceptnet_concept c ON a.concept1_id=c.id
+		a.relation_id,a.best_frame_id,c.text FROM jt_assertion a LEFT JOIN
+		jt_concept c ON a.concept1_id=c.id
 		WHERE concept2_id='$row[id]' order by Rand() limit 1";
 			$aDa3 = $DB->once_fetch_array($sql3);
 		
@@ -171,21 +171,21 @@ $uid=UID;
    if (ISLOGIN !== true&&(
    empty($_SESSION['oauth2']["user_id"])||empty($_SESSION['u_name']))){
   $vfr="jtunlog";
-	$sqadd="order by Rand() limit 3000";
+	$sqadd="order by Rand() limit 300";
   }else {
 	$vfr="jtview";
    $sqadd="order by a.relation_id,a.best_frame_id LIMIT 4000";
   }
-	$DB->query("UPDATE conceptnet_concept SET words=words+1 WHERE id='$cpid'");
-	$sq1 = "SELECT * FROM conceptnet_concept WHERE id='$cpid'";
+	$DB->query("UPDATE jt_concept SET words=words+1 WHERE id='$cpid'");
+	$sq1 = "SELECT * FROM jt_concept WHERE id='$cpid'";
 	$pDa = $DB->once_fetch_array($sq1);
 	
 	$hhtitle=$pDa[text];
 	$DB->query("INSERT INTO viewlogjt (method,viewid,concept,uid,sina_uid,vtime,text,loginip) VALUES (
 				'$vfr','$vsid','$cpid','$uid','$usersina_id','$ltime','$pDa[text]','$gip')");
 	$sq2 = "SELECT a.concept1_id,a.concept2_id,
-		a.relation_id,a.best_frame_id,conceptnet_concept.* FROM conceptnet_assertion a LEFT JOIN
-		conceptnet_concept ON a.concept2_id=conceptnet_concept.id
+		a.relation_id,a.best_frame_id,jt_concept.* FROM jt_assertion a LEFT JOIN
+		jt_concept ON a.concept2_id=jt_concept.id
 		WHERE concept1_id='$cpid' $sqadd";
 	$res2 = $DB->query($sq2);
 	while ($row = $DB->fetch_array($res2)) {
@@ -204,8 +204,8 @@ $uid=UID;
 			}
 	$concepts2=array();
 	$sq3 = "SELECT a.concept1_id,a.concept2_id,
-		a.relation_id,a.best_frame_id,conceptnet_concept.* FROM conceptnet_assertion a LEFT JOIN
-		conceptnet_concept ON a.concept1_id=conceptnet_concept.id
+		a.relation_id,a.best_frame_id,jt_concept.* FROM jt_assertion a LEFT JOIN
+		jt_concept ON a.concept1_id=jt_concept.id
 		WHERE concept2_id='$cpid' $sqadd";
 		$res3 = $DB->query($sq3);
 	while ($row2 = $DB->fetch_array($res3)) {
@@ -439,43 +439,6 @@ if (ISLOGIN === true && $action == 'reply') {
 	include View::getView('reply');
 	include View::getView('footer');
 	View::output();
-}
-// 碎语
-if ($action == 'tw') {
-    $Twitter_Model = new Twitter_Model();
-    $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
-  //  $user_cache = $CACHE->readCache('user');
-    $tws = $Twitter_Model->getTwitters($page);
-    $twnum = $Twitter_Model->getTwitterNum();
-    $pageurl =  pagination($twnum, 20, $page, './?action=tw&page=');
-
-	include View::getView('header');
-	include View::getView('twitter');
-	include View::getView('footer');
-	View::output();
-}
-if (ISLOGIN === true && $action == 't') {
-    $Twitter_Model = new Twitter_Model();
-
-    $t = isset($_POST['t']) ? addslashes(trim($_POST['t'])) : '';
-    if (!$t){
-        emDirect("./?action=tw");
-    }
-    $tdata = array('content' => $Twitter_Model->formatTwitter($t),
-            'author' => UID,
-            'date' => time(),
-    );
-    $Twitter_Model->addTwitter($tdata);
-    $CACHE->updateCache(array('sta','newtw'));
-    doAction('post_twitter', $t);
-    emDirect("./?action=tw");
-}
-if (ISLOGIN === true && $action == 'delt') {
-    $Twitter_Model = new Twitter_Model();
-    $id = isset($_GET['id']) ? intval($_GET['id']) : '';
-	$Twitter_Model->delTwitter($id);
-	$CACHE->updateCache(array('sta','newtw'));
-	emDirect("./?action=tw");
 }
 if ($action == 'login' ||$action == 'reg' ) {
 
