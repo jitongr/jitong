@@ -19,7 +19,7 @@ foreach($concepts as $value):
 &nbsp;&nbsp;
 
 <a href="<?php echo BLOG_URL; ?>?cp=<?php echo $value['id']; ?>">
-<?php echo $value['text']; ?></a>&nbsp;
+<?php echo $value['text']; ?></a>&nbsp;<?php echo $value['info']; ?>
 
 
 (<?php echo $value['f3']; ?>)

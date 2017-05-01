@@ -10,10 +10,10 @@ define ('TEMPLATE_PATH', EMLOG_ROOT . '/view/');
 
 $isgzipenable = 'n'; //手机浏览关闭gzip压缩
 $index_lognum = 10;
-
+$seid=session_id();
 $logid = isset ($_GET['post']) ? intval ($_GET['post']) : '';
 $action = isset($_GET['action']) ? addslashes($_GET['action']) : '';
-$cpid = isset ($_GET['cp']) ? intval ($_GET['cp']) : '';
+$cpid = isset ($_GET['cp']) ? intval ($_GET['cp']) : intval ($_GET['cpp']) ;
 $akey = isset($_GET['aikey']) ? addslashes($_GET['aikey']) : '';
 // 首页
 if(isset($_GET['jitongw']))$tjts=-2;if(isset($_GET['afflicted']))$tjts=-3;
@@ -50,17 +50,6 @@ if ($action == 'li') {
 	include View::getView('footer');
 	View::output();
 }else
-if ($action == 'listjson') {
-	$Log_Model = new Log_Model();
-	$page = isset($_GET['page']) ? abs(intval ($_GET['page'])) : 1;
-	$sqlSegment = "ORDER BY top DESC ,date DESC";
-	$lognum = $Log_Model->getLogNum();
-	$pageurl = '?page=';
-	$logs = $Log_Model->getLogsForHome ($sqlSegment, $page, $index_lognum);
-	$page_url = pagination($lognum, $index_lognum, $page, $pageurl);
-   echo json_encode($logs);
-    exit;
-}else
 if($action == 'xingshou')
 {
 	
@@ -77,8 +66,8 @@ if (isset($_GET['aikey']) ) {
 		$ltime = date('Y-m-d H:i:s');
 		$gip=getIp();   
 $uid=UID;
-	$DB->query("INSERT INTO viewlogjt (method,viewid,concept,uid,sina_uid,vtime,text,loginip) VALUES (
-				'jtsearch','$vsid','0','$uid','$usersina_id','$ltime','$akey','$gip')");
+	$DB->query("INSERT INTO viewlogjt (method,viewid,concept,uid,seid,vtime,text,loginip) VALUES (
+				'jtsearch','$vsid','0','$uid','$seid','$ltime','$akey','$gip')");
 	if(empty ($akey))
 	$sql = "SELECT * FROM jt_concept  order by Rand()  LIMIT 20";
 	else
@@ -150,26 +139,25 @@ $uid=UID;
 	 $row[fi2]=$aDa3[best_frame_id];
 	$concepts[]=$row;
 		}
-		$DB->query("INSERT INTO viewlogjt (method,viewid,concept,uid,sina_uid,vtime,text,loginip) VALUES (
-				'jthome','$vsid','0','$uid','$usersina_id','$ltime','$o','$gip')");
+		$DB->query("INSERT INTO viewlogjt (method,viewid,concept,uid,seid,vtime,text,loginip) VALUES (
+				'jthome','$vsid','0','$uid','$seid','$ltime','$o','$gip')");
     include View::getView('header');
 	include View::getView('cruboy');
 	include View::getView('footer');
 	View::output();
 }
 //////内容页
-if (!empty ($cpid) ) 
-{$usersina_id= intval($_SESSION['oauth2']["user_id"]);
-	$DB = MySql::getInstance();
+if (!empty ($cpid) ) {
+$DB = MySql::getInstance();
 $concepts=array();
 $logs1=array();
 $atitle="";
 $gip=getIp();   
 $uid=UID;
-		$vsid=intval($_SESSION['views']);
+	$vsid=intval($_SESSION['views']);
+	
 	$ltime = date('Y-m-d H:i:s');
-   if (ISLOGIN !== true&&(
-   empty($_SESSION['oauth2']["user_id"])||empty($_SESSION['u_name']))){
+   if (ISLOGIN !== true && empty($_SESSION['u_name'])){
   $vfr="jtunlog";
 	$sqadd="order by Rand() limit 300";
   }else {
@@ -181,29 +169,30 @@ $uid=UID;
 	$pDa = $DB->once_fetch_array($sq1);
 	
 	$hhtitle=$pDa[text];
-	$DB->query("INSERT INTO viewlogjt (method,viewid,concept,uid,sina_uid,vtime,text,loginip) VALUES (
-				'$vfr','$vsid','$cpid','$uid','$usersina_id','$ltime','$pDa[text]','$gip')");
-	$sq2 = "SELECT a.concept1_id,a.concept2_id,
+	$DB->query("INSERT INTO viewlogjt (method,viewid,concept,uid,seid,vtime,text,loginip) VALUES (
+				'$vfr','$vsid','$cpid','$uid','$seid','$ltime','$pDa[text]','$gip')");
+				
+	$sq2 = "SELECT a.concept1_id,a.concept2_id,a.infos,a.id as aid,
 		a.relation_id,a.best_frame_id,jt_concept.* FROM jt_assertion a LEFT JOIN
 		jt_concept ON a.concept2_id=jt_concept.id
 		WHERE concept1_id='$cpid' $sqadd";
 	$res2 = $DB->query($sq2);
 	while ($row = $DB->fetch_array($res2)) {
-			if($row[best_frame_id]>0){		
+			if($row['best_frame_id']>0){		
 			$sqqq1="SELECT text FROM conceptnet_frame WHERE id='$row[best_frame_id]'";
 			$qDq = $DB->once_fetch_array($sqqq1);
-			$ss=str_replace("1",$pDa[text],$qDq[text]);
-			$ss=str_replace("2",$row[text],$ss);
-			$row[frame]=$ss;
+			$ss=str_replace("1",$pDa['text'],$qDq['text']);
+			$ss=str_replace("2",$row['text'],$ss);
+			$row['frame']=$ss;
 			}
 			$sqqq2="SELECT name FROM conceptnet_relation WHERE id='$row[relation_id]'";
 			 $qDq2 = $DB->once_fetch_array($sqqq2);
-			 $row[rela]=$qDq2[name];
+			 $row['rela']=$qDq2['name'];
 			 
 			$concepts[]=$row;
 			}
 	$concepts2=array();
-	$sq3 = "SELECT a.concept1_id,a.concept2_id,
+	$sq3 = "SELECT a.concept1_id,a.concept2_id,a.infos,a.id as aid,
 		a.relation_id,a.best_frame_id,jt_concept.* FROM jt_assertion a LEFT JOIN
 		jt_concept ON a.concept1_id=jt_concept.id
 		WHERE concept2_id='$cpid' $sqadd";

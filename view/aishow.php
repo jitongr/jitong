@@ -14,12 +14,13 @@
 <div class="comcont">
 &nbsp;&nbsp;
 
-<?php echo $pDa['text']; ?>&nbsp;
-
-（前向<?php echo $pDa['f1']; ?>
-后向<?php echo $pDa['f2']; ?>）
- 查看<?php echo $pDa['words']; ?>
-
+<?php echo $pDa['text']; ?>&nbsp;<?php echo $pDa['info']; ?>
+<img src="/m/images/fav.gif" title="<?php echo $value['id'] ?>">
+<?php echo $pDa['words']; ?>
+ <? if($pDa['age']){ ?> <img src="/m/images/hug.gif" ><? }?><?php echo $pDa['birth'].'-'.$pDa['die']; ?><?php echo $pDa['age']; ?>
+ 关联<?php echo $pDa['f3']; ?><br>
+ <? if($pDa['img']){ ?> <img src="<?=$pDa['img']?>"> <br><? }?>
+<?php echo $pDa['content']; ?>
 </div>   
 =======================================<br>
 	<?php 
@@ -29,7 +30,7 @@ foreach($concepts as $value):
 &nbsp;&nbsp;<?php echo $value['aid']; ?>
 
 <a href="<?php echo BLOG_URL; ?>?cp=<?php echo $value['id']; ?>">
-<?php echo $value['text']; ?></a>&nbsp;
+<?php echo $value['text']; ?></a>&nbsp;<?php echo $value['infos']; ?>
 
 
 <?php echo " +".$value['best_frame_id'].' '.$value['rela'].":".$value['frame']; ?>
@@ -45,7 +46,7 @@ foreach($concepts2 as $value):
 &nbsp;&nbsp;<?php echo $value['aid']; ?>
 
 <a href="<?php echo BLOG_URL; ?>?cp=<?php echo $value['id']; ?>">
-<?php echo $value['text']; ?></a>&nbsp;
+<?php echo $value['text']; ?></a>&nbsp;<?php echo $value['infos']; ?>
 
 <?php echo " -".$value['best_frame_id'].' '.$value['rela'].":".$value['frame']; ?>
 </div>

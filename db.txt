@@ -187,7 +187,7 @@ INNER JOIN (SELECT  *, COUNT(*) idcount FROM jt_assertion GROUP BY concept1_id) 
   ON C.concept2_id= A.id
 SET A.f3 = B.idcount+C.idcount2
 
-
+ALTER TABLE  `viewlogjt` ADD  `seid` VARCHAR( 40 ) NOT NULL DEFAULT  ''
 
 
 
