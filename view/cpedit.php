@@ -36,7 +36,7 @@ function ax(id){
 		//alert(theid);
 	}else{
  art.dialog.open("docp.php?m=a&cp=<?=$cpid?>&editid="+id, { 
- follow: document.getElementById('th'+id),width: 350, height: 300,
+ follow: document.getElementById('th'+id),width: 600, height: 650,
  title:"<?=$pDa['text']; ?>--"+document.getElementById('th'+id).innerText+' '+id});	
 	}
 }
@@ -49,7 +49,7 @@ function axx(id){
 		//alert(theid);
 	}else{
  art.dialog.open("docp.php?m=i&cp=<?=$cpid?>&editid="+id, { 
- follow: document.getElementById('th'+id),width: 350, height: 300,
+ follow: document.getElementById('th'+id),width: 600, height: 650,
  title:"<?=$pDa['text']; ?>--"+document.getElementById('th'+id).innerText+' '+id});	
 	}
 }
@@ -83,7 +83,7 @@ onmousemove="cnvs_getCoordinates(event)"  >
 <?php if($pDa['img'] !='' && $pDa['imgsize'] !=-1 ){ ?>
 <div class="ui-widget-content" 
 style="cursor:pointer;position:absolute;top:<?=$pDa['ctop']?>px;left:<?=$pDa['cleft']?>px;" id='ftti3'>
-<img style="border:0px;" src="<?=$pDa['img']?>" title="<?=$pDa['text']?>" onClick="axx(3)"></div>
+<img style="border:0px;<? if($pDa['imgsize']>0)echo "width:".$pDa['imgsize']."px;"?>" src="<?=$pDa['img']?>" title="<?=$pDa['text']?>" onClick="axx(3)"></div>
 <?php } ?>
 <div class="ui-widget-content" >
 <a onClick="ax(<?=$pDa['id']?>3)">☆</a><span id='th<?=$pDa['id']?>3'><?php echo $pDa['text']; ?>&nbsp;<?php echo $pDa['info']; ?></span>
@@ -92,13 +92,13 @@ style="cursor:pointer;position:absolute;top:<?=$pDa['ctop']?>px;left:<?=$pDa['cl
  [<?php echo getcptype($pDa['sort']); ?>]
  <img src="/m/images/fav.gif" title="查看次数"><?php echo $pDa['words']; ?> 
 
- <a href="/?cp=<?=$pDa['id']?>">列表</a>
+ <a href="/jitong/?cp=<?=$pDa['id']?>">列表</a>
  <a href="jt.php?id=<?=$pDa['id']?>">预览</a>
 
 <span onclick='ch()' id='thech' style='cursor:pointer;' title='点击切换'>【编辑内容】</span>
 <span  id='theleft'></span>&nbsp;<span id='thetop'></span>
 </div>
-<br><br><div style="width:400px"><?php echo $pDa['content']; ?></div>
+<br><br><div style="width:500px"><?php echo $pDa['content']; ?></div>
 <?php 
 foreach($concepts as $k=>$value){
 ?>
@@ -142,14 +142,14 @@ $value['atop']=$value['atop']==0?$mtop+=20:$value['atop'];
 	关系：
     <select dir="ltr" name="addrel" id="darom" >
            <?
-		   if(ROLE!='admin') $dadda="where n1>0";
+		   if(ROLE!='admin') $dadda="where n2>0";
       $sql2p="select * from conceptnet_frame $dadda order by relation_id asc,n1 desc";
 	  $res=$DB->query($sql2p);
          while($arr=$DB->fetch_array($res))
                 {
             ?>
    <option value="<?=$arr['id']?>" <? if($arr['id']==83) echo "selected";?>>
-         【<?=$arr['relation_id']?>】<?=$arr['text']?>(<?=$arr['n1']?>)
+         【<?=$arr['relation_id']?>】<?=$arr['text']?>(<?=$arr['n2']?>)
         </option>
         <?  }	?>
 	</select> 分类<select name="sort" >
@@ -162,11 +162,10 @@ foreach (getcptype() as $k=>$v) {
     名称：<input name="addname"  type="text" value="" style="width:120px;" />
     <? endif;?>
     <input type="hidden" name="cp0s" value="<?php echo $pDa['text']; ?>" />
-      <input type="hidden" name="cruboy" value="<?php echo $pDa['cruboy']; ?>" />
-    <input type="hidden" name="cid" value="<?php echo $cpidd; ?>" />
+    <input type="hidden" name="cid" value="<?php echo $cpid; ?>" />
         <input type="hidden" name="valid" value="<?php echo $valid;?>" /><br>
 	<div style="width:500px;text-align:center;"><a onClick=" $.ajax({
-				url:'<?php echo BLOG_URL; ?>m/doadd.php?action=addcp',
+				url:'/jitong/doadd.php?action=addcp',
 				type:'POST',
 				data:$('#addcp<?php echo $valid;?>').serialize(),
 				success: function(data){

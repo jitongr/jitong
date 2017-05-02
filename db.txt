@@ -206,3 +206,5 @@ CREATE TABLE IF NOT EXISTS `jt_vasslog` (
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 
 
+ALTER TABLE  `jt_concept` CHANGE  `birth`  `birth` VARCHAR( 20 ) NOT NULL DEFAULT  ''
+ALTER TABLE  `jt_concept` CHANGE  `die`  `die` VARCHAR( 20 ) NOT NULL DEFAULT  ''

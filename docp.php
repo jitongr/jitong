@@ -35,7 +35,7 @@ if(isset($_GET['ecdid'])){
 	$_POST['imgsize']=intval($_POST['imgsize']);
 $sq1="SELECT * FROM  ".$tabf."_concept WHERE id='$id'";
 	$pDa=$DB->once_fetch_array($sq1);
-	  
+	  $pDa['content']=addslashes($pDa['content']);
 $DB->query("INSERT INTO jt_vasslog (cpid,rid,method,edate,uid,content,ip,seid) VALUES (
 				$id,0,'editcp','$rtime','$uid','".serialize($pDa)."','$gip','".session_id()."')");
 	$_POST['edittime']=$ltime;
@@ -53,9 +53,13 @@ $DB->query("INSERT INTO jt_vasslog (cpid,rid,method,edate,uid,content,ip,seid) V
 elseif(isset($_GET['aid'])){
 //print_r($_POST);
 		$id=intval($_GET['aid']);
-$sq1="SELECT * FROM  ".$tabf."_assertion WHERE id='$id'";
+$sq1="SELECT * FROM  ".$tabf."_frame WHERE id='$id'";
 	$pDa=$DB->once_fetch_array($sq1);
-
+if($pDa['best_frame_id']!=($_POST['best_frame_id'])){
+	$sqqq2="SELECT * FROM conceptnet_relation WHERE id='".$_POST['best_frame_id']."'";
+	$pDad=$DB->once_fetch_array($sqqq2);
+	$_POST['relation_id']=$pDad['relation_id'];
+}
 	
 $DB->query("INSERT INTO jt_vasslog (cpid,rid,method,edate,uid,content,ip,seid) VALUES (
 				0,$id,'editass','$rtime','$uid','".serialize($pDa)."','$gip','".session_id()."')");

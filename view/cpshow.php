@@ -21,7 +21,7 @@ $mtop=60;
 <?php if($pDa['img'] !='' &&$pDa['imgsize'] !=-1 ){ ?>
 <div class="ui-widget-content" 
 style="top:<?=$pDa['ctop']?>px;left:<?=$pDa['cleft']?>px;">
-<img style="border:0px;" src="<?=$pDa['img']?>" title="<?=$pDa['text']?>"></div>
+<img style="border:0px;<? if($pDa['imgsize']>0)echo "width:".$pDa['imgsize']."px;"?>" src="<?=$pDa['img']?>" title="<?=$pDa['text']?>"></div>
 <?php } ?>
 <div class="ui-widget-content" >
 ☆<span ><?php echo $pDa['text']; ?>&nbsp;<?php echo $pDa['info']; ?></span>
@@ -30,11 +30,11 @@ style="top:<?=$pDa['ctop']?>px;left:<?=$pDa['cleft']?>px;">
  [<?php echo getcptype($pDa['sort']); ?>]
  <img src="/m/images/fav.gif" title="查看次数"><?php echo $pDa['words']; ?> 
 
- <a href="/?cp=<?=$pDa['id']?>">列表</a>
+ <a href="/jitong/?cp=<?=$pDa['id']?>">列表</a>
  <?php if(ISLOGIN === true):?>
  <a href="jt.php?cp=<?=$pDa['id']?>">编辑</a><? endif;?>
 </div> 
-<br><br><div style="width:400px"><?php echo $pDa['content']; ?></div>
+<br><br><div style="width:500px"><?php echo $pDa['content']; ?></div>
 <?php 
 foreach($concepts as $k=>$value){
 ?>

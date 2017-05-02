@@ -54,6 +54,7 @@ foreach($concepts2 as $value):
 </div>
 <?php endforeach; ?>
 <br>
+<script type="text/javascript" src="/content/js/jquery-1.8.2.min.js"></script>
 	<form id="addcp<?php echo $valid;?>" >
     添加
     <input id="sch" type="radio" value="0" name="dirs" checked />
@@ -76,14 +77,14 @@ foreach($concepts2 as $value):
 	</select> 
 	</select> 分类<select name="sort" >
 	 <?php 
-	$sub[0]='默认';$sub[1]='概念';if(ROLE=='admin'){ $sub[2]='分类';}$sub[3]='记事';$sub[4]='人';$sub[5]='地方';$sub[6]='时间';
-foreach ($sub as $k=>$v) {	
+ 
+foreach (getcptype() as $k=>$v) {	
 ?><option value="<?=$k?>" <? if($k==$pDa['sort']) echo 'selected="selected"';?> ><?=$v?></option>	
 <?php } ?></select>
 	<? if(ROLE=='admin'):?><br>名称：<textarea name="addname" rows="4" /></textarea><? else:?>
     名称：<input name="addname"  type="text" value="" style="width:120px;"/>
     <? endif;?>
-     <input type="hidden" name="cruboy" value="<?php echo $pDa['cruboy']; ?>" />
+   
     <input type="hidden" name="cp0s" value="<?php echo $pDa['text']; ?>" />
     <input type="hidden" name="cid" value="<?php echo $pDa['id']; ?>" />
         <input type="hidden" name="valid" value="<?php echo $valid;?>" />

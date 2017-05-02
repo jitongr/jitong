@@ -7,7 +7,7 @@
 require_once 'init.php';
 
 define ('TEMPLATE_PATH', EMLOG_ROOT . '/view/');
-$acidd =intval($_POST['cid']);
+$acid =intval($_POST['cid']);
 if ($acidd>0&&ISLOGIN !== true){
 echo "非法访问！请先登录！";
 exit;
@@ -15,33 +15,20 @@ exit;
 $action = isset($_GET['action']) ? addslashes($_GET['action']) : '';
 $gip=getIp();   
 $uid=UID;
-$usersina_id= intval($_SESSION['oauth2']["user_id"]);
+
 	$DB = MySql::getInstance();
 
 
 if($action == 'addcp')
 {
 
-if($acidd>0) {
-	$tabf="conceptnet";
-		$vfrom="ladd";
-		$acid=$acidd;
-}
-elseif($acidd<0){
-	$tabf="cruboy";
-		$vfrom="lcru";
-		$acid=-$acidd;
-}else
+	$tabf="jt";
+
+if($acid==0)
    mMsg('错误', '-1');
+   
 $ltime = time();
-if($_POST['addrel']=="#"){
-$arlo =intval($_POST['addname']);
-if($arlo==0)mMsg('关联log号不能为空', '-1');
-$DB->query("INSERT INTO viewlog (method,viewid,concept,uid,sina_uid,date,text,loginip) VALUES (
-				'$vfrom','$vsid','$acidd','$uid','$usersina_id','$ltime','$arlo','$gip')");
-	$DB->query("UPDATE ".$tabf."_concept SET logid='$arlo' WHERE id='$acid'");
-mMsg('log操作成功！', '-1');	
-}else
+
 $ar =intval($_POST['addrel']);
 if($ar==0)
 mMsg('关系号不能为空', '-1');
@@ -64,22 +51,22 @@ if($hid==$acid) mMsg("重复".$hid, '-1');
 $cpaddid=-$hid;
 }
 else{
-	    $DB->query("INSERT INTO ".$tabf."_concept (text,edittime,visible) VALUES ('$addname',$ltime,'1' )");
+	    $DB->query("INSERT INTO ".$tabf."_concept (text,edittime) VALUES ('$addname',$ltime )");
 		$hid = $DB->insert_id();
 		$cpaddid=$hid;
 //mMsg('ok add'.$hid, '-1');
 }
 if($ar>0)
 {
-	$DB->query("UPDATE ".$tabf."_concept SET f1=f1+1,f3=f3+1 WHERE id='$acid'");
-$DB->query("UPDATE ".$tabf."_concept SET f2=f2+1,f3=f3+1 WHERE id='$hid'");
+	$DB->query("UPDATE ".$tabf."_concept SET f3=f3+1 WHERE id='$acid'");
+$DB->query("UPDATE ".$tabf."_concept SET f3=f3+1 WHERE id='$hid'");
 $sq2 = "WHERE concept1_id='$acid' AND concept2_id='$hid' ";
 $sq3 = "INSERT INTO ".$tabf."_assertion (concept1_id,concept2_id,edittime,relation_id";
 }
 else
 {
-$DB->query("UPDATE ".$tabf."_concept SET f2=f2+1,f3=f3+1 WHERE id='$acid'");
-$DB->query("UPDATE ".$tabf."_concept SET f1=f1+1,f3=f3+1 WHERE id='$hid'");
+$DB->query("UPDATE ".$tabf."_concept SET f3=f3+1 WHERE id='$acid'");
+$DB->query("UPDATE ".$tabf."_concept SET f3=f3+1 WHERE id='$hid'");
 $ar=-$ar;
 $sq2 = "WHERE concept2_id='$acid' AND concept1_id='$hid' ";
 $sq3 = "INSERT INTO ".$tabf."_assertion (concept2_id,concept1_id,edittime,relation_id";
@@ -113,12 +100,12 @@ $rid = $DB->insert_id();
 
 }
 
-$sst=date('Y-m-d H:i:s', $ltime);
-	$vsid=intval($_SESSION['views']);
-$DB->query("INSERT INTO vaddlog (viewid,cp0,cp0id,rid,cpadd,cpaddid,relation,
-     uid,sina_uid,date,dates,loginip) VALUES (
-		'$vsid','$cp0s','$acidd','$arrr','$addname','$cpaddid','$rid',
-		'$uid','$usersina_id','$ltime','$sst','$gip')");
+//$sst=date('Y-m-d H:i:s', $ltime);
+	//$vsid=intval($_SESSION['views']);
+//$DB->query("INSERT INTO jt_vaddlog (viewid,cp0,cp0id,rid,cpadd,cpaddid,relation,
+   //  uid,date,dates,loginip) VALUES (
+	//	'$vsid','$cp0s','$acidd','$arrr','$addname','$cpaddid','$rid',
+	//	'$uid','','$ltime','$sst','$gip')");
 
 mMsg('添加成功！'.$pp.$hid, $turl."?cp=".$acid);
 
