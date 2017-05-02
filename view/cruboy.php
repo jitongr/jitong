@@ -21,12 +21,12 @@ foreach($concepts as $value):
 
 <div class="comcont">
 &nbsp;&nbsp;
-
+<? if($value['img']){ ?><img src="/m/images/image_s.gif"><? }?>
 <a href="<?php echo BLOG_URL; ?>?cp=<?php echo $value['id']; ?>">
-<?php echo $value['text']; ?></a>&nbsp;
+<?php echo $value['text']; ?>&nbsp;<?php echo $value['info'];?></a>
 
 
-：<?php echo $value['f3']; ?>
+<a href="jt.php?id=<?=$value['id']?>">#</a><?php echo $value['f3']; ?>
 ：c:<?php echo $value['num_assertions']; ?>
 <?php echo "-->".$value['re1'].".".$value['fi1'].$value['tx1']; ?>||
 <?php echo "<--".$value['re2'].".".$value['fi2'].$value['tx2']; ?>

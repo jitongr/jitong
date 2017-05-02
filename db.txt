@@ -189,9 +189,9 @@ SET A.f3 = B.idcount+C.idcount2
 
 ALTER TABLE  `viewlogjt` ADD  `seid` VARCHAR( 40 ) NOT NULL DEFAULT  ''
 
-
-
-
+ALTER TABLE  `viewlog` DROP  `sina_uid`;
+ALTER TABLE  `viewlogjt` DROP  `sina_uid`;
+ALTER TABLE  `viewlog` ADD  `seid` VARCHAR( 50 ) NOT NULL DEFAULT  ''
 
 
 

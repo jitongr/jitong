@@ -13,7 +13,7 @@ $index_lognum = 10;
 $seid=session_id();
 $logid = isset ($_GET['post']) ? intval ($_GET['post']) : '';
 $action = isset($_GET['action']) ? addslashes($_GET['action']) : '';
-$cpid = isset ($_GET['cp']) ? intval ($_GET['cp']) : intval ($_GET['cpp']) ;
+$cpid = intval ($_GET['cp'])  ;
 $akey = isset($_GET['aikey']) ? addslashes($_GET['aikey']) : '';
 // 首页
 if(isset($_GET['jitongw']))$tjts=-2;if(isset($_GET['afflicted']))$tjts=-3;
@@ -66,17 +66,16 @@ if (isset($_GET['aikey']) ) {
 		$ltime = date('Y-m-d H:i:s');
 		$gip=getIp();   
 $uid=UID;
-	$DB->query("INSERT INTO viewlogjt (method,viewid,concept,uid,seid,vtime,text,loginip) VALUES (
-				'jtsearch','$vsid','0','$uid','$seid','$ltime','$akey','$gip')");
+	
 	if(empty ($akey))
-	$sql = "SELECT * FROM jt_concept  order by Rand()  LIMIT 20";
+	$sql = "SELECT * FROM jt_concept  order by Rand()  LIMIT 10";
 	else
-	$sql = "SELECT * FROM jt_concept WHERE text LIKE '%$akey%'order by f3 desc LIMIT 1000";
+	$sql = "SELECT * FROM jt_concept WHERE text LIKE '%$akey%' or info LIKE '%$akey%' order by f3 desc LIMIT 1000";
 			$res = $DB->query($sql);
 		
 			while ($row = $DB->fetch_array($res)) {
-			
-		// $sql2 = "SELECT * FROM jt_assertion WHERE concept1_id='$row[id]' or concept2_id='$row[id]' LIMIT 2";
+			$o.=$row['id'].$row[text].' ';
+		 
 		$sql2 = "SELECT a.concept1_id,a.concept2_id,
 		a.relation_id,a.best_frame_id,jt_concept.text FROM jt_assertion a LEFT JOIN
 		jt_concept ON a.concept2_id=jt_concept.id
@@ -97,6 +96,12 @@ $uid=UID;
 	 $row[fi2]=$aDa3[best_frame_id];
 	$concepts[]=$row;
 		}
+		if(($akey))
+		$DB->query("INSERT INTO viewlogjt (method,viewid,concept,uid,seid,vtime,text,loginip) VALUES (
+				'jtsearch','$vsid','0','$uid','$seid','$ltime','$akey','$gip')");
+		else
+	$DB->query("INSERT INTO viewlogjt (method,viewid,concept,uid,seid,vtime,text,loginip) VALUES (
+				'jtse','$vsid','0','$uid','$seid','$ltime','$o','$gip')");	
 		$hhtitle=$akey;
     include View::getView('header');
 	include View::getView('ailist');
@@ -111,13 +116,21 @@ if(empty ($action) && empty ($logid) && empty ($cpid))
 		$ltime = date('Y-m-d H:i:s');
 	$gip=getIp();   
 $uid=UID;
-	
-	$sql = "SELECT * FROM jt_concept order by Rand()  LIMIT 10";
 
-			$res = $DB->query($sql);
-		
+	if(empty($_SESSION['thejts'])){
+	$sql = "SELECT * FROM jt_concept order by Rand()  LIMIT 10";
+	$res = $DB->query($sql);
+$t='';
+while ($row = $DB->fetch_array($res)) {
+$t.=$row['id'].',';
+$_SESSION['thejts']=$t.'0';
+}
+echo $_SESSION['thejts'];
+	} 
+	$sql = "SELECT * FROM jt_concept where id in(".$_SESSION['thejts'].")";
+	$res = $DB->query($sql);
 			while ($row = $DB->fetch_array($res)) {
-			$o.=$row[id].$row[text].' ';
+			$o.=$row['id'].$row[text].' ';
 		// $sql2 = "SELECT * FROM cruboy_assertion WHERE concept1_id='$row[id]' or concept2_id='$row[id]' LIMIT 2";
 		$sql2 = "SELECT a.concept1_id,a.concept2_id,
 		a.relation_id,a.best_frame_id,c.text FROM jt_assertion a LEFT JOIN
@@ -139,7 +152,7 @@ $uid=UID;
 	 $row[fi2]=$aDa3[best_frame_id];
 	$concepts[]=$row;
 		}
-		$DB->query("INSERT INTO viewlogjt (method,viewid,concept,uid,seid,vtime,text,loginip) VALUES (
+	if($t)	$DB->query("INSERT INTO viewlogjt (method,viewid,concept,uid,seid,vtime,text,loginip) VALUES (
 				'jthome','$vsid','0','$uid','$seid','$ltime','$o','$gip')");
     include View::getView('header');
 	include View::getView('cruboy');

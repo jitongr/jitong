@@ -17,11 +17,11 @@ foreach($concepts as $value):
 
 <div class="comcont">
 &nbsp;&nbsp;
-
+<? if($value['img']){ ?><img src="/m/images/image_s.gif"><? }?>
 <a href="<?php echo BLOG_URL; ?>?cp=<?php echo $value['id']; ?>">
-<?php echo $value['text']; ?></a>&nbsp;<?php echo $value['info']; ?>
+<?php echo $value['text']; ?>&nbsp;<?php echo $value['info']; ?></a>
 
-
+<a href="jt.php?id=<?=$value['id']?>">#</a>
 (<?php echo $value['f3']; ?>)
 
 <?php echo $value['fi1'].$value['tx1']; ?>||
