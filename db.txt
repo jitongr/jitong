@@ -193,5 +193,16 @@ ALTER TABLE  `viewlog` DROP  `sina_uid`;
 ALTER TABLE  `viewlogjt` DROP  `sina_uid`;
 ALTER TABLE  `viewlog` ADD  `seid` VARCHAR( 50 ) NOT NULL DEFAULT  ''
 
-
+CREATE TABLE IF NOT EXISTS `jt_vasslog` (
+  `id` int(11) NOT NULL auto_increment,
+  `cpid` int(11) NOT NULL default '0',
+  `rid` int(11) NOT NULL default '0',
+  `method` varchar(10) NOT NULL default '',
+  `edate` datetime NOT NULL,
+  `uid` int(11) NOT NULL default '0',
+  `content` text NOT NULL,
+  `ip` varchar(128) NOT NULL default '',
+  `seid` varchar(100) NOT NULL default '',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 
 

@@ -18,7 +18,9 @@
 <img src="/m/images/fav.gif" title="<?php echo $value['id'] ?>">
 <?php echo $pDa['words']; ?>
  <? if($pDa['age']){ ?> <img src="/m/images/hug.gif" ><? }?><?php echo $pDa['birth'].'-'.$pDa['die']; ?><?php echo $pDa['age']; ?>
- 关联<?php echo $pDa['f3']; ?><br>
+<img src="/m/images/os2.gif" title="关联数"><?php echo $pDa['f3']; ?>
+  <a href="jt.php?id=<?=$pDa['id']?>">预览</a>
+ <a href="jt.php?cp=<?=$pDa['id']?>">编辑</a><br>
  <? if($pDa['img']){ ?> <img src="<?=$pDa['img']?>"> <br><? }?>
 <?php echo $pDa['content']; ?>
 </div>   

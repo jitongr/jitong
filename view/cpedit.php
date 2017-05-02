@@ -1,10 +1,8 @@
 <?php if(!defined('EMLOG_ROOT')) {exit('error!');}
-if($pDa['imgsize'] !=-1)
-$backimg="/jt/imgs/bgo.jpg";
+if($pDa['img']!=''&&$pDa['imgsize']==-1)
+$backimg=$pDa['img'];
 else{
-	$sq1 = "SELECT * FROM  emlog_attachment WHERE aid=".$pDa['imgid'];
-	$pa = $DB->once_fetch_array($sq1);
-	$backimg=$pa['filepath'];
+	$backimg="/jt/imgs/bgo.jpg";
 	}
 $mtop=70;
 $fts=array("方正兰亭超细黑简体", "方正舒体", "方正姚体", "仿宋", "汉仪家书简", "汉仪楷体简", "汉仪太极体简", "汉仪娃娃篆简", "汉仪丫丫体简","汉仪丫丫体简", "仿宋", "汉仪家书简", "汉仪楷体简", "汉仪太极体简", "汉仪娃娃篆简", "汉仪丫丫体简", "黑体", "华文彩云", "华文仿宋", "华文行楷", "华文细黑", "华文新魏", "华文中宋", "经典综艺体简", "楷体", "隶书", "宋体", "微软雅黑", "新宋体", "幼圆", "华康娃娃体W5", "华康娃娃体W5", "华康娃娃体W5", "华康娃娃体W5(P)", "華康少女文字W6", "華康娃娃體(P)", "華康娃娃體", );
@@ -37,7 +35,7 @@ function ax(id){
 		theid=id;
 		//alert(theid);
 	}else{
- art.dialog.open("docp.php?m=a&cp=<?=$cpidd?>&editid="+id, { 
+ art.dialog.open("docp.php?m=a&cp=<?=$cpid?>&editid="+id, { 
  follow: document.getElementById('th'+id),width: 350, height: 300,
  title:"<?=$pDa['text']; ?>--"+document.getElementById('th'+id).innerText+' '+id});	
 	}
@@ -50,7 +48,7 @@ function axx(id){
 		theiid=id;
 		//alert(theid);
 	}else{
- art.dialog.open("docp.php?m=i&cp=<?=$cpidd?>&editid="+id, { 
+ art.dialog.open("docp.php?m=i&cp=<?=$cpid?>&editid="+id, { 
  follow: document.getElementById('th'+id),width: 350, height: 300,
  title:"<?=$pDa['text']; ?>--"+document.getElementById('th'+id).innerText+' '+id});	
 	}
@@ -72,7 +70,7 @@ document.getElementById('theleft').innerText=(x);
   }
 }
 function savecd(){
-	$.ajax({url:'docp.php?cp=<?=$cpidd?>',type:'POST',
+	$.ajax({url:'docp.php?cp=<?=$cpid?>',type:'POST',
 				data:{x:document.getElementById('theleft').innerText,
 				y:document.getElementById('thetop').innerText,
 				id:theid,iid:theiid},
@@ -82,60 +80,45 @@ function savecd(){
 </script>
 <div id="m"  style="height:<?=$maxtop?>px;width:1000px;background: url('<?=$backimg?>');overflow-x :auto;"
 onmousemove="cnvs_getCoordinates(event)"  >
-<?php if($pDa['imgid'] >0 &&$pDa['imgsize'] !=-1 ){
-$sq1ab = "SELECT * FROM  emlog_attachment WHERE aid=".$pDa['imgid'];
-	$paab = $DB->once_fetch_array($sq1ab);
-?>
+<?php if($pDa['img'] !='' && $pDa['imgsize'] !=-1 ){ ?>
 <div class="ui-widget-content" 
 style="cursor:pointer;position:absolute;top:<?=$pDa['ctop']?>px;left:<?=$pDa['cleft']?>px;" id='ftti3'>
-<img style="border:0px;" src="<?=$paab['filepath']?>" title="<?=$pDa['text']?>" onClick="axx(3)"></div>
+<img style="border:0px;" src="<?=$pDa['img']?>" title="<?=$pDa['text']?>" onClick="axx(3)"></div>
 <?php } ?>
 <div class="ui-widget-content" >
-<a onClick="ax(<?=$pDa['id']?>3)">☆</a><span id='th<?=$pDa['id']?>3'><?php echo $pDa['text']; ?></span>&nbsp;
-<span title="<?php echo "+".$pDa['f1']."-".$pDa['f2']."~".$pDa['num_assertions']; 
-?>">相关数</span><?php echo $pDa['f3']; ?>
- 查看<?php echo $pDa['words']; ?> 
- <?php if($pDa['url'] !='' ){ ?>
-<a href="<?=$pDa['url']?>">□</a>
-<?php }
-if($pDa['blogid'] >0 ){?>
-<a href="/<?php echo $pDa['blogid']; ?>.html">■</a>
-<?php } ?>
-<a href="/m/?cp=<?=$cpidd?>">预览 </a>
-<a href="/m/?action=aishow&cp=<?=$cpidd?>">列表</a>
+<a onClick="ax(<?=$pDa['id']?>3)">☆</a><span id='th<?=$pDa['id']?>3'><?php echo $pDa['text']; ?>&nbsp;<?php echo $pDa['info']; ?></span>
+ <? if($pDa['age']){ ?> <img src="/m/images/hug.gif" ><? }?><?php echo $pDa['birth'].'-'.$pDa['die']; ?><?php echo $pDa['age']; ?>
+<img src="/m/images/os2.gif" title="关联数"><?php echo $pDa['f3']; ?>
+ [<?php echo getcptype($pDa['sort']); ?>]
+ <img src="/m/images/fav.gif" title="查看次数"><?php echo $pDa['words']; ?> 
+
+ <a href="/?cp=<?=$pDa['id']?>">列表</a>
+ <a href="jt.php?id=<?=$pDa['id']?>">预览</a>
+
 <span onclick='ch()' id='thech' style='cursor:pointer;' title='点击切换'>【编辑内容】</span>
 <span  id='theleft'></span>&nbsp;<span id='thetop'></span>
 </div>
-<?php echo $pDa['info']; ?>
+<br><br><div style="width:400px"><?php echo $pDa['content']; ?></div>
 <?php 
 foreach($concepts as $k=>$value){
 ?>
-<?php if($value['img'] >0 ){
-$sq1a = "SELECT * FROM  emlog_attachment WHERE aid=".$value['img'];
-	$paa = $DB->once_fetch_array($sq1a);
- ?>
+<?php if($value['imgs']){  ?>
 <div class="ui-widget-content" style="cursor:pointer;position:absolute;top:<?=
 $value['itop']?>px;left:<?=$value['ileft']?>px;" id='ftti<?=$value['aid'].$value['fx']?>'>
-<img onClick="axx(<?=$value['aid'].$value['fx']?>)" style="border:0px;<? if($value['imgsz']>0)echo "width:".$value['imgsz']."px;"?>" src="<?=$paa['filepath']?>" title='<?=$value['text'].' '.$value['infos']?>'></div>
+<img onClick="axx(<?=$value['aid'].$value['fx']?>)" style="border:0px;<? if($value['imgsz']>0)echo "width:".$value['imgsz']."px;"?>" src="<?=$value['imgs']?>" title='<?=$value['text'].' '.$value['infos']?>'></div>
 <?php }
 } ?>
 <?php 
 foreach($concepts as $value){
 $value['atop']=$value['atop']==0?$mtop+=20:$value['atop'];
-//$value['aleft']=$value['aleft']==0?rand(1,920):$value['aleft'];
-if($value['seq']<8)$value['seq']=14;
+
 ?>
 <div class="ui-widget-content" style="cursor:pointer;position:absolute;top:<?=$value['atop']
-?>px;left:<?=$value['aleft']?>px;font-size:<?=$value['seq']?>px;" id='ftt<?=$value['aid'].$value['fx']?>'>
-<a onClick="ax(<?=$value['aid'].$value['fx']?>)">○</a><span id='th<?=$value['aid'].$value['fx']?>'><a href="/m/ainet.php?cp=<?php
- echo $value['id']; ?>" title="<?=$value['frame']?><?php echo '+'.$value['f1'].'-'.$value['f2'].'~'.$value['num_assertions'].' '.$value['infos']; 
-?>"><?php echo $value['text']; ?></a>
-<?php if($value['url'] !='' ){ ?>
-<a href="<?=$value['url']?>">□</a>
-<?php }
-if($value['blogid'] >0 ){?>
-<a href="/<?php echo $value['blogid']; ?>.html">■</a>
-<?php } ?></span></div>
+?>px;left:<?=$value['aleft']?>px;" id='ftt<?=$value['aid'].$value['fx']?>'>
+<a onClick="ax(<?=$value['aid'].$value['fx']?>)">○</a><span id='th<?=$value['aid'].$value['fx']?>'><a href="?cp=<?php
+ echo $value['id']; ?>" title="<?=$value['frame']?><?php echo $value['infos']; 
+?>"><?php echo $value['text']; ?> <?=$value['info']?></a>
+</span></div>
 <?php } ?>
 </div>
 =======坐标=====<a onClick="$('.zuobiao').show();">显示</a>=====<a onClick="$('.zuobiao').hide();">隐藏</a>====

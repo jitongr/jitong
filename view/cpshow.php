@@ -1,10 +1,8 @@
 <?php if(!defined('EMLOG_ROOT')) {exit('error!');}
-if($pDa['imgsize'] !=-1)
-$backimg="/jt/imgs/bgo.jpg";
+if($pDa['img']!=''&&$pDa['imgsize']==-1)
+$backimg=$pDa['img'];
 else{
-	$sq1 = "SELECT * FROM  emlog_attachment WHERE aid=".$pDa['imgid'];
-	$pa = $DB->once_fetch_array($sq1);
-	$backimg=$pa['filepath'];
+	$backimg="/jt/imgs/bgo.jpg";
 	}
 $mtop=60;
 //$fts=array("方正兰亭超细黑简体", "方正舒体", "方正姚体", "仿宋", "汉仪家书简", "汉仪楷体简", "汉仪
@@ -20,94 +18,44 @@ $mtop=60;
 .ui-widget-content{cursor:pointer;position:absolute;}
 </style>
 <div id="m"  style="height:<?=$maxtop?>px;width:1000px;background: url('<?=$backimg?>');overflow-x :auto; ">
-<?php if($pDa['imgid'] >0 &&$pDa['imgsize'] !=-1 ){
-$sq1ab = "SELECT * FROM  emlog_attachment WHERE aid=".$pDa['imgid'];
-	$paab = $DB->once_fetch_array($sq1ab);
- ?>
+<?php if($pDa['img'] !='' &&$pDa['imgsize'] !=-1 ){ ?>
 <div class="ui-widget-content" 
 style="top:<?=$pDa['ctop']?>px;left:<?=$pDa['cleft']?>px;">
-<img style="border:0px;" src="<?=$paab['filepath']?>" title="<?=$pDa['text']?>"></div>
+<img style="border:0px;" src="<?=$pDa['img']?>" title="<?=$pDa['text']?>"></div>
 <?php } ?>
 <div class="ui-widget-content" >
-☆<span ><?php echo $pDa['text']; ?></span>&nbsp;
-<span title="<?php echo "+".$pDa['f1']."-".$pDa['f2']."~".$pDa['num_assertions']; 
-?>">相关数</span><?php echo $pDa['f3']; ?>
- 查看<?php echo $pDa['words']; ?> 
- <?php if($pDa['url'] !='' ){ ?>
-<a href="<?=$pDa['url']?>">□</a>
-<?php }
-if($pDa['blogid'] >0 ){?>
-<a href="/<?php echo $pDa['blogid']; ?>.html">■</a>
-<?php } ?>
+☆<span ><?php echo $pDa['text']; ?>&nbsp;<?php echo $pDa['info']; ?></span>
+ <? if($pDa['age']){ ?> <img src="/m/images/hug.gif" ><? }?><?php echo $pDa['birth'].'-'.$pDa['die']; ?><?php echo $pDa['age']; ?>
+<img src="/m/images/os2.gif" title="关联数"><?php echo $pDa['f3']; ?>
+ [<?php echo getcptype($pDa['sort']); ?>]
+ <img src="/m/images/fav.gif" title="查看次数"><?php echo $pDa['words']; ?> 
+
+ <a href="/?cp=<?=$pDa['id']?>">列表</a>
  <?php if(ISLOGIN === true):?>
- <a href="/m/?action=aishow&cp=<?=$cpidd?>">列表</a>
- <a href="/m/ainet.php?cp=<?=$pDa['id']?>">编辑</a><? endif;?>
+ <a href="jt.php?cp=<?=$pDa['id']?>">编辑</a><? endif;?>
 </div> 
-<br><?php echo $pDa['info']; ?>
+<br><br><div style="width:400px"><?php echo $pDa['content']; ?></div>
 <?php 
 foreach($concepts as $k=>$value){
 ?>
-<?php if($value['img'] >0 ){
-$sq1a = "SELECT * FROM  emlog_attachment WHERE aid=".$value['img'];
-	$paa = $DB->once_fetch_array($sq1a);
- ?>
- <div class="ui-widget-content" style="top:<?=
-$value['itop']?>px;left:<?=$value['ileft']?>px;" >
-<img style="border:0px;<? if($value['imgsz']>0)echo "width:".$value['imgsz']."px;"?>" src="<?=$paa['filepath']?>" title='<?=$value['text'].' '.$value['infos']?>'></div>
+<?php if($value['imgs']){ ?>
+ <div class="ui-widget-content" style="top:<?=$value['itop']
+ ?>px;left:<?=$value['ileft']?>px;" >
+<img style="border:0px;<? if($value['imgsz']>0)echo "width:".$value['imgsz']."px;"?>" src="<?=$value['imgs']?>" title='<?=$value['text'].' '.$value['infos']?>'></div>
 <?php }
 } ?>
 <?php 
-if(ISLOGIN === true)
 foreach($concepts as $k=>$value){
 $value['atop']=$value['atop']==0?$mtop+=20:$value['atop'];
 $value['aleft']=$value['aleft']==0?rand(1,920):$value['aleft'];
-if($value['seq']<8)$value['seq']=14;
+
 ?>
 <div class="ui-widget-content" style="top:<?=
-$value['atop']?>px;left:<?=$value['aleft']?>px;font-size:<?=$value['seq']?>px;" >○<a href="?cp=<?php 
-echo $value['id']; ?>" title="<?=$value['frame']?><?php echo '+'.$value['f1'].'-'.$value['f2'].'~'.$value['num_assertions'].' '.$value['infos']; 
-?>" ><?=$value['text']?></a>
-<?php if($value['url'] !='' ){ ?>
-<a href="<?=$value['url']?>">□</a>
-<?php }
-if($value['blogid'] >0 ){?>
-<a href="/<?php echo $value['blogid']; ?>.html">■</a>
-<?php } ?></div>
-<?php } else 
-foreach($concepts as $k=>$value){
-$value['atop']=$value['atop']==0?$mtop+=20:$value['atop'];
-$value['aleft']=$value['aleft']==0?rand(1,920):$value['aleft'];
-if($value['seq']<8)$value['seq']=14;
-?>
-<div class="ui-widget-content" style="top:<?=
-$value['atop']?>px;left:<?=$value['aleft']?>px;font-size:<?=$value['seq']?>px;" >○<span onclick="dotovv(<?php 
-echo $value['id']; ?>)" title="<?=$value['frame']?><?php echo '+'.$value['f1'].'-'.$value['f2'].'~'.$value['num_assertions'].' '.$value['infos']; 
-?>" ><?=$value['text']?></span>
-<?php if($value['url'] !='' ){ ?>
-<a href="<?=$value['url']?>">□</a>
-<?php }
-if($value['blogid'] >0 ){?>
-<a href="/<?php echo $value['blogid']; ?>.html">■</a>
-<?php } ?></div>
+$value['atop']?>px;left:<?=$value['aleft']?>px;" >○<a href="?id=<?php echo $value['id']; ?>" title="<?=$value['frame']?><?php echo $value['infos']; ?>" ><?=$value['text']?> <?=$value['info']?></a>
+
+</div>
 <?php } ?>
 </div>
 <script>
-  function dotovv(id){
-	  var temp = document.createElement("form");         
-   temp.action = '/m/index.php';         
-   temp.method = "post";         
-   temp.style.display = "none"; 
-   var opt = document.createElement("input");         
-      opt.name = 'cp';         
-        opt.value = id;         
-       temp.appendChild(opt);  
-	   opt = document.createElement("input"); 
-	      opt.name = 'valid';         
-        opt.value = <?php echo $valid;?>;         
-       temp.appendChild(opt); 
-   document.body.appendChild(temp);         
-   temp.submit();         
-   return temp;
- }
 
 	 $(function() {    $( ".ui-widget-content" ).draggable();  });  </script>

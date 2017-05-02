@@ -61,9 +61,12 @@ function getcptype($i){
 	$sub[0]='默认';$sub[1]='概念';
 	if(ROLE=='admin'){ $sub[2]='分类';}
 	$sub[3]='记事';$sub[4]='人';
-	$sub[5]='地方';$sub[6]='时间';
+	$sub[5]='地方';$sub[6]='时间';$sub[98]='情感';
+	$sub[99]='童贞';$sub[100]='牌坊';$sub[101]='祭童';
+	$sub[102]='难童';$sub[103]='苦难';$sub[104]='捆绑';$sub[105]='吊打';
+	$sub[106]='十字架';$sub[107]='犹太难童';$sub[108]='犹太难童画';
 	
-	if(!empty($i))
+	if(isset($i))
 	return $sub[$i];
 	else
 	return $sub;

@@ -4,11 +4,9 @@
  * @copyright (zhangyulin
 */
 
-require_once '../init.php';
+require_once 'init.php';
 
-define('TEMPLATE_PATH', TPLS_PATH.Option::get('nonce_templet').'/');//前台模板路径
-
-$blogtitle = '操作-' . Option::get('blogname');
+define ('TEMPLATE_PATH', EMLOG_ROOT . '/view/');
 $acidd =intval($_POST['cid']);
 if ($acidd>0&&ISLOGIN !== true){
 echo "非法访问！请先登录！";
