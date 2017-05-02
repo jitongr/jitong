@@ -18,6 +18,7 @@ $akey = isset($_GET['aikey']) ? addslashes($_GET['aikey']) : '';
 // 首页
 if(isset($_GET['jitongw']))$tjts=-2;if(isset($_GET['afflicted']))$tjts=-3;
 if(isset($_GET['virgin']))$tjts=-4;if(isset($_GET['beat']))$tjts=-5;if(isset($_GET['crux']))$tjts=-6;
+	
 if ($action == 'list'||$tjts<0) {
 
 	$page = isset($_GET['page']) ? abs(intval ($_GET['page'])) : 1;
@@ -66,7 +67,8 @@ if (isset($_GET['aikey']) ) {
 		$ltime = date('Y-m-d H:i:s');
 		$gip=getIp();   
 $uid=UID;
-	
+	$CACHE = Cache::getInstance();
+	$cpr = $CACHE->readCache('cpr');
 	if(empty ($akey))
 	$sql = "SELECT * FROM jt_concept  order by Rand()  LIMIT 10";
 	else
@@ -116,7 +118,8 @@ if(empty ($action) && empty ($logid) && empty ($cpid))
 		$ltime = date('Y-m-d H:i:s');
 	$gip=getIp();   
 $uid=UID;
-
+$CACHE = Cache::getInstance();
+	$cpr = $CACHE->readCache('cpr');
 	if(empty($_SESSION['thejts'])){
 	$sql = "SELECT * FROM jt_concept order by Rand()  LIMIT 10";
 	$res = $DB->query($sql);
@@ -168,7 +171,8 @@ $atitle="";
 $gip=getIp();   
 $uid=UID;
 	$vsid=intval($_SESSION['views']);
-	
+	$CACHE = Cache::getInstance();
+	$cpr = $CACHE->readCache('cpr');
 	$ltime = date('Y-m-d H:i:s');
    if (ISLOGIN !== true && empty($_SESSION['u_name'])){
   $vfr="jtunlog";

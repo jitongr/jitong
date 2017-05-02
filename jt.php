@@ -1,21 +1,20 @@
 <?php
 /**
- * mynet forzyl@gmail.com
- * @copyright (zhangyulin
+ * jitong cruboy.com
+ * @copyright cruboy
 */
 
-require_once '../init.php';
+require_once 'init.php';
 
-define('TEMPLATE_PATH', EMLOG_ROOT.'/m/views/');
+define ('TEMPLATE_PATH', EMLOG_ROOT . '/view/');
 
 if (ISLOGIN !== true){
-//echo "请登录";
-$msg='登录后，可以添加、编辑导图，位图笔记。';
-emDirect("/m/?action=login");
+
+$msg='请登录。';
+emDirect("/jitong/?action=login");
 exit;
 }
-$blogtitle = Option::get('twnavi') . ' - ' . Option::get('blogname');
-$description = Option::get('bloginfo');
+
 $DB = MySql::getInstance();
 $concepts=array();
 $atitle="";
@@ -25,19 +24,9 @@ $seid=session_id();
 $vsid=intval($_SESSION['views']);
 // 首页
 
-	$cpidd=intval($_GET['cp']);
-			if($cpidd<0){
-				$tabf='cruboy';
-				$vfrom="jcru";
-				$cpid=-$cpidd;
-			}else{
-				$tabf="conceptnet";
-				$vfrom="jind";
-				$cpid=$cpidd;
-				
-			}
-	if(isset($_GET['jt']))
-       $tabf="cruboy";		
+	$cpid=isset($_GET['cp'])?intval($_GET['cp']):intval($_GET['id']);
+    $tabf='jt';
+	$CACHE = Cache::getInstance();
 	$cpr = $CACHE->readCache('cpr');	
 if (!empty($cpid) )
 {
@@ -52,11 +41,11 @@ if (!empty($cpid) )
 		//$DB->query("INSERT INTO viewlog (method,viewid,concept,uid,sina_uid,date,text,loginip) VALUES (
 			//	'$vfrom','$vsid','$cpidd','$uid','$usersina_id','$ltime','$pDa[text]','$gip')");
 	
-	$sq2 = "SELECT a.concept1_id,a.concept2_id,a.id as aid,a.abid,a.seq,
-		a.relation_id,a.best_frame_id,a.atop1 as atop,a.aleft1 as aleft,a.itop1 as itop,a.ileft1 as ileft,a.img1 as img,a.imgsize1 as imgsz,a.infos,
+	$sq2 = "SELECT a.concept1_id,a.concept2_id,a.id as aid,
+		a.relation_id,a.best_frame_id,a.atop1 as atop,a.aleft1 as aleft,a.itop1 as itop,a.ileft1 as ileft,a.imgs1 as imgs,a.imgsize1 as imgsz,a.infos,
 		 ".$tabf."_concept.* FROM  ".$tabf."_assertion a LEFT JOIN
 		 ".$tabf."_concept ON a.concept2_id= ".$tabf."_concept.id
-		WHERE concept1_id='$cpid' order by a.relation_id,a.best_frame_id LIMIT 100";
+		WHERE concept1_id='$cpid' order by a.relation_id,a.best_frame_id LIMIT 1000";
 	$res2 = $DB->query($sq2);
 	while ($row = $DB->fetch_array($res2)) {
 			if($row['best_frame_id']>0){		
@@ -67,18 +56,16 @@ if (!empty($cpid) )
 			 $row['frame']=$cpr[$row['relation_id']];
 			}
 		    $row['fx']='1';
-			 if($tabf=='cruboy')
-					$row['id']=-$row['id'];
-				if($row['atop']>$maxtop)
+			if($row['atop']>$maxtop)
 					$maxtop=$row[atop];	
 			$concepts[]=$row;
 			}
 
-	$sq3 = "SELECT a.concept1_id,a.concept2_id,a.id as aid,a.abid,a.seq,
-		a.relation_id,a.best_frame_id,a.atop2 as atop,a.aleft2 as aleft,a.itop2 as itop,a.ileft2 as ileft,a.img2 as img,a.imgsize2 as imgsz,a.infos,
+	$sq3 = "SELECT a.concept1_id,a.concept2_id,a.id as aid,
+		a.relation_id,a.best_frame_id,a.atop2 as atop,a.aleft2 as aleft,a.itop2 as itop,a.ileft2 as ileft,a.imgs2 as imgs,a.imgsize2 as imgsz,a.infos,
 		 ".$tabf."_concept.* FROM  ".$tabf."_assertion a LEFT JOIN
 		 ".$tabf."_concept ON a.concept1_id= ".$tabf."_concept.id
-		WHERE concept2_id='$cpid' order by a.seq,a.relation_id,a.best_frame_id LIMIT 4000";
+		WHERE concept2_id='$cpid' order by a.relation_id,a.best_frame_id LIMIT 1000";
 		$res3 = $DB->query($sq3);
 	while ($row2 = $DB->fetch_array($res3)) {
 			if($row2['best_frame_id']>0){		
@@ -89,8 +76,6 @@ if (!empty($cpid) )
 			 $row2['frame']='!'.$cpr[$row2['relation_id']];
 			}
 			$row2['fx']='2';
-			 if($tabf=='cruboy')
-					$row2['id']=-$row2['id'];
 			if($row2['atop']>$maxtop)
 			$maxtop=$row2['atop'];
 		$concepts[]=$row2;
@@ -102,8 +87,10 @@ if (!empty($cpid) )
 			if($maxtop<760)
 			$maxtop=760;
 	include './view/header.php';
-
+if(isset($_GET['cp']))
 	include View::getView('cpedit');
+	else
+	include View::getView('cpshow');
 	include View::getView('footer');
 	View::output();
 }
