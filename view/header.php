@@ -36,10 +36,8 @@ a:link,a:visited,a:hover,a:active {text-decoration: none;color:#333;}
 <a href="jitong.php" >祭童</a>
 <a href="tongtu.php" >童图</a>
 <a href="xing.php" >刑图</a>
-<a href="./?action=com" <?php if($action=='com')echo 'id="active"'; ?>>评论</a> 
 
 <?php if(ISLOGIN === true): ?>
-<a href="./?action=write" <?php if($action=='write')echo 'id="active"'; ?>>写日志</a> 
 <a href="/" ><?php if(UID) echo $userData['username']; else echo "幽灵"; ?></a>！<a href="./?action=logout">退出</a>
 <?php else:?>
 <a href="<?php echo BLOG_URL; ?>?action=login" <?php if($action=='login')echo 'id="active"'; ?>>登录</a>

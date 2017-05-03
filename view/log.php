@@ -1,15 +1,15 @@
 <?php if(!defined('EMLOG_ROOT')) {exit('error!');}?>
 
 <div id="m">
-<?php foreach($logs as $value): ?>
-<div class="title"><a href="<?php echo BLOG_URL; ?>?post=<?php echo $value['logid'];?>"><?php echo $value['title']; ?></a></div>
-<div class="info"><?=$value['author']?>：<?php echo $value['addtime']; ?>修改：<?php echo $value['edittime']; ?>[<?php echo $value['brand']; ?>]</div>
-<div class="info2">
-评论:<?php echo $value['comnum']; ?> 阅读:<?php echo $value['views']; ?> 
+<?php while ($value = $DB->fetch_array($query)) { ?>
+<div class="title"><a href="/jitong/?cp=<?php echo $value['id']; ?>"><?php echo $value['text']; ?> <?php echo $value['info']; ?></a></div>
+
+<div class="info2"><?=date('Y-m-d H:i:s',$value['edittime'])?> [<?php echo getcptype($value['sort']); ?>] <?php echo $value['birth'].'-'.$value['die']; ?><?php echo $value['age']; ?>
+关联:<?php echo $value['f3']; ?> 阅读:<?php echo $value['words']; ?> 
 <?php if(ROLE == 'admin' || $value['author'] == UID): ?>
-<a href="./?action=write&id=<?php echo $value['logid'];?>">编辑</a>
+<a href="jt.php?cp=<?=$value['id']?>">编辑</a>
 <?php endif;?>
 </div>
-<?php endforeach; ?>
+<?php } ?>
 <div id="page"><?php echo $page_url;?></div>
 </div>

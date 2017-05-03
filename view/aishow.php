@@ -16,7 +16,7 @@
 
 <?php echo $pDa['text']; ?>&nbsp;<?php echo $pDa['info']; ?>
 <img src="/m/images/fav.gif" title="<?php echo $value['id'] ?>">
-<?php echo $pDa['words']; ?>
+<?php echo $pDa['words']; ?> [<?php echo getcptype($pDa['sort']); ?>]
  <? if($pDa['age']){ ?> <img src="/m/images/hug.gif" ><? }?><?php echo $pDa['birth'].'-'.$pDa['die']; ?><?php echo $pDa['age']; ?>
 <img src="/m/images/os2.gif" title="关联数"><?php echo $pDa['f3']; ?>
   <a href="jt.php?id=<?=$pDa['id']?>">预览</a>

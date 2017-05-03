@@ -6,22 +6,19 @@ if(!defined('EMLOG_ROOT')) {exit('error!');}
 ?>
 <div id="content">
 <div id="contentleft">
-<?php foreach($logs as $value): ?>
-	<h2><?php //topflg($value['top']); ?><a href="/jitong/?post=<?php echo $value['gid']; ?>"><?php echo $value['log_title']; ?></a></h2>
-	<p class="date">作者：<?=$value['author']?> 发布于：<?php echo $value['addtime']; ?>修改：<?php echo $value['edittime']; ?> 
-	<?=$jtsort[$value['sortid']]; ?> 
-	<?php // editflg($value['logid'],$value['author']); ?>
-	</p>
-	<?php echo $value['log_description']; ?>
-	<p class="att"><?php //blog_att($value['logid']); ?></p>
-	<p class="tag"><?php //blog_tag($value['logid']); ?></p>
+<?php while ($value = $DB->fetch_array($query)) { ?>
+	<h2><?php //topflg($value['top']); ?><a href="/jitong/?cp=<?php echo $value['id']; ?>"><?php echo $value['text']; ?> <?php echo $value['info']; ?></a></h2>
+	<p class="date"><?=date('Y-m-d H:i:s',$value['edittime'])?> [<?php echo getcptype($value['sort']); ?>]
+ <?php echo $value['birth'].'-'.$value['die']; ?><?php echo $value['age']; ?>
+	</p> <? if($value['img']){ ?> <img src="<?=$value['img']?>"> <br><? }?>
+	<?php echo $value['content'] ?>
 	<p class="count">
-	评论(<?php echo $value['comnum']; ?>)
-	引用(<?php echo $value['tbcount']; ?>)
-	<a href="/jitong/?post=<?php echo $value['gid']; ?>">浏览(<?php echo $value['views']; ?>)</a>
+	关联(<?=$value['f3']?>)
+	浏览(<?=$value['words']?> )<a href="jt.php?id=<?=$value['id']?>">预览</a>
+ <a href="jt.php?cp=<?=$value['id']?>">编辑</a>
 	</p>
 	<div style="clear:both;"></div>
-<?php endforeach; ?>
+<?php }?>
 
 <div id="pagenavi">
 	<?php echo $page_url;?>

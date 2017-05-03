@@ -15,22 +15,30 @@ $logid = isset ($_GET['post']) ? intval ($_GET['post']) : '';
 $action = isset($_GET['action']) ? addslashes($_GET['action']) : '';
 $cpid = intval ($_GET['cp'])  ;
 $akey = isset($_GET['aikey']) ? addslashes($_GET['aikey']) : '';
-// 首页
-if(isset($_GET['jitongw']))$tjts=-2;if(isset($_GET['afflicted']))$tjts=-3;
-if(isset($_GET['virgin']))$tjts=-4;if(isset($_GET['beat']))$tjts=-5;if(isset($_GET['crux']))$tjts=-6;
-	
-if ($action == 'list'||$tjts<0) {
 
+$tjts=intval ($_GET['tjts']);
+if(isset($_GET['jitongw']))$tjts=101;if(isset($_GET['afflicted']))$tjts=103;
+if(isset($_GET['virgin']))$tjts=99;if(isset($_GET['beat']))$tjts=105;
+if(isset($_GET['crux']))$tjts=106;
+
+if ($action == 'list'||$tjts) {
+	 if($tjts) { 
+	 $sqladd="and sort=$tjts ";	       
+      }else
+	  $sqladd="and sort>98 ";	  
+	 $sql2="SELECT count(1) as a  FROM jt_concept where 1 $sqladd ";
+	$row2=$DB->once_fetch_array($sql2);
+
+	$index_lognum=20;
 	$page = isset($_GET['page']) ? abs(intval ($_GET['page'])) : 1;
+	$start=($page-1)*$index_lognum;
+ 	
 
-	 if($tjts<0) { $sqlSegment="and sortid=$tjts ";
-	           $index_lognum=$lognum;
-             }
-	$sqlSegment .= "ORDER BY top DESC ,gid DESC";
+$sql22="SELECT * FROM jt_concept where 1 $sqladd   limit   $start,$index_lognum";
+$query=$DB->query($sql22);
+ $page_url = pagination($row2['a'], $index_lognum, $page, "?tjts={$tjts}&page=");
+	
 
-	$pageurl = '?action=list&page=';
-
-	$page_url = pagination($lognum, $index_lognum, $page, $pageurl);
     $_SESSION['onm']=1;
 	include View::getView('head');
 	include View::getView('log_list');
@@ -38,13 +46,21 @@ if ($action == 'list'||$tjts<0) {
 	View::output();
 }else
 if ($action == 'li') {
+	 if($tjts) { 
+	 $sqladd="and sort=$tjts ";	       
+      }//else
+	 // $sqladd="and sort>98 ";	  
+	 $sql2="SELECT count(1) as a  FROM jt_concept where 1 $sqladd ";
+	$row2=$DB->once_fetch_array($sql2);
 
+	$index_lognum=20;
 	$page = isset($_GET['page']) ? abs(intval ($_GET['page'])) : 1;
-	$sqlSegment = "ORDER BY top DESC ,edittime DESC";
+	$start=($page-1)*$index_lognum;
+ 	
 
-	$pageurl = '?action=li&page=';
-
-	$page_url = pagination($lognum, $index_lognum, $page, $pageurl);
+$sql22="SELECT * FROM jt_concept where 1 $sqladd   limit   $start,$index_lognum";
+$query=$DB->query($sql22);
+ $page_url = pagination($row2['a'], $index_lognum, $page, "?action=li&tjts={$tjts}&page=");
     $_SESSION['onm']=1;
 	include View::getView('header');
 	include View::getView('log');
@@ -233,219 +249,7 @@ $uid=UID;
 	include View::getView('footer');
 	View::output();
 }
-// 日志
-if (!empty ($logid)) {
-	$Log_Model = new Log_Model();
-	$Comment_Model = new Comment_Model();
 
-	$logData = $Log_Model->getOneLogForHome($logid);
-	if ($logData === false) {
-		mMsg ('不存在该条目', './');
-	}
-	extract($logData);
-	if (!empty($password)) {
-		$postpwd = isset($_POST['logpwd']) ? addslashes(trim ($_POST['logpwd'])) : '';
-		$cookiepwd = isset($_COOKIE ['em_logpwd_' . $logid]) ? addslashes(trim($_COOKIE ['em_logpwd_' . $logid])) : '';
-		authPassword ($postpwd, $cookiepwd, $password, $logid);
-	}
-
-//	$user_cache = $CACHE->readCache('user');
-	$commentPage = isset($_GET['comment-page']) ? intval($_GET['comment-page']) : 1;
-
-	$comments = $Comment_Model->getComments(2, $logid, 'n', $commentPage);
-	extract($comments);
-	$Log_Model->updateViewCount($logid);
-	include View::getView('header');
-	include View::getView('single');
-	include View::getView('footer');
-	View::output();
-}
-if (ISLOGIN === true && $action == 'write') {
-	$logid = isset($_GET['id']) ? intval($_GET['id']) : '';
-	$Sort_Model = new Sort_Model();
-	$sorts = $Sort_Model->getSorts();
-	if ($logid) {
-		$Log_Model = new Log_Model();
-		$Tag_Model = new Tag_Model();
-
-		$blogData = $Log_Model->getOneLogForAdmin($logid);
-		extract($blogData);
-		$tags = array();
-		foreach ($Tag_Model->getTag($logid) as $val) {
-			$tags[] = $val['tagname'];
-		}
-		$tagStr = implode(',', $tags);
-	}else {
-		$title = '';
-		$sortid = -1;
-		$content = '';
-		$excerpt = '';
-		$tagStr = '';
-		$logid = -1;
-		$author = UID;
-		$date = '';
-	}
-	include View::getView('header');
-	include View::getView('write');
-	include View::getView('footer');
-	View::output();
-}
-if (ISLOGIN === true && $action == 'savelog') {
-	$Log_Model = new Log_Model();
-	$Tag_Model = new Tag_Model();
-
-	$title = isset($_POST['title']) ? addslashes(trim($_POST['title'])) : '';
-	$sort = isset($_POST['sort']) ? intval($_POST['sort']) : '';
-	$content = isset($_POST['content']) ? addslashes(trim($_POST['content'])) : '';
-	$excerpt = isset($_POST['excerpt']) ? addslashes(trim($_POST['excerpt'])) : '';
-	$tagstring = isset($_POST['tag']) ? addslashes(trim($_POST['tag'])) : '';
-	$blogid = isset($_POST['gid']) ? intval(trim($_POST['gid'])) : -1;
-	$date = isset($_POST['date']) ? addslashes($_POST['date']) : '';
-	$author = isset($_POST['author']) ? intval(trim($_POST['author'])) : UID;
-	
-	$logData = array('title' => $title,
-		'content' => $content,
-		'excerpt' => $excerpt,
-		'author' => $author,
-		'sortid' => $sort,
-		'edittime' => date('Y-m-d H:i:s'),
-		'allow_remark' => 'y',
-		'allow_tb' => 'y',
-		'hide' => 's'
-		);
-
-	if ($blogid > 0) {
-		$Log_Model->updateLog($logData, $blogid);
-		$Tag_Model->updateTag($tagstring, $blogid);
-	}else {
-		$logData['addtime'] = date('Y-m-d H:i:s');
-		$blogid = $Log_Model->addlog($logData);
-		$Tag_Model->addTag($tagstring, $blogid);
-	}
-	//$CACHE->updateCache();
-	emDirect("./");
-}
-if (ISLOGIN === true && $action == 'dellog') {
-	$Log_Model = new Log_Model();
-	$id = isset($_GET['gid']) ? intval($_GET['gid']) : -1;
-	$Log_Model->deleteLog($id);
-	$CACHE->updateCache();
-	emDirect("./");
-}
-// 评论
-if (ISLOGIN === true && $action == 'addcom') {
-	$Comment_Model = new Comment_Model();
-
-	$content = isset($_POST['comment']) ? addslashes(trim($_POST['comment'])) : '';
-    $mail = isset($_POST['commail']) ? addslashes(trim($_POST['commail'])) : '';
-    $url = isset($_POST['comurl']) ? addslashes(trim($_POST['comurl'])) : '';
-    $imgcode = isset($_POST['imgcode']) ? strtoupper(trim($_POST['imgcode'])) : '';
-    $blogId = isset($_GET['gid']) ? intval($_GET['gid']) : - 1;
-    $pid = isset($_GET['pid']) ? intval($_GET['pid']) : 0;
-
-      //  $CACHE = Cache::getInstance();
-     //   $user_cache = $CACHE->readCache('user');
-	//	$name = addslashes($user_cache[UID]['name_orig']);
-
-	if($Comment_Model->isLogCanComment($blogId) === false){
-        mMsg('评论失败：该日志已关闭评论','./?post=' . $blogId);
-    } elseif ($Comment_Model->isCommentExist($blogId, $name, $content) === true){
-        mMsg('评论失败：已存在相同内容评论','./?post=' . $blogId);
-
-    } elseif ($mail != '' && !checkMail($mail)) {
-        mMsg('评论失败：邮件地址不符合规范', './?post=' . $blogId);
-    } elseif (ISLOGIN == false && $Comment_Model->isNameAndMailValid($name, $mail) === false){
-        mMsg('评论失败：禁止使用管理员昵称或邮箱评论','./?post=' . $blogId);
-    } elseif (strlen($content) == '' || strlen($content) > 2000) {
-        mMsg('评论失败：内容不符合规范','./?post=' . $blogId);
-
-    } else {
-		$DB = MySql::getInstance();
-        $ipaddr = getIp();
-		$utctimestamp = time();
-
-		if($pid != 0) {
-			$comment = $Comment_Model->getOneComment($pid);
-			$content = '@' . addslashes($comment['poster']) . '：' . $content;
-		}
-
-	
-		$hide = ROLE == 'visitor' ? $ischkcomment : 'n';
-
-		$sql = 'INSERT INTO '.DB_PREFIX."comment (date,poster,gid,comment,mail,url,hide,ip,pid)
-				VALUES ('$utctimestamp','$name','$blogId','$content','$mail','$url','$hide','$ipaddr','$pid')";
-		$ret = $DB->query($sql);
-		$cid = $DB->insert_id();
-	//	$CACHE = Cache::getInstance();
-
-		if ($hide == 'n') {
-			$DB->query('UPDATE '.DB_PREFIX."blog SET comnum = comnum + 1 WHERE gid='$blogId'");
-			$CACHE->updateCache(array('sta', 'comment'));
-            doAction('comment_saved', $cid);
-            emDirect('./?post=' . $blogId);
-		} else {
-		    $CACHE->updateCache('sta');
-		    doAction('comment_saved', $cid);
-		    mMsg('评论发表成功，请等待管理员审核', './?post=' . $blogId);
-		}
-    }
-}
-if ($action == 'com') {
-	$Comment_Model = new Comment_Model();
-	if (ISLOGIN === true) {
-		$hide = '';
-		$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
-
-		
-
-		$comment = $Comment_Model->getComments(1, null, $hide, $page);
-		$cmnum = $Comment_Model->getCommentNum(null, $hide);
-		$pageurl = pagination($cmnum, 20, $page, "./?action=com&page=");
-	}else {
-		//$comment = $CACHE->readCache('comment');
-		$comment = $Comment_Model->getComments(1, null, $hide, 1);
-		$cmnum = $Comment_Model->getCommentNum(null, $hide);
-		$pageurl = '';
-	}
-	include View::getView('header');
-	include View::getView('comment');
-	include View::getView('footer');
-	View::output();
-}
-if (ISLOGIN === true && $action == 'delcom') {
-	$Comment_Model = new Comment_Model();
-	$id = isset($_GET['id']) ? intval($_GET['id']) : '';
-	$Comment_Model->delComment($id);
-	$CACHE->updateCache(array('sta','comment'));
-	emDirect("./?action=com");
-}
-if (ISLOGIN === true && $action == 'showcom') {
-	$Comment_Model = new Comment_Model();
-	$id = isset($_GET['id']) ? intval($_GET['id']) : '';
-	$Comment_Model->showComment($id);
-	$CACHE->updateCache(array('sta','comment'));
-	emDirect("./?action=com");
-}
-if (ISLOGIN === true && $action == 'hidecom') {
-	$Comment_Model = new Comment_Model();
-	$id = isset($_GET['id']) ? intval($_GET['id']) : '';
-	$Comment_Model->hideComment($id);
-	$CACHE->updateCache(array('sta','comment'));
-	emDirect("./?action=com");
-}
-if (ISLOGIN === true && $action == 'reply') {
-	$Comment_Model = new Comment_Model();
-	$cid = isset($_GET['cid']) ? intval($_GET['cid']) : 0;
-	$commentArray = $Comment_Model->getOneComment($cid);
-	if(!$commentArray) {
-		mMsg('参数错误', './');
-	}
-	extract($commentArray);
-		include View::getView('header');
-	include View::getView('reply');
-	include View::getView('footer');
-	View::output();
-}
 if ($action == 'login' ||$action == 'reg' ) {
 
 	include View::getView('header');
@@ -483,7 +287,7 @@ if ($action== 'new') {
 		if ($password != $password2) {
 			mMsg('两次密码不一致！', './?action=reg');
 		}
-		if ($password3 != 'yulin') 
+		if ($password3 != 'jitong') 
 			mMsg('注册码不正确！', './?action=reg');
 
 		$User_Model = new User_Model();
