@@ -7,7 +7,7 @@
   <form method='post' action='docp.php?cp=<?=$cpid?>&aid=<?=$rid?>' >
  <table>
  
- <tr> <td colspan="2">
+ <tr> <td  >
       <select  name="best_frame_id" >
            <?
        if(ROLE!='admin') $dadda="where n2>0";
@@ -22,15 +22,13 @@
         <?  }	?>
         </select></td>
  </tr>
- <tr> <td colspan="2">图片<input style="width:350px;"  value="<?php echo $value['imgs'.$fx]; ?>"  name="<?php echo 'imgs'.$fx; ?>" /></td>
-    
- </tr>
    <tr>
-  <td>图片尺寸<input style="width:60px;" value="<?php  echo $value['imgsize'.$fx]; ?>"  name="imgsize<?=$fx?>" /></td>
-    <td>位置 上<input style="width:50px;"  value="<?php echo $value[$m.'top'.$fx]; ?>"  name="<?php echo $m.'top'.$fx; ?>" />左<input style="width:50px;"  value="<?php echo $value[$m.'left'.$fx]; ?>"  name="<?php echo $m.'left'.$fx; ?>" /><span title="可通过位置编辑调整">？</span></td>
+  <td>图片尺寸<input style="width:60px;" value="<?php  echo $value['imgsize'.$fx]; ?>"  name="imgsize<?=$fx?>" /></td></tr>
+   <tr>
+    <td>位置 上<input style="width:50px;"  value="<?php echo $value[$m.'top'.$fx]; ?>"  name="<?php echo $m.'top'.$fx; ?>" />左<input style="width:50px;"  value="<?php echo $value[$m.'left'.$fx]; ?>"  name="<?php echo $m.'left'.$fx; ?>" /> </td>
     </tr>
  
-    <td colspan="2"><textarea name="infos"  style="width:350px;height:120px;"/><?php echo $pDa['infos']; ?></textarea></td>
-  <tr><td colspan="2"><input  type='submit' value='提交'/></td></tr>
+  
+  <tr><td  ><input  type='submit' value='提交'/></td></tr>
   </table>
     </form>

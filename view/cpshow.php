@@ -38,10 +38,10 @@ style="top:<?=$pDa['ctop']?>px;left:<?=$pDa['cleft']?>px;">
 <?php 
 foreach($concepts as $k=>$value){
 ?>
-<?php if($value['imgs']){ ?>
+<?php if($value['imgsz']>0&&$value['img']){ ?>
  <div class="ui-widget-content" style="top:<?=$value['itop']
  ?>px;left:<?=$value['ileft']?>px;" >
-<img style="border:0px;<? if($value['imgsz']>0)echo "width:".$value['imgsz']."px;"?>" src="<?=$value['imgs']?>" title='<?=$value['text'].' '.$value['infos']?>'></div>
+<img style="border:0px;<? if($value['imgsz']>0)echo "width:".$value['imgsz']."px;"?>" src="<?=$value['img']?>" title='<?=$value['text'].' '.$value['info']?>'></div>
 <?php }
 } ?>
 <?php 

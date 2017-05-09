@@ -69,8 +69,8 @@ CREATE TABLE IF NOT EXISTS `cruboy_assertion2` (
   KEY `assertions_a648f606` (`best_frame_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8
 
-
-
+ALTER TABLE  `conceptnet_frame` ADD  `n1` INT NOT NULL DEFAULT  '0' ;
+ALTER TABLE  `conceptnet_frame` ADD  `n2` INT NOT NULL DEFAULT  '0' ;
 
 UPDATE conceptnet_frame A 
 INNER JOIN (SELECT *, COUNT(*) idcount FROM conceptnet_assertion GROUP BY best_frame_id) as B
@@ -187,7 +187,7 @@ INNER JOIN (SELECT  *, COUNT(*) idcount FROM jt_assertion GROUP BY concept1_id) 
   ON C.concept2_id= A.id
 SET A.f3 = B.idcount+C.idcount2
 
-ALTER TABLE  `viewlogjt` ADD  `seid` VARCHAR( 40 ) NOT NULL DEFAULT  ''
+ALTER TABLE  `viewlogjt` ADD  `seid` VARCHAR( 40 ) NOT NULL DEFAULT  '';
 
 ALTER TABLE  `viewlog` DROP  `sina_uid`;
 ALTER TABLE  `viewlogjt` DROP  `sina_uid`;
@@ -208,3 +208,7 @@ CREATE TABLE IF NOT EXISTS `jt_vasslog` (
 
 ALTER TABLE  `jt_concept` CHANGE  `birth`  `birth` VARCHAR( 20 ) NOT NULL DEFAULT  ''
 ALTER TABLE  `jt_concept` CHANGE  `die`  `die` VARCHAR( 20 ) NOT NULL DEFAULT  ''
+
+ALTER TABLE  `jt_assertion` DROP  `imgs1`
+ALTER TABLE  `jt_assertion` DROP  `imgs2`
+ALTER TABLE  `jt_assertion` DROP  `infos`

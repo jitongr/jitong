@@ -33,23 +33,25 @@ function ax(id){
 		 savecd();
 		theiid=0;
 		theid=id;
-		//alert(theid);
-	}else{
+		alert(theid+"dd");
+	}else{var w=300;var h=250;
+		if(id%10==3){w=600;h=650}
  art.dialog.open("docp.php?m=a&cp=<?=$cpid?>&editid="+id, { 
- follow: document.getElementById('th'+id),width: 600, height: 650,
+ follow: document.getElementById('th'+id),width: w, height: h,
  title:"<?=$pDa['text']; ?>--"+document.getElementById('th'+id).innerText+' '+id});	
 	}
 }
 function axx(id){
 	if(editt==1){
 		if(theiid!=id||theid!=0)
-		 savecd();
-		theid=0;
-		theiid=id;
+		{ savecd();alert(theid+"sv");
+		}theid=0;
+		theiid=id;	alert(theid+"bb");
 		//alert(theid);
-	}else{
+	}else{ var w=300;var h=250;
+		if(id%10==3){w=600;h=650}
  art.dialog.open("docp.php?m=i&cp=<?=$cpid?>&editid="+id, { 
- follow: document.getElementById('th'+id),width: 600, height: 650,
+ follow: document.getElementById('th'+id),width: w, height: h,
  title:"<?=$pDa['text']; ?>--"+document.getElementById('th'+id).innerText+' '+id});	
 	}
 }
@@ -102,10 +104,10 @@ style="cursor:pointer;position:absolute;top:<?=$pDa['ctop']?>px;left:<?=$pDa['cl
 <?php 
 foreach($concepts as $k=>$value){
 ?>
-<?php if($value['imgs']){  ?>
+<?php if($value['imgsz']>0&&$value['img']){  ?>
 <div class="ui-widget-content" style="cursor:pointer;position:absolute;top:<?=
 $value['itop']?>px;left:<?=$value['ileft']?>px;" id='ftti<?=$value['aid'].$value['fx']?>'>
-<img onClick="axx(<?=$value['aid'].$value['fx']?>)" style="border:0px;<? if($value['imgsz']>0)echo "width:".$value['imgsz']."px;"?>" src="<?=$value['imgs']?>" title='<?=$value['text'].' '.$value['infos']?>'></div>
+<img onClick="axx(<?=$value['aid'].$value['fx']?>)" style="border:0px;<? if($value['imgsz']>0)echo "width:".$value['imgsz']."px;"?>" src="<?=$value['img']?>" title='<?=$value['text'].' '.$value['info']?>'></div>
 <?php }
 } ?>
 <?php 

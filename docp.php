@@ -53,7 +53,7 @@ $DB->query("INSERT INTO jt_vasslog (cpid,rid,method,edate,uid,content,ip,seid) V
 elseif(isset($_GET['aid'])){
 //print_r($_POST);
 		$id=intval($_GET['aid']);
-$sq1="SELECT * FROM  ".$tabf."_frame WHERE id='$id'";
+$sq1="SELECT * FROM  conceptnet_frame WHERE id='$id'";
 	$pDa=$DB->once_fetch_array($sq1);
 if($pDa['best_frame_id']!=($_POST['best_frame_id'])){
 	$sqqq2="SELECT * FROM conceptnet_relation WHERE id='".$_POST['best_frame_id']."'";

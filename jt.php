@@ -42,9 +42,9 @@ if (!empty($cpid) )
 			//	'$vfrom','$vsid','$cpidd','$uid','$usersina_id','$ltime','$pDa[text]','$gip')");
 	
 	$sq2 = "SELECT a.concept1_id,a.concept2_id,a.id as aid,
-		a.relation_id,a.best_frame_id,a.atop1 as atop,a.aleft1 as aleft,a.itop1 as itop,a.ileft1 as ileft,a.imgs1 as imgs,a.imgsize1 as imgsz,a.infos,
-		 ".$tabf."_concept.* FROM  ".$tabf."_assertion a LEFT JOIN
-		 ".$tabf."_concept ON a.concept2_id= ".$tabf."_concept.id
+		a.relation_id,a.best_frame_id,a.atop1 as atop,a.aleft1 as aleft,a.itop1 as itop,a.ileft1 as ileft,a.imgsize1 as imgsz,
+		 c.* FROM  ".$tabf."_assertion a LEFT JOIN
+		 ".$tabf."_concept c ON a.concept2_id= c.id
 		WHERE concept1_id='$cpid' order by a.relation_id,a.best_frame_id LIMIT 1000";
 	$res2 = $DB->query($sq2);
 	while ($row = $DB->fetch_array($res2)) {
@@ -62,9 +62,9 @@ if (!empty($cpid) )
 			}
 
 	$sq3 = "SELECT a.concept1_id,a.concept2_id,a.id as aid,
-		a.relation_id,a.best_frame_id,a.atop2 as atop,a.aleft2 as aleft,a.itop2 as itop,a.ileft2 as ileft,a.imgs2 as imgs,a.imgsize2 as imgsz,a.infos,
-		 ".$tabf."_concept.* FROM  ".$tabf."_assertion a LEFT JOIN
-		 ".$tabf."_concept ON a.concept1_id= ".$tabf."_concept.id
+		a.relation_id,a.best_frame_id,a.atop2 as atop,a.aleft2 as aleft,a.itop2 as itop,a.ileft2 as ileft,a.imgsize2 as imgsz,
+		 c.* FROM  ".$tabf."_assertion a LEFT JOIN
+		 ".$tabf."_concept c ON a.concept1_id= c.id
 		WHERE concept2_id='$cpid' order by a.relation_id,a.best_frame_id LIMIT 1000";
 		$res3 = $DB->query($sq3);
 	while ($row2 = $DB->fetch_array($res3)) {
@@ -95,21 +95,28 @@ if(isset($_GET['cp']))
 	View::output();
 }
 elseif(isset ($_GET['fre']))
-{ $a=0;
-	$freid = intval ($_GET['fre']) ;
-	$sql2 = "SELECT conceptnet_assertion.concept1_id,conceptnet_assertion.concept2_id,
-		conceptnet_assertion.score,conceptnet_assertion.best_frame_id,conceptnet_concept.text FROM conceptnet_assertion LEFT JOIN
-		conceptnet_concept ON conceptnet_assertion.concept2_id=conceptnet_concept.id
-		WHERE best_frame_id='$freid' order by conceptnet_assertion.score desc";
-	$res2 = $DB->query($sql2);
-	while ($row = $DB->fetch_array($res2)) {
-		$sqqq2="SELECT text FROM conceptnet_concept WHERE id='$row[concept1_id]'";
-			 $qDq2 = $DB->once_fetch_array($sqqq2);
-			 $row[text1]=$qDq2[text];
-		echo $a.$row[text1]."-->".$row[text].$row[score]."<br>";
-		$a++;
-	}
+{ 
+	 
+  $cpr[0]="{1}--{2}";
+	$ltime = date('Y-m-d H:i:s');
 
+	//$DB->query("UPDATE  ".$tabf."_concept SET words=words+1 WHERE id='$cpid'");
+
+		//$DB->query("INSERT INTO viewlog (method,viewid,concept,uid,sina_uid,date,text,loginip) VALUES (
+			//	'$vfrom','$vsid','$cpidd','$uid','$usersina_id','$ltime','$pDa[text]','$gip')");
+	
+// print_r($cpr);
+	$freid = intval ($_GET['fre']);
+	if($freid)$sqlad=" and a.best_frame_id='$freid' ";
+	$sql2 = "SELECT a.id as aid,a.concept1_id,a.concept2_id,
+		 a.relation_id,a.best_frame_id,c.text as cp1,d.text as cp2 FROM 
+		jt_assertion a LEFT JOIN jt_concept c ON a.concept1_id=c.id 
+		 LEFT JOIN jt_concept d ON a.concept2_id=d.id
+		WHERE 1 {$sqlad} order by c.id";
+	$res2 = $DB->query($sql2);
+   include View::getView('header');
+   include View::getView('ass');
+	include View::getView('footer');
 	
 }
 elseif(isset ($_GET['list']))

@@ -144,7 +144,7 @@ while ($row = $DB->fetch_array($res)) {
 $t.=$row['id'].',';
 $_SESSION['thejts']=$t.'0';
 }
-echo $_SESSION['thejts'];
+//echo $_SESSION['thejts'];
 	} 
 	$sql = "SELECT * FROM jt_concept where id in(".$_SESSION['thejts'].")";
 	$res = $DB->query($sql);
@@ -205,7 +205,7 @@ $uid=UID;
 	$DB->query("INSERT INTO viewlogjt (method,viewid,concept,uid,seid,vtime,text,loginip) VALUES (
 				'$vfr','$vsid','$cpid','$uid','$seid','$ltime','$pDa[text]','$gip')");
 				
-	$sq2 = "SELECT a.concept1_id,a.concept2_id,a.infos,a.id as aid,
+	$sq2 = "SELECT a.concept1_id,a.concept2_id,a.id as aid,
 		a.relation_id,a.best_frame_id,jt_concept.* FROM jt_assertion a LEFT JOIN
 		jt_concept ON a.concept2_id=jt_concept.id
 		WHERE concept1_id='$cpid' $sqadd";
@@ -225,7 +225,7 @@ $uid=UID;
 			$concepts[]=$row;
 			}
 	$concepts2=array();
-	$sq3 = "SELECT a.concept1_id,a.concept2_id,a.infos,a.id as aid,
+	$sq3 = "SELECT a.concept1_id,a.concept2_id,a.id as aid,
 		a.relation_id,a.best_frame_id,jt_concept.* FROM jt_assertion a LEFT JOIN
 		jt_concept ON a.concept1_id=jt_concept.id
 		WHERE concept2_id='$cpid' $sqadd";

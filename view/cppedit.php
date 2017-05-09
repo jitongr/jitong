@@ -20,7 +20,7 @@ body{background-color:#FFFFFF; font-size:14px; margin: 0; padding:0;}
 	foreach (getcptype() as $k=>$v) {	
 ?><option value="<?=$k?>" <? if($k==$pDa['sort']) echo 'selected="selected"';?> ><?=$v?></option>	
 <?php } ?></select></td>
-    <td>图片<input style="width:400px;" value="<?php echo $pDa['img']; ?>"  name="img" /></td>
+    <td>图片<input style="width:400px;" value="<?php echo $pDa['img']==""?"/jty/":$pDa['img']; ?>"  name="img" /></td>
     </tr>
     <tr><td>图片尺寸<input style="width:60px;" value="<?php echo $pDa['imgsize']; ?>"  name="imgsize" /></td>
     <td>图片位置上<input style="width:36px;" id="top0" value="<?php echo $pDa['ctop']; ?>"  name="ctop" />左<input style="width:36px;" id="left0" value="<?php echo $pDa['cleft']; ?>"  name="cleft" />生<input style="width:80px;" value="<?=$pDa['birth']?>"  name="birth" />死<input style="width:80px;" value="<?=$pDa['die']?>"  name="die" />
