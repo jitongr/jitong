@@ -1,8 +1,7 @@
 <?php 
 if(!defined('EMLOG_ROOT')) {exit('error!');}
 echo '<?xml version="1.0" encoding="UTF-8"?>';
-?>
-<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+?><!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title><?php echo $title; ?>[<?php echo $blogname; ?>]</title>
@@ -29,8 +28,9 @@ a:link,a:visited,a:hover,a:active {text-decoration: none;color:#333;}
 <div id="blogname"><?php echo $blogname; ?></div>
 </div>
 <div id="navi">
-<a href="./" <?php if($action=='')echo 'id="active"'; ?>>首页</a> 
-<a href="./?action=list" >祭童文</a>
+<a href="./" <?php if($action=='')echo 'id="active"'; ?>>首祭</a> 
+<a href="ask.php" >卜问</a>
+<a href="./?action=list" >祭坛</a>
 <a href="./?action=li" >祭文</a>
 <a href="./?action=xingshou" <?php if($action=='xingshou')echo 'id="active"'; ?>>刑受</a> 
 <a href="jitong.php" >祭童</a>

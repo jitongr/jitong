@@ -4,12 +4,12 @@
 
 <div id="m">
     <li>
-	<h3><span>jitong </span></h3>
+	<h3><span>首祭</span></h3>
     <h3><span><img src="/jitong/boy.jpg" border="0"></span></h3>
     <ul id="logsch">
-    <form name="keycp" method="get" action="<?php echo BLOG_URL; ?>">
+    <form name="keycp" method="get" >
     <input id="searchValue" name="aikey" type="text" value="<?php echo $akey; ?>"   />       
-    <input type="submit" id="logserch_logserch" value="全搜索"   />
+    <input type="submit" id="logserch_logserch" value="问祭"   />
         </form>
         </ul>
 	</li>
@@ -22,14 +22,14 @@ foreach($concepts as $value):
 <div class="comcont">
 &nbsp;&nbsp;
 <? if($value['img']){ ?><img src="/m/images/image_s.gif"><? }?>
-<a href="<?php echo BLOG_URL; ?>?cp=<?php echo $value['id']; ?>">
+<a href="?cp=<?php echo $value['id']; ?>">
 <?php echo $value['text']; ?>&nbsp;<?php echo $value['info'];?></a>
 
 
-<a href="jt.php?id=<?=$value['id']?>">#</a><?php echo $value['f3']; ?>
-：c:<?php echo $value['num_assertions']; ?>
-<?php echo "-->".$value['re1'].".".$value['fi1'].$value['tx1']; ?>||
-<?php echo "<--".$value['re2'].".".$value['fi2'].$value['tx2']; ?>
+<a href="jt.php?id=<?=$value['id']?>" title="<?php echo $value['f3']; ?>">#<?=$value['id']?></a>
+
+<span title="<?=$value['re1'].".".$value['fi1']?>"><?=$value['tx1']?></span> |
+<span title="<?=$value['re2'].".".$value['fi2']?>"><?=$value['tx2']?></span>
 </div>
 
 

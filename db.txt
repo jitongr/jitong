@@ -212,3 +212,10 @@ ALTER TABLE  `jt_concept` CHANGE  `die`  `die` VARCHAR( 20 ) NOT NULL DEFAULT  '
 ALTER TABLE  `jt_assertion` DROP  `imgs1`
 ALTER TABLE  `jt_assertion` DROP  `imgs2`
 ALTER TABLE  `jt_assertion` DROP  `infos`
+
+ALTER TABLE  `jt_concept` ADD  `filesize` INT NOT NULL DEFAULT  '0' AFTER  `edittime`;
+ALTER TABLE  `jt_concept` ADD  `otime` DATETIME NOT NULL AFTER  `filesize`;
+ALTER TABLE  `jt_concept` ADD  `ow` INT NOT NULL DEFAULT  '0' AFTER  `otime`;
+ALTER TABLE  `jt_concept` ADD  `oh` INT NOT NULL DEFAULT  '0' AFTER  `ow`;
+ALTER TABLE  `jt_concept` CHANGE  `text`  `text` VARCHAR( 255 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
+ALTER TABLE  `jt_concept` CHANGE  `img`  `img` VARCHAR( 400 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
