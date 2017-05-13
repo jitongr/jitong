@@ -11,14 +11,14 @@
 	<form name="keycp" method="get" >
 	    <select name="fre"  >
 	    <?
-		   if(ROLE!='admin') $dadda="where n1>0";
-      $sql2p="select * from conceptnet_frame $dadda order by relation_id asc,n1 desc";
+		 if(!isset($_GET['all']))  $dadda="where n2>0";
+      $sql2p="select * from conceptnet_frame $dadda order by relation_id asc,n2 desc";
 	  $res=$DB->query($sql2p);
          while($arr=$DB->fetch_array($res))
                 {
             ?>
    <option value="<?=$arr['id']?>" <? if($arr['id']==$freid) echo "selected";?>>
-         【<?=$arr['relation_id']?>】<?=$arr['text']?>(<?=$arr['n1']?>)
+         【<?=$arr['relation_id']?>】<?=$arr['text']?>(<?=$arr['n2']?>)
         </option>
         <?  }	?>
 	</select> 

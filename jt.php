@@ -8,7 +8,7 @@ require_once 'init.php';
 
 define ('TEMPLATE_PATH', EMLOG_ROOT . '/view/');
 
-if (ISLOGIN !== true){
+if (isset($_GET['cp'])&&ISLOGIN !== true){
 
 $msg='请登录。';
 emDirect("/jitong/?action=login");
@@ -87,7 +87,7 @@ if (!empty($cpid) )
 			if($maxtop<760)
 			$maxtop=760;
 	include './view/header.php';
-if(isset($_GET['cp']))
+    if(isset($_GET['cp']))
 	include View::getView('cpedit');
 	else
 	include View::getView('cpshow');
@@ -119,91 +119,29 @@ elseif(isset ($_GET['fre']))
 	include View::getView('footer');
 	
 }
-elseif(isset ($_GET['list']))
-{
-   $action='list';
-	$sql = "SELECT uid,count(1) as a FROM  ".$tabf."_concept WHERE uid>0 group by uid order by a desc";
-			$res = $DB->query($sql);
-		
-			global $CACHE;
-	$user_cache = $CACHE->readCache('user');
-	
-  include './view/header.php';
- echo ' <table width="400" border="1">
-  <tr>
-    <th scope="col">会员</th>
-    <th scope="col">图数量</th>
-    <th scope="col">&nbsp;</th>
-  </tr>';
-	while ($row = $DB->fetch_array($res)) {
-			//print_r($row);
-			echo '<tr>
-    <td>'.$user_cache[$row['uid']]['name'].'</td>
-    <td>'.$row['a'].'</td>
-    <td><a href="?u='.$row['uid'].'">查看</a></td>
-  </tr>';
-			}  
-echo '</table>';
-
-
-	include View::getView('footer');
-	View::output();
-}
 else
 {
-	$akey = addslashes($_GET['k']);
-	
-	$ltime = date('Y-m-d H:i:s');
-	
-	if(isset($_GET['u'])){
-		$uid=intval($_GET['u']);
-	global $CACHE;
-	$user_cache = $CACHE->readCache('user');
-	$author = $user_cache[$uid]['name'];
-	$sql = "SELECT * FROM ".$tabf."_concept where uid={$uid} order by edittime desc limit 1000";
-	$atitle=$author.'添加的图';$action='list';
-	$kword='maimy';
-	}elseif(empty ($akey)){
-	$sql = "SELECT * FROM ".$tabf."_concept where uid=0 order by Rand()  LIMIT 30";
-	$atitle='点击编辑图：';
-	$aineth=1;
-	$kword='maihome';
-	}else{
-	$sql = "SELECT * FROM  ".$tabf."_concept WHERE text LIKE '%$akey%' order by f3 desc LIMIT 1000";
-	$atitle="查询'".$akey."'进行编辑：";$aineth=1;
-	$kword='maisearch';
+   $action='list';
+	$sql = "SELECT sort,count(1) as a FROM  jt_concept group by sort ";
+
+	include View::getView('header');
+    $res = $DB->query($sql);
+	while ($row = $DB->fetch_array($res)) {
+		 $p[$row['sort']]=$row['a'];
+			}  
+if(isset($_GET['edit']))$ad='&edit';
+if(isset($_GET['show']))$ad='&show';
+foreach(getcptype() as $k=>$v){
+	echo '<a href="?s='.$k.$ad.'">'.$v.$p[$k].'</a> &nbsp;';
 	}
-	$DB->query("INSERT INTO viewlog (method,viewid,concept,uid,seid,vtime,text,loginip) VALUES (
-				'$kword','$vsid','0','$uid','$seid','$ltime','$akey','$gip')");	
-			$res = $DB->query($sql);
-		
-			while ($row = $DB->fetch_array($res)) {
-			if(isset($_GET['jt']))$row[id]=-$row[id];
-		// $sql2 = "SELECT * FROM  ".$tabf."_assertion WHERE concept1_id='$row[id]' or concept2_id='$row[id]' LIMIT 2";
-		$sql2 = "SELECT a.concept1_id,a.concept2_id,
-		a.relation_id,a.best_frame_id, ".$tabf."_concept.text FROM  ".$tabf."_assertion a LEFT JOIN
-		 ".$tabf."_concept ON a.concept2_id= ".$tabf."_concept.id
-		WHERE concept1_id='$row[id]'";
-			$aDa = $DB->once_fetch_array($sql2);
-		
-		$row[tx1]=$aDa[text];
-	 $row[re1]=$aDa[relation_id];
-	 $row[fi1]=$aDa[best_frame_id];
-		 $sql3 = "SELECT a.concept1_id,a.concept2_id,
-		a.relation_id,a.best_frame_id, ".$tabf."_concept.text FROM  ".$tabf."_assertion a LEFT JOIN
-		 ".$tabf."_concept ON a.concept1_id= ".$tabf."_concept.id
-		WHERE concept2_id='$row[id]'";
-			$aDa3 = $DB->once_fetch_array($sql3);
-		
-		$row[tx2]=$aDa3[text];
-	 $row[re2]=$aDa3[relation_id];
-	 $row[fi2]=$aDa3[best_frame_id];
-	$concepts[]=$row;
-		}
-		$hhtitle=$akey;
-		$atitle.="（共".count($concepts,0)."个）";
-  include './view/header.php';
-	include View::getView('mynet');
+$s=isset($_GET['s'])?intval($_GET['s']):7;
+
+	$sql = "SELECT * FROM jt_concept ";
+if(!isset($_GET['all']))
+ $sql .=' where sort='.$s;
+	$res = $DB->query($sql);
+	
+	include View::getView('cruboylist');
 	include View::getView('footer');
 	View::output();
 }

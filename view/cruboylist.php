@@ -27,9 +27,10 @@ function ed(id){
 <div id="m">
 
     <li>
-	<h3><a href='?action=xingshou'><span>cruboy </span></a>
-	<a href='?action=xingshou&show'><span>shows</span></a>
-	<a href='?action=xingshou&edit'>edit</a>
+	<h3><a href='jt.php?s=<?=$s?>'><span>cruboy </span></a>
+	<a href='jt.php?s=<?=$s?>&show'><span>shows</span></a>
+	<a href='jt.php?s=<?=$s?>&edit'>edit</a>
+    <a href='jt.php?fre'><span>关联</span></a>
 	</h3> 
 	<ul id="logserch">
 

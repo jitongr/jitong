@@ -65,6 +65,7 @@ foreach($concepts2 as $value):
 	关系：
     <select dir="ltr" name="addrel" id="darom" >
 	    <?
+		 if(!isset($_GET['all']))  $dadda="where n2>0";
 	      $sql2p="select * from conceptnet_frame $dadda order by relation_id asc,n2 desc";
 	  $res=$DB->query($sql2p);
          while($arr=$DB->fetch_array($res))

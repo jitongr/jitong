@@ -4,7 +4,7 @@ require_once '../init.php';
 echo "building...";
 $imgid = isset ($_GET['img']) ? intval ($_GET['img']) : '';
 echo $imgid;
-if (isset ($_GET['scan'])) {
+if (isset ($_GET['scanff'])) {
 	set_time_limit(0);
 	$bpath = ($_GET['bpath']) ;
 	$dir=EMLOG_ROOT ;
@@ -80,6 +80,23 @@ $DB->query($ddde);
 	}else echo'not dir';
 }
 
+if(isset($_GET['read'])){
+	$handle = @fopen("lib/names_girls_double.txt", "r");
 
+    while (!feof($handle)) {
+        $buffer = fgets($handle, 96);
+        echo $buffer;
+		$sql2d="SELECT id  FROM jt_childname where name like '$buffer'";
+	$row2d=$DB->once_fetch_array($sql2d);
+	if($row2d['id']){
+	 $ddde="update jt_childname set girl=1,sm=2  where id=".$row2d['id'];
+     echo "【u】";
+      $DB->query($ddde);	
+		}else{
+    $ddde="INSERT INTO jt_childname (sm,girl,name) VALUES (1,1,'$buffer' )";
+     $DB->query($ddde);
+    }
+   
 
-?>
+}
+}

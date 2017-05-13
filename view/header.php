@@ -32,7 +32,7 @@ a:link,a:visited,a:hover,a:active {text-decoration: none;color:#333;}
 <a href="ask.php" >卜问</a>
 <a href="./?action=list" >祭坛</a>
 <a href="./?action=li" >祭文</a>
-<a href="./?action=xingshou" <?php if($action=='xingshou')echo 'id="active"'; ?>>刑受</a> 
+<a href="jt.php" <?php if($action=='xingshou')echo 'id="active"'; ?>>刑受</a> 
 <a href="jitong.php" >祭童</a>
 <a href="tongtu.php" >童图</a>
 <a href="xing.php" >刑图</a>

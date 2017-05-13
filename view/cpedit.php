@@ -30,10 +30,11 @@ function ch(){
 function ax(id){
 	if(editt==1){
 		if(theid!=id||theiid!=0)
-		 savecd();
+		{ savecd();	//alert(theid+"dd");
+		}
 		theiid=0;
 		theid=id;
-		alert(theid+"dd");
+	
 	}else{var w=300;var h=250;
 		if(id%10==3){w=600;h=650}
  art.dialog.open("docp.php?m=a&cp=<?=$cpid?>&editid="+id, { 
@@ -44,9 +45,9 @@ function ax(id){
 function axx(id){
 	if(editt==1){
 		if(theiid!=id||theid!=0)
-		{ savecd();alert(theid+"sv");
+		{ savecd();//alert(theid+"sv");
 		}theid=0;
-		theiid=id;	alert(theid+"bb");
+		theiid=id;	//alert(theid+"bb");
 		//alert(theid);
 	}else{ var w=300;var h=250;
 		if(id%10==3){w=600;h=650}

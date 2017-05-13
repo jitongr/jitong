@@ -219,3 +219,14 @@ ALTER TABLE  `jt_concept` ADD  `ow` INT NOT NULL DEFAULT  '0' AFTER  `otime`;
 ALTER TABLE  `jt_concept` ADD  `oh` INT NOT NULL DEFAULT  '0' AFTER  `ow`;
 ALTER TABLE  `jt_concept` CHANGE  `text`  `text` VARCHAR( 255 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
 ALTER TABLE  `jt_concept` CHANGE  `img`  `img` VARCHAR( 400 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
+
+CREATE TABLE IF NOT EXISTS `jt_childname` (
+  `id` int(11) NOT NULL auto_increment,
+  `ged` tinyint NOT NULL default '0',
+  `sm` tinyint NOT NULL default '0',
+  `name` varchar(100) NOT NULL default '',
+  `age` int(11) NOT NULL default '0',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 
+
+ALTER TABLE  `jt_concept` CHANGE  `sort`  `sort` SMALLINT NOT NULL DEFAULT  '0'

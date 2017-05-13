@@ -14,12 +14,17 @@ $seid=session_id();
 $action = isset($_GET['action']) ? addslashes($_GET['action']) : '';
 $cpid = intval ($_GET['cp'])  ;
 
-$tjts=intval ($_GET['tjts']);
+$tjts=intval($_GET['s']);
 if(isset($_GET['jitongw']))$tjts=101;if(isset($_GET['afflicted']))$tjts=103;
 if(isset($_GET['virgin']))$tjts=99;if(isset($_GET['beat']))$tjts=105;
 if(isset($_GET['crux']))$tjts=106;
 
 if ($action == 'list'||$tjts) {
+		$sql = "SELECT sort,count(1) as a FROM  jt_concept group by sort ";
+    $res = $DB->query($sql);
+	while ($row = $DB->fetch_array($res)) {
+		 $p[$row['sort']]=$row['a'];
+			} 
 	 if($tjts) { 
 	 $sqladd="and sort=$tjts ";	       
       }//else
@@ -32,9 +37,9 @@ if ($action == 'list'||$tjts) {
 	$start=($page-1)*$index_lognum;
  	
 
-$sql22="SELECT * FROM jt_concept where 1 $sqladd  order by id desc limit   $start,$index_lognum";
+$sql22="SELECT * FROM jt_concept where 1 $sqladd  order by edittime desc limit   $start,$index_lognum";
 $query=$DB->query($sql22);
- $page_url = pagination($row2['a'], $index_lognum, $page, "?action=list&tjts={$tjts}&page=");
+ $page_url = pagination($row2['a'], $index_lognum, $page, "?action=list&s={$tjts}&page=");
 	
 
     $_SESSION['onm']=1;
@@ -45,7 +50,12 @@ $query=$DB->query($sql22);
 }else
 if ($action == 'li') {
 	if(isset($_POST['id'])){
-	$DB->query("update jt_concept set img='".addslashes($_POST['img'])."' where id=".intval($_POST['id']));
+		if($_POST['img']) $sq=",img='".addslashes($_POST['img'])."'";
+		if($_POST['text']) $sq=",text='".addslashes($_POST['text'])."'";
+		if($_POST['info']) $sq=",info='".addslashes($_POST['info'])."'";
+		if($_POST['sort']) $sq=",sort= ".intval($_POST['sort']) ;
+		if($sq)
+	$DB->query("update jt_concept set  ".substr($sq,1)." where id=".intval($_POST['id']));
 		}
 	 if($tjts) { 
 	 $sqladd="and sort=$tjts ";	       
@@ -61,20 +71,10 @@ if ($action == 'li') {
 
 $sql22="SELECT * FROM jt_concept where 1 $sqladd   limit   $start,$index_lognum";
 $query=$DB->query($sql22);
- $page_url = pagination($row2['a'], $index_lognum, $page, "?action=li&tjts={$tjts}&page=");
+ $page_url = pagination($row2['a'], $index_lognum, $page, "?action=li&s={$tjts}&page=");
     $_SESSION['onm']=1;
 	include View::getView('header');
 	include View::getView('log');
-	include View::getView('footer');
-	View::output();
-}else
-if($action == 'xingshou')
-{
-	
-	$sql = "SELECT * FROM jt_concept ";
-	$res = $DB->query($sql);
-	include View::getView('header');
-	include View::getView('cruboylist');
 	include View::getView('footer');
 	View::output();
 }
