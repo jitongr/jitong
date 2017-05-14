@@ -23,7 +23,7 @@ $uid=UID;
 $seid=session_id();
 $vsid=intval($_SESSION['views']);
 // 首页
-
+ $action='jt';
 	$cpid=isset($_GET['cp'])?intval($_GET['cp']):intval($_GET['id']);
     $tabf='jt';
 	$CACHE = Cache::getInstance();
@@ -121,7 +121,7 @@ elseif(isset ($_GET['fre']))
 }
 else
 {
-   $action='list';
+  
 	$sql = "SELECT sort,count(1) as a FROM  jt_concept group by sort ";
 
 	include View::getView('header');

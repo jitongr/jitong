@@ -31,8 +31,6 @@ $cpid=intval($_GET['cp']);
 if(isset($_GET['ecdid'])){
 
 	$id=intval($_GET['ecdid']);
-	$_POST['img']=($_POST['img']);
-	$_POST['imgsize']=intval($_POST['imgsize']);
 $sq1="SELECT * FROM  ".$tabf."_concept WHERE id='$id'";
 	$pDa=$DB->once_fetch_array($sq1);
 	  $pDa['content']=addslashes($pDa['content']);

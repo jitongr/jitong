@@ -1,9 +1,10 @@
 <?php
 require_once 'init.php';
 $DB=MySql::getInstance();
-	 $cage=intval($_GET['age']);
-	$res3="select * from emlog_blog where gid=$cage ";
-	$valuz=$DB->once_fetch_array($res3);
+//	 $cage=intval($_GET['age']);
+//	$res3="select * from emlog_blog where gid=$cage ";
+//	$valuz=$DB->once_fetch_array($res3);
+	 $action='tongtu';
 include "view/header.php";
 ?>
 <div id="content">

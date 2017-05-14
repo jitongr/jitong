@@ -12,6 +12,7 @@ require_once 'init.php';
 
 </head>
 <?
+ $action='xing';
 include "view/header.php";
 ?>
 <body>

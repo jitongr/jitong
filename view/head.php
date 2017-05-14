@@ -35,7 +35,7 @@ if(!defined('EMLOG_ROOT')) {exit('error!');}
     <ul>
   <li class="<?php echo $action=='' ? 'current' : 'common';?>"><a href="/jitong">首祭</a></li>
     <li class="<?php echo $s=='' ? 'current' : 'common';?>"><a href="?action=list">全部</a></li><? foreach(getcptype() as $k=>$v){ ?>
-	<li class="<?php echo $s==$k ? 'current' : 'common';?>"><a href="?action=list&s=<?=$k?>"><?=$v.$p[$k]?></a></li></li>
+	<li class="<?php echo $s==$k ? 'current' : 'common';?>"><a href="?action=list&s=<?=$k?>"><?=$v.$p[$k]?></a></li> 
 	<? } ?>
 	<li class="common"><?php echo $userData['username']; ?>祭</li>
    	</ul>

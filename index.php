@@ -14,7 +14,7 @@ $seid=session_id();
 $action = isset($_GET['action']) ? addslashes($_GET['action']) : '';
 $cpid = intval ($_GET['cp'])  ;
 
-$tjts=intval($_GET['s']);
+$s=intval($_GET['s']);
 if(isset($_GET['jitongw']))$tjts=101;if(isset($_GET['afflicted']))$tjts=103;
 if(isset($_GET['virgin']))$tjts=99;if(isset($_GET['beat']))$tjts=105;
 if(isset($_GET['crux']))$tjts=106;
@@ -27,6 +27,8 @@ if ($action == 'list'||$tjts) {
 			} 
 	 if($tjts) { 
 	 $sqladd="and sort=$tjts ";	       
+      } if($s) { 
+	 $sqladd="and sort=$s ";	       
       }//else
 	 // $sqladd="and sort>98 ";	  
 	 $sql2="SELECT count(1) as a  FROM jt_concept where 1 $sqladd ";
@@ -57,8 +59,13 @@ if ($action == 'li') {
 		if($sq)
 	$DB->query("update jt_concept set  ".substr($sq,1)." where id=".intval($_POST['id']));
 		}
-	 if($tjts) { 
-	 $sqladd="and sort=$tjts ";	       
+			$sql = "SELECT sort,count(1) as a FROM  jt_concept group by sort ";
+    $res = $DB->query($sql);
+	while ($row = $DB->fetch_array($res)) {
+		 $p[$row['sort']]=$row['a'];
+			} 
+	 if($s) { 
+	 $sqladd="and sort=$s ";	       
       }//else
 	 // $sqladd="and sort>98 ";	  
 	 $sql2="SELECT count(1) as a  FROM jt_concept where 1 $sqladd ";
@@ -88,6 +95,21 @@ if(empty ($action) && empty ($logid) && empty ($cpid))
     $CACHE = Cache::getInstance();
 	$cpr = $CACHE->readCache('cpr');
 	$o="";
+	if(empty($_SESSION['jtimg'])){
+		$w=date('t');$y=date('Y');
+	 $sql2="SELECT * FROM weekcache where year=$y and week=$w and name='jtimg'";
+	$row2=$DB->once_fetch_array($sql2);
+	if($row2['id']){
+		$_SESSION['jtimg']=$row2['content'];
+		$_SESSION['jtimgid']=$row2['oid'];
+		}else{
+		$rowe =$DB->once_fetch_array("SELECT * FROM jt_concept  where filesize>0 and filesize<70000 order by Rand() LIMIT 1");	
+	$DB->query("INSERT INTO weekcache (year,week,name,oid,ctime,content) VALUES (
+				'$y','$w','jtimg','".$rowe['id']."','$ltime','".$rowe['img']."')");
+		$_SESSION['jtimg']=$rowe['img'];
+		$_SESSION['jtimgid']=$rowe['id'];			
+		}
+	}
 	if(isset($_GET['aikey'])){
 		$akey=addslashes(trim($_GET['aikey']));
 		if(empty ($akey)){

@@ -13,6 +13,9 @@ function ed(id){
  title:"<?=$value['text']; ?>--" +id});	
 	}
 </script>
+<? foreach(getcptype() as $k=>$v){ ?>
+	 <a href="?action=li&s=<?=$k?>"><?=$v.$p[$k]?></a> 
+	<? } ?>
 <div id="m">
 <?php while ($value = $DB->fetch_array($query)) { ?>
 <div class="title"><a href="/jitong/?cp=<?php echo $value['id']; ?>"><?php echo $value['id'].' '.$value['text']; ?> <?php echo $value['info']; ?></a>[<?php echo getcptype($value['sort']); ?>] <?php echo strlen($value['content']); ?></div>

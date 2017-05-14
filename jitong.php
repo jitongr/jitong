@@ -17,6 +17,7 @@ $DB=MySql::getInstance();
 			$_SESSION['onm']=0;
 			$res3="select * from emlog_blog where gid=$cage ";
 			$valuz=$DB->once_fetch_array($res3);
+			 $action='jitong';
 include "view/header.php";
 ?>
 

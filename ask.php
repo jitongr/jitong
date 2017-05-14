@@ -1,6 +1,15 @@
-<html>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <?php
+require_once 'init.php';
+
+define ('TEMPLATE_PATH', EMLOG_ROOT . '/view/');
+$DB = MySql::getInstance();
+$concepts=array();
+$atitle="";
+$gip=getIp();   
+$uid=UID;
+$seid=session_id();
+$vsid=intval($_SESSION['views']);
+ $action='ask';
 function unicode_decode($name) {
      
     // 转换编码，将Unicode编码转换成可以浏览的utf-8编码
@@ -23,8 +32,47 @@ function unicode_decode($name) {
     }
     return $name;
 }
+if(isset($_GET['imgck'])){
+	header("Content-type: image/png");
+$im = imagecreatetruecolor(512, 512)
+or die("Cannot Initialize new GD image stream");
+$white = imagecolorallocate($im, 255, 255, 255);
+for ($y=0; $y<512; $y++) {
+for ($x=0; $x<512; $x++) {
+if (rand(0,1) === 1) {
+imagesetpixel($im, $x, $y, $white);
+}
+}
+}
+imagepng($im);
+imagedestroy($im);
+exit;
+}
+if(isset($_GET['imgck2'])){
+	header("Content-type: image/png");
+$im = imagecreatetruecolor(512, 512)
+or die("Cannot Initialize new GD image stream");
+$white = imagecolorallocate($im, 255, 255, 255);
+for ($y=0; $y<512; $y++) {
+for ($x=0; $x<512; $x++) {
+if (mt_rand(0,1) === 1) {
+imagesetpixel($im, $x, $y, $white);
+}
+}
+}
+imagepng($im);
+imagedestroy($im);
+exit;
+}
 if(isset($_GET['u'])){
     for ($i = 0; $i < 41000; $i++) {
+       // $str.= "\\u" . dechex(rand(19968, 40895));
+	   if($i%1000==0)echo "<br>".$i;
+		echo unicode_decode("\\u".dechex($i));
+    }
+}
+if(isset($_GET['uu'])){
+    for ($i = 41000; $i < 65000; $i++) {
        // $str.= "\\u" . dechex(rand(19968, 40895));
 	   if($i%1000==0)echo "<br>".$i;
 		echo unicode_decode("\\u".dechex($i));
@@ -37,6 +85,22 @@ if(isset($_GET['c'])){
     }
    echo unicode_decode($str);
 }
- $k= chr(rand(161,215)).chr(rand(161,249));
- echo iconv('GBK', 'UTF-8', $k);
-?></html>
+
+	$sql = "SELECT sort,count(1) as a FROM  jt_concept group by sort ";
+
+	include View::getView('header');
+    $res = $DB->query($sql);
+	while ($row = $DB->fetch_array($res)) {
+		 $p[$row['sort']]=$row['a'];
+			}  
+ if(isset($_GET['s'])){
+$s=intval($_GET['s']);
+	$sql = "SELECT * FROM jt_concept ";
+if($s>-1)
+ $sql .=' where sort='.$s;
+ $sql .=" order by rand() limit 1";
+	$val=$DB->once_fetch_array($sql);
+ }
+	include View::getView('ask');
+	include View::getView('footer');
+	View::output();

@@ -5,7 +5,7 @@
 <div id="m">
     <li>
 	<h3><span>首祭</span></h3>
-    <h3><span><img src="/jitong/boy.jpg" border="0"></span></h3>
+    <h3><span><a href="?cp=<?=$_SESSION['jtimgid']?>"><img src="<?=$_SESSION['jtimg']?>" border="0" style="max-height:300px;max-width:300px;"></span></a></h3>
     <ul id="logsch">
     <form name="keycp" method="get" >
     <input id="searchValue" name="aikey" type="text" value="<?php echo $akey; ?>"   />       

@@ -57,6 +57,14 @@ function htmlClean($content, $wrap=true){
 	return $content;
 }
 
+function getzi(){
+  $k= chr(rand(161,215)).chr(rand(161,249));
+ return iconv('GBK', 'UTF-8', $k);
+	}
+function getzis(){
+  $k= chr(mt_rand(161,215)).chr(mt_rand(161,249));
+ return iconv('GBK', 'UTF-8', $k);
+	}	
 function getcptype($i=-1){
 	$sub[0]='未分类';$sub[1]='概念';
 

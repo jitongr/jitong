@@ -21,6 +21,15 @@
 <img src="/m/images/os2.gif" title="关联数"><?php echo $pDa['f3']; ?>
   <a href="jt.php?id=<?=$pDa['id']?>">预览</a>
  <a href="jt.php?cp=<?=$pDa['id']?>">编辑</a><br>
+ <?php if(ISLOGIN&&($pDa['sort']==0||$pDa['text']==""||$pDa['img']=="")): ?>
+<form method='post' action='docp.php?cp=<?=$pDa['id']?>&ecdid=<?=$pDa['id']?>'>
+<? if($pDa['text']==""){ ?>cp<input style="width:200px;" value=""  name="text" />
+<input style="width:150px;" value=""  name="info" /><? }?>
+<? if($pDa['sort']==0){ ?> <select name="sort" > <?php foreach (getcptype() as $k=>$v) {	
+?><option value="<?=$k?>" ><?=$v?></option>	<?php } ?></select><? }?>
+<? if($pDa['img']==""){ ?>img<input style="width:300px;" value="/jty/"  name="img" /><? }?>
+<input type="hidden" name="id" value="<?=$pDa['id']?>"><input  type='submit' value='提交'/></form>
+<?php endif;?>
  <? if($pDa['img']){ ?> <img src="<?=$pDa['img']?>"> <br><? }?>
 <?php echo $pDa['content']; ?>
 </div>   

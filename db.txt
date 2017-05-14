@@ -230,3 +230,16 @@ CREATE TABLE IF NOT EXISTS `jt_childname` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 
 
 ALTER TABLE  `jt_concept` CHANGE  `sort`  `sort` SMALLINT NOT NULL DEFAULT  '0'
+
+CREATE TABLE IF NOT EXISTS `weekcache` (
+  `id` int(11) NOT NULL auto_increment,
+   `year` int(11) NOT NULL default '0',
+	`week` tinyint NOT NULL default '0',
+    `name` varchar(20) NOT NULL default '',
+	`oid`  int NOT NULL default '0',
+
+  `ctime` datetime NOT NULL,
+   `show` int(11) NOT NULL default '0',  
+   `content` text NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 
