@@ -3,12 +3,13 @@ require_once 'init.php';
 
 define ('TEMPLATE_PATH', EMLOG_ROOT . '/view/');
 $DB = MySql::getInstance();
-$concepts=array();
+ 
 $atitle="";
 $gip=getIp();   
 $uid=UID;
 $seid=session_id();
 $vsid=intval($_SESSION['views']);
+ $ltime = date('Y-m-d H:i:s');
  $action='ask';
 function unicode_decode($name) {
      
@@ -70,6 +71,7 @@ if(isset($_GET['u'])){
 	   if($i%1000==0)echo "<br>".$i;
 		echo unicode_decode("\\u".dechex($i));
     }
+	exit;
 }
 if(isset($_GET['uu'])){
     for ($i = 41000; $i < 65000; $i++) {
@@ -77,14 +79,9 @@ if(isset($_GET['uu'])){
 	   if($i%1000==0)echo "<br>".$i;
 		echo unicode_decode("\\u".dechex($i));
     }
+	exit;
 }
-if(isset($_GET['c'])){	
-	   $str = "";
-    for ($i = 0; $i < 100; $i++) {
-        $str.= "\\u" . dechex(rand(19968, 40895));
-    }
-   echo unicode_decode($str);
-}
+
 
 	$sql = "SELECT sort,count(1) as a FROM  jt_concept group by sort ";
 
@@ -92,15 +89,39 @@ if(isset($_GET['c'])){
     $res = $DB->query($sql);
 	while ($row = $DB->fetch_array($res)) {
 		 $p[$row['sort']]=$row['a'];
-			}  
+	}  
+	$a=$_GET['a'];
+if($a=='cz1'){	
+ 
+   $thezi= getzi().getzi();
+   $rec=$thezi;
+}
+if($a=='cz2'){	
+   $thezi= getzis().getzis();
+   $rec=$thezi;
+}
+if($a=='cz3'){	
+	   $str = "";
+    for ($i = 0; $i < 2; $i++) {
+        $str.= "\\u" . dechex(rand(19968, 40895));
+    }
+   $thezi= unicode_decode($str);
+   $rec=$thezi;
+}$cid=0;
+$s=intval($_GET['s']);	
  if(isset($_GET['s'])){
-$s=intval($_GET['s']);
 	$sql = "SELECT * FROM jt_concept ";
 if($s>-1)
  $sql .=' where sort='.$s;
  $sql .=" order by rand() limit 1";
-	$val=$DB->once_fetch_array($sql);
+	$value=$DB->once_fetch_array($sql);
+	$rec=$value['id'].' '.$value['text'];
+	$cid=$value['id'];
+	$a="ask";
  }
+ if($rec)
+ 	$DB->query("INSERT INTO jt_asklog (mthd,oid,cid,viewid,content,uid,seid,ctime,ip) VALUES (
+	'$a','$s','$cid','$vsid','$rec','$uid','$seid','$ltime', '$gip')");
 	include View::getView('ask');
 	include View::getView('footer');
 	View::output();

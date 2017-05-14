@@ -243,3 +243,18 @@ CREATE TABLE IF NOT EXISTS `weekcache` (
    `content` text NOT NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 
+
+CREATE TABLE IF NOT EXISTS `jt_asklog` (
+  `id` int(11) NOT NULL auto_increment,
+  `mthd` varchar(20) NOT NULL default '',
+  `oid`  int NOT NULL default '0',
+  `ctime` datetime NOT NULL,
+  `content` varchar(200) NOT NULL default '',
+  `uid` int(11) NOT NULL default '0',
+  `viewid` int(11) NOT NULL default '0',
+  `ip` varchar(128) NOT NULL default '',
+  `seid` varchar(100) NOT NULL default '',
+  `rep` varchar(200) NOT NULL default '',
+   PRIMARY KEY  (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 
+ ALTER TABLE  `jt_asklog` ADD  `cid` INT NOT NULL DEFAULT  '0' AFTER  `oid`
