@@ -43,10 +43,12 @@ $DB->query("INSERT INTO jt_vasslog (cpid,rid,method,edate,uid,content,ip,seid) V
 		}
 		$upStr = implode(',', $Item);
 		$DB->query("UPDATE ".$tabf."_concept SET $upStr WHERE id=$id");
+if(isset($_GET['s'])){
+emDirect('ask.php?s='.$_GET['s']);
+}else{
 	   $msf="修改成功！".$id;
-		 
 	echo $msf;
-	exit;
+}exit;
 }
 elseif(isset($_GET['aid'])){
 //print_r($_POST);

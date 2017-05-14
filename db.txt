@@ -258,3 +258,4 @@ CREATE TABLE IF NOT EXISTS `jt_asklog` (
    PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 
  ALTER TABLE  `jt_asklog` ADD  `cid` INT NOT NULL DEFAULT  '0' AFTER  `oid`
+ALTER TABLE  `jt_asklog` ADD  `good` DOUBLE NOT NULL DEFAULT  '0' AFTER  `cid`

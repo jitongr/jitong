@@ -10,20 +10,24 @@
 <a href="?a=cz1">测字1</a> 
 <a href="?a=cz2">测字2</a> 
 <a href="?a=cz3">测字3</a>
-<a href="?a=cztu">测字图</a>  
+  
 <a href="?imgck">随机图</a>  
 <a href="?imgck2">随机图2</a>  
 <a href="?u">utf8</a> 
 <a href="?uu">utf8.2</a> 
+<a href="?list">历史记录</a> 
 <div class="comcont"> 
- <span style="font-size:40px;"><?=$thezi?></span>
+ <span style="font-size:40px;"><?=$thezi?></span><?=$rgood?>
+ <form   method="post"  >
+	<input name="rep"  type="text" value="<?php echo $akey; ?>" style="width:120px;"/><input type="submit" name="redo" value="占卜问" />
+</form>
 </div>
-<? if(isset($value)){ ?>
- <div class="title"><a href="/jitong/?cp=<?php echo $value['id']; ?>"><?php echo $value['id'].' '.$value['text']; ?> <?php echo $value['info']; ?></a>[<?php echo getcptype($value['sort']); ?>] <?php echo strlen($value['content']); ?><?php echo $value['birth'].'-'.$value['die']; ?><?php echo $value['age']; ?></div>
+<? if(isset($value['id'])){ ?>
+ <div class="title"><a href="/jitong/?cp=<?php echo $value['id']; ?>"><?php echo $value['id'].' '.$value['text']; ?> <?php echo $value['info']; ?></a>[<?php echo getcptype($value['sort']); ?>] <?php echo strlen($value['content']); ?><?php echo $value['birth'].'-'.$value['die']; ?><?php echo $value['age']; ?>  <font color=red><?php echo $_SESSION['askedgd']; ?></font> </div>
 <? if($value['img']){ ?><img src="<?=$value['img']?>" style="max-width:1200px"><? }?>
 <div class="info2">
 <?php if(ISLOGIN&&($value['sort']==0||$value['text']==""||$value['img']=="")): ?>
-<form method='post' action='docp.php?cp=<?=$value['id']?>&ecdid=<?=$value['id']?>'>
+<form method='post' action='docp.php?cp=<?=$value['id']?>&ecdid=<?=$value['id']?>&s=<?=$s?>'>
 <? if($value['text']==""){ ?>cp<input style="width:200px;" value=""  name="text" />
 <input style="width:150px;" value=""  name="info" /><? }?>
 <? if($value['sort']==0){ ?> <select name="sort" > <?php foreach (getcptype() as $k=>$v) {	
