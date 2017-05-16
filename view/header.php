@@ -36,7 +36,7 @@ a:link,a:visited,a:hover,a:active {text-decoration: none;color:#333;}
 <a href="jitong.php" <?php if($action=='jitong')echo 'id="active"'; ?>>祭童</a>
 <a href="tongtu.php" <?php if($action=='tongtu')echo 'id="active"'; ?>>童图</a>
 <a href="xing.php" <?php if($action=='xing')echo 'id="active"'; ?>>刑图</a>
-
+<a href="tona.php" <?php if($action=='tona')echo 'id="active"'; ?>>童难</a>
 <?php if(ISLOGIN === true): ?>
 <a href="/" ><?php if(UID) echo $userData['username']; else echo "幽灵"; ?></a>！<a href="./?action=logout">退出</a>
 <?php else:?>
