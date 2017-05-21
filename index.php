@@ -96,7 +96,7 @@ if(empty ($action) && empty ($logid) && empty ($cpid))
 	$cpr = $CACHE->readCache('cpr');
 	$o="";
 	if(empty($_SESSION['jtimg'])){
-		$w=date('t');$y=date('Y');
+		$w=date('W');$y=date('Y');
 	 $sql2="SELECT * FROM weekcache where year=$y and week=$w and name='jtimg'";
 	$row2=$DB->once_fetch_array($sql2);
 	if($row2['id']){

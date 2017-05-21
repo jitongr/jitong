@@ -32,7 +32,7 @@
 <input style="width:150px;" value=""  name="info" /><? }?>
 <? if($value['sort']==0){ ?> <select name="sort" > <?php foreach (getcptype() as $k=>$v) {	
 ?><option value="<?=$k?>" ><?=$v?></option>	<?php } ?></select><? }?>
-<? if($value['img']==""){ ?>img<input style="width:400px;" value="/jty/"  name="img" /><? }?>
+<? if($value['img']==""){ ?>img<input style="width:400px;" value=""  name="img" /><? }?>
 <input type="hidden" name="id" value="<?=$value['id']?>"><input  type='submit' value='提交'/></form>
 <?php endif;?>
 <?=date('Y-m-d H:i:s',$value['edittime'])?> 
