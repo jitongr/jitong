@@ -28,6 +28,7 @@ a:link,a:visited,a:hover,a:active {text-decoration: none;color:#333;}
 <div id="blogname"><?php echo $blogname; ?></div>
 </div>
 <div id="navi">
+<a href="/" >返回</a> 
 <a href="./" <?php if($action=='')echo 'id="active"'; ?>>首祭</a> 
 <a href="ask.php" <?php if($action=='ask')echo 'id="active"'; ?>>启示</a>
 <a href="./?action=list" >祭坛</a>
@@ -35,10 +36,10 @@ a:link,a:visited,a:hover,a:active {text-decoration: none;color:#333;}
 <a href="jt.php" <?php if($action=='jt')echo 'id="active"'; ?>>刑受</a> 
 <a href="jitong.php" <?php if($action=='jitong')echo 'id="active"'; ?>>祭童</a>
 <a href="tongtu.php" <?php if($action=='tongtu')echo 'id="active"'; ?>>童图</a>
-<a href="xing.php" <?php if($action=='xing')echo 'id="active"'; ?>>刑图</a>
+<a href="xing.php" <?php if($action=='xing')echo 'id="active"'; ?>>行图</a>
 <a href="tona.php" <?php if($action=='tona')echo 'id="active"'; ?>>童难</a>
 <?php if(ISLOGIN === true): ?>
-<a href="/" ><?php if(UID) echo $userData['username']; else echo "幽灵"; ?></a>！<a href="./?action=logout">退出</a>
+<a href="/" ><?php if(UID) echo $userData['username']; else echo "慕道"; ?></a>！<a href="./?action=logout">退出</a>
 <?php else:?>
 <a href="<?php echo BLOG_URL; ?>?action=login" <?php if($action=='login')echo 'id="active"'; ?>>登录</a>
 <a href="<?php echo BLOG_URL; ?>?action=reg" <?php if($action=='reg')echo 'id="active"'; ?>>注册</a>

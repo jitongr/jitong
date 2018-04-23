@@ -63,7 +63,7 @@ if($action=='list'||$tjts){
 		if($_POST['info'])
 			$sq=",info='".addslashes($_POST['info'])."'";
 		if($_POST['sort'])
-			$sq=",sort= ".intval($_POST['sort']);
+			$sq=",`sort`= ".intval($_POST['sort']);
 		if($sq)
 			$DB->query("update jt_concept set  ".substr($sq,1)." where id=".intval($_POST['id']));
 	}

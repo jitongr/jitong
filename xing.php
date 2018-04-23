@@ -6,7 +6,7 @@ require_once 'init.php';
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>祭童刑图</title>
+<title>祭童行图</title>
     <meta name="viewport" content="width=1366" />
     <script src="view/jquery-1.11.1.js"></script>
 
