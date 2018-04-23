@@ -29,7 +29,7 @@ a:link,a:visited,a:hover,a:active {text-decoration: none;color:#333;}
 </div>
 <div id="navi">
 <a href="./" <?php if($action=='')echo 'id="active"'; ?>>首祭</a> 
-<a href="ask.php" <?php if($action=='ask')echo 'id="active"'; ?>>卜问</a>
+<a href="ask.php" <?php if($action=='ask')echo 'id="active"'; ?>>启示</a>
 <a href="./?action=list" >祭坛</a>
 <a href="./?action=li" <?php if($action=='li')echo 'id="active"'; ?>>祭文</a>
 <a href="jt.php" <?php if($action=='jt')echo 'id="active"'; ?>>刑受</a> 

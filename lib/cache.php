@@ -53,7 +53,7 @@ class Cache {
 		if ($this->{$cacheName.'_cache'} != null) {
 			return '';
 		} else {
-			$cachefile = '../content/cache/' . $cacheName;
+			$cachefile = '../up/cache/' . $cacheName;
 
 			if ($fp = fopen($cachefile, 'r')) {
 				$data = fread($fp, filesize($cachefile));
