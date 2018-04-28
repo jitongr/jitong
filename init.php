@@ -29,12 +29,12 @@ if(IS_SAE){
 }
 
 //print_r($_SERVER);
-$ltime = time();
+$ltime=date('Y-m-d H:i:s');
 $DB = MySql::getInstance();
-if(!isset($_SESSION['views']))  
+if( isset($_SESSION['views']))  
 {
 	$_SESSION['views']=1;
-    $DB->query("INSERT INTO accelog (method,tou,lastu,expler,date,aip,times) VALUES (
+    $DB->query("INSERT INTO jt_accelog (method,tou,lastu,expler,vdate,aip,times) VALUES (
 		'".$_SERVER[REQUEST_METHOD]."','".addslashes($_SERVER[REQUEST_URI])."','".
 addslashes($_SERVER[HTTP_REFERER])."','".addslashes($_SERVER[HTTP_USER_AGENT])."','$ltime','".
 $_SERVER['REMOTE_ADDR']."','".$_SESSION['views']."')");
