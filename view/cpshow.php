@@ -2,7 +2,7 @@
 if($pDa['img']!=''&&$pDa['imgsize']==-1)
 $backimg=$pDa['img'];
 else{
-	$backimg="/jt/imgs/bgo.jpg";
+	$backimg="/jitong/jt/bgo.jpg";
 	}
 $mtop=60;
 //$fts=array("方正兰亭超细黑简体", "方正舒体", "方正姚体", "仿宋", "汉仪家书简", "汉仪楷体简", "汉仪
@@ -12,8 +12,8 @@ $mtop=60;
 //"华康娃娃体W5", "华康娃娃体W5", "华康娃娃体W5(P)", "華康少女文字W6", "華康娃娃體(P)", "華康娃娃體", );
 //style="font-family:=$fts[rand(0,36)];"
 ?>
-<script type="text/javascript" src="/content/js/jquery-1.8.2.min.js"></script>
-<script src="/content/js/jquery-ui.js"></script> 
+<script type="text/javascript" src="/note/js/jquery.min.js"></script>
+<script src="/note/js/jquery-ui.min.js"></script> 
 <style>
 .ui-widget-content{cursor:pointer;position:absolute;}
 </style>

@@ -2,19 +2,19 @@
 if($pDa['img']!=''&&$pDa['imgsize']==-1)
 $backimg=$pDa['img'];
 else{
-	$backimg="/jt/imgs/bgo.jpg";
+	$backimg="/jitong/jt/bgo.jpg";
 	}
 $mtop=70;
 $fts=array("方正兰亭超细黑简体", "方正舒体", "方正姚体", "仿宋", "汉仪家书简", "汉仪楷体简", "汉仪太极体简", "汉仪娃娃篆简", "汉仪丫丫体简","汉仪丫丫体简", "仿宋", "汉仪家书简", "汉仪楷体简", "汉仪太极体简", "汉仪娃娃篆简", "汉仪丫丫体简", "黑体", "华文彩云", "华文仿宋", "华文行楷", "华文细黑", "华文新魏", "华文中宋", "经典综艺体简", "楷体", "隶书", "宋体", "微软雅黑", "新宋体", "幼圆", "华康娃娃体W5", "华康娃娃体W5", "华康娃娃体W5", "华康娃娃体W5(P)", "華康少女文字W6", "華康娃娃體(P)", "華康娃娃體", );
 //if($pDa['ctop']<50)$pDa['ctop']=50;
 ?>
-<script type="text/javascript" src="/scan/artDialog/artDialog.js?skin=green"></script>
-<script type="text/javascript" src="/scan/artDialog/jquery.artDialog.js"></script>
-<script src="/scan/artDialog/plugins/iframeTools.js"></script>
-<script type="text/javascript" src="/content/js/jquery-1.8.2.min.js"></script>
-<script src="/content/js/jquery-ui.js"></script> 
+<script type="text/javascript" src="/asset/base/artDialog/artDialog.js?skin=green"></script>
+<script type="text/javascript" src="/asset/base/artDialog/jquery.artDialog.js"></script>
+<script src="/asset/base/artDialog/plugins/iframeTools.js"></script>
+<script type="text/javascript" src="/note/js/jquery.min.js"></script>
+<script src="/note/js/jquery-ui.min.js"></script> 
 <script type="text/javascript"> 
-var editt=-1;
+var editt=<? if($pDa['ctop']>0||$pDa['cleft']>0)echo '1';else echo '-1';?>;
 var theid=0;
 var theiid=0;
 function ch(){
@@ -98,7 +98,7 @@ style="cursor:pointer;position:absolute;top:<?=$pDa['ctop']?>px;left:<?=$pDa['cl
  <a href="/jitong/?cp=<?=$pDa['id']?>">列表</a>
  <a href="jt.php?id=<?=$pDa['id']?>">预览</a>
 
-<span onclick='ch()' id='thech' style='cursor:pointer;' title='点击切换'>【编辑内容】</span>
+<span onclick='ch()' id='thech' style='cursor:pointer;' title='点击切换'>s</span>
 <span  id='theleft'></span>&nbsp;<span id='thetop'></span>
 </div>
 <br><br><div style="width:500px"><?php echo $pDa['content']; ?></div>
@@ -179,4 +179,4 @@ foreach (getcptype() as $k=>$v) {
 </div>
 <script> 
 	 $(function() {    $( ".ui-widget-content" ).draggable();  
-	 $( ".ui-widget-content" ).draggable('disable');  });  </script>
+	 ch(); });</script>

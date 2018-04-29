@@ -9,11 +9,11 @@ $lik='?cp=';
 }
 if(isset($_GET['edit'])){$lik='#" onclick="ed('; $kk=')';
 ?>
-<script type="text/javascript" src="/scan/artDialog/artDialog.js?skin=green"></script>
-<script type="text/javascript" src="/scan/artDialog/jquery.artDialog.js"></script>
-<script src="/scan/artDialog/plugins/iframeTools.js"></script>
-<script type="text/javascript" src="/content/js/jquery-1.8.2.min.js"></script>
-<script src="/content/js/jquery-ui.js"></script> 
+<script type="text/javascript" src="/asset/base/artDialog/artDialog.js?skin=green"></script>
+<script type="text/javascript" src="/asset/base/artDialog/jquery.artDialog.js"></script>
+<script src="/asset/base/artDialog/plugins/iframeTools.js"></script>
+<script type="text/javascript" src="/note/js/jquery.min.js"></script>
+<script src="/note/js/jquery-ui.min.js"></script> 
 <script type="text/javascript"> 
 function ed(id){
  var w=300;var h=250;

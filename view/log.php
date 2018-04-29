@@ -2,8 +2,8 @@
 <script type="text/javascript" src="/asset/base/artDialog/artDialog.js?skin=green"></script>
 <script type="text/javascript" src="/asset/base/artDialog/jquery.artDialog.js"></script>
 <script src="/asset/base/artDialog/plugins/iframeTools.js"></script>
-<script type="text/javascript" src="/m/js/jquery.min.js"></script>
-<script src="/m/js/jquery-ui.js"></script> 
+<script type="text/javascript" src="/note/js/jquery.min.js"></script>
+<script src="/note/js/jquery-ui.min.js"></script> 
 <script type="text/javascript"> 
 function ed(id){
  var w=300;var h=250;
@@ -12,24 +12,40 @@ function ed(id){
  follow: document.getElementById('th'+id),width: w, height: h,
  title:"<?=$value['text']; ?>--" +id});	
 	}
+function dch(id){
+	var $form=$("#d"+id+"");
+	$.ajax({
+				url:'?action=liok',
+				type:'POST',
+				data:$('#d'+id).serialize(),
+				success: function(data){
+					<? if($s){?>
+                     if($("select[name=sort]",$form).val()!=<?=$s==-1?0:$s?>){
+	                 $("#k"+id).hide();
+	                  }
+					<? }?>
+					}
+	});
+}
 </script>
+ <a href="?action=li&s=-1">未分</a> 
 <? foreach(getcptype() as $k=>$v){ ?>
 	 <a href="?action=li&s=<?=$k?>"><?=$v.$p[$k]?></a> 
 	<? } ?>
 <div id="m">
-<?php while ($value = $DB->fetch_array($query)) { ?>
+<?php while ($value = $DB->fetch_array($query)) { ?><div id="k<?=$value['id']?>">
 <div class="title"><a href="/jitong/?cp=<?php echo $value['id']; ?>"><?php echo $value['id'].' '.$value['text']; ?> <?php echo $value['info']; ?></a>[<?php echo getcptype($value['sort']); ?>] <?php echo strlen($value['content']); ?></div>
 <? if($value['img']){ ?><img src="<?=$value['img']?>" style="max-width:600px"><? }?>
 <div class="info2">
 <?php if(ISLOGIN //&&($value['sort']==0||$value['text']==""||$value['img']=="")
 ): ?>
-<form method='post'>
+<form id="d<?=$value['id']?>">
 <? if($value['text']==""){ ?>cp<input style="width:200px;" value=""  name="text" />
 <input style="width:150px;" value=""  name="info" /><? }?>
 <select name="sort" > <?php foreach (getcptype() as $k=>$v) {	
 ?><option value="<?=$k?>" <? if($k==$value['sort']) echo 'selected="selected"';?>><?=$v.$p[$k]?></option>	<?php } ?></select>
 <? if($value['img']==""){ ?>img<input style="width:400px;" value="/jty/"  name="img" /><? }?>
-<input type="hidden" name="id" value="<?=$value['id']?>"><input  type='submit' value='提交'/></form>
+<input type="hidden" name="id" value="<?=$value['id']?>"><a onClick="dch(<?=$value['id']?>)" ><img src="/m/images/tijiao.gif"></a></form>
 <?php endif;?>
 <?=date('Y-m-d H:i:s',$value['edittime'])?> <?php echo $value['birth'].'-'.$value['die']; ?><?php echo $value['age']; ?>
 关联:<?php echo $value['f3']; ?> 阅读:<?php echo $value['words']; ?> 
@@ -38,7 +54,7 @@ function ed(id){
 <a href="jt.php?cp=<?=$value['id']?>">编页</a>
 <span onclick="ed(<?=$value['id']?>)" id="th<?=$value['id']?>"><b>编辑</b></span>
 <?php endif;?>
-</div>
+</div></div>
 <?php } ?>
 <div id="page"><?php echo $page_url;?></div>
 </div>

@@ -29,24 +29,24 @@ if ($action == 'delok') {
 		echo  $row['text'].$res2."-".$res3;
 }
 if ($action == 'updnum') {
-	 $sql = "SELECT * FROM conceptnet_concept limit 15000,10000";
+	 $sql = "SELECT * FROM jt_concept";
 	 //limit 0,10000
 		$res = $DB->query($sql);
 		while ($row = $DB->fetch_array($res)) {
 		
-		$sql2 = "SELECT count(*) FROM conceptnet_assertion WHERE concept1_id=".$row['id'];
+		$sql2 = "SELECT count(*) FROM jt_assertion WHERE concept1_id=".$row['id'];
 		$res2 = $DB->once_fetch_array($sql2);
 		$comNum1 = $res2['count(*)'];
-		$sql3 = "SELECT count(*) FROM conceptnet_assertion WHERE concept2_id=".$row['id'];
+		$sql3 = "SELECT count(*) FROM jt_assertion WHERE concept2_id=".$row['id'];
 		$res3 = $DB->once_fetch_array($sql3);
 		$comNum2 = $res3['count(*)'];
-		$comNum=$comNum1+$comNum2;
-		$DB->query("UPDATE conceptnet_concept SET f1=".$comNum1.",f2=".$comNum2.",f3=".$comNum.
+		$comNum=$comNum1+$comNum2;//f1=".$comNum1.",f2=".$comNum2.",
+		$DB->query("UPDATE conceptnet_concept SET f3=".$comNum.
 		" WHERE id=".$row['id']);
 		
 		}
-		echo $sql.' ';
-		echo  $row['text'].$res2."-".$res3;
+		echo ' ok';
+		
 }
 // 按frame统计.
 if ($action == 'frame') {

@@ -54,33 +54,42 @@ if($action=='list'||$tjts){
 	include View::getView('log_list');
 	include View::getView('foot');
 	View::output();
-}else if($action=='li'){
+}else if($action=='li'||$action=='liok'){
+	//print_r($_POST);
 	if(isset($_POST['id'])){
 		if($_POST['img'])
-			$sq=",img='".addslashes($_POST['img'])."'";
+			$sq.=",img='".addslashes($_POST['img'])."'";
 		if($_POST['text'])
-			$sq=",text='".addslashes($_POST['text'])."'";
+			$sq.=",text='".addslashes($_POST['text'])."'";
 		if($_POST['info'])
-			$sq=",info='".addslashes($_POST['info'])."'";
+			$sq.=",info='".addslashes($_POST['info'])."'";
 		if($_POST['sort'])
-			$sq=",`sort`= ".intval($_POST['sort']);
+			$sq.=",`sort`= ".intval($_POST['sort']);
 		if($sq)
 			$DB->query("update jt_concept set  ".substr($sq,1)." where id=".intval($_POST['id']));
+	}
+	if($action=='liok'){
+	echo 'ok';
+	exit;
 	}
 	$sql="SELECT sort,count(1) as a FROM  jt_concept group by sort ";
 	$res=$DB->query($sql);
 	while($row=$DB->fetch_array($res)){
 		$p[$row['sort']]=$row['a'];
 	}
+ 
 	if($s){
-		$sqladd="and sort=$s ";
+		if($s==-1)
+			$sqladd="and sort=0 ";
+		else
+		  $sqladd="and sort=$s ";
 		$tjts=$s;
 	} // else
 	  // $sqladd="and sort>98 ";
 	$sql2="SELECT count(1) as a  FROM jt_concept where 1 $sqladd ";
 	$row2=$DB->once_fetch_array($sql2);
 	
-	$index_lognum=20;
+	$index_lognum=200;
 	$page=isset($_GET['page'])?abs(intval($_GET['page'])):1;
 	$start=($page-1)*$index_lognum;
 	
