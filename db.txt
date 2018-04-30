@@ -269,4 +269,6 @@ SELECT * FROM `jt_concept` WHERE sort not in(select sid from sorts)
 
 SELECT * FROM `jt_assertion` WHERE concept1_id not in(select id from jt_concept)
 SELECT * FROM `jt_assertion` WHERE concept2_id not in(select id from jt_concept)
-
+ update `jt_assertion` a,jt_concept c set a.`concept1_id`=c.oid where a.`concept1_id` =c.id and c.oid>0;  317
+  update `jt_assertion` a,jt_concept c set a.`concept2_id`=c.oid where a.`concept2_id` =c.id and c.oid>0; 
+ update `jt_concept` set id=oid where oid>0

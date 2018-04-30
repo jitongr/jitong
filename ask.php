@@ -124,11 +124,13 @@ if(isset($_GET['s'])){
 	$sql="SELECT * FROM jt_concept ";
 	if(empty($_SESSION['asked'])||isset($_POST['redo'])){
 		
-	
 		if($s>-1)
 			$sql.=' where sort='.$s;
 		if($s!=199){
-            if($s<0)$sql.=' where ';else $sql.=' and ';
+			if($s<0)
+				$sql.=' where ';
+			else
+				$sql.=' and ';
 			$sql.=' sort!=199';
 		}
 		$sql.=" order by rand() limit 1";

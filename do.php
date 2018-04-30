@@ -48,10 +48,14 @@ if ($action == 'movid') {
 	for($id=3348;$id>0;$id--){
 		$res2 = $DB->once_fetch_array('select id from jt_concept where id='.$id);
 		if(empty($res2['id'])){
-		echo $id.'-->';
+		echo $id.'<--';
 		$re = $DB->once_fetch_array('select min(id) as a from jt_concept where id>'.$lid);
 		echo $re['a'].'<br>';
 		$lid=$re['a'];
+		if($id>$lid){
+			$DB->query("UPDATE jt_concept SET oid=".$id.
+		" WHERE id=".$lid);
+		}
 		}
 	}
 	 
