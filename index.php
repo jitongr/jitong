@@ -33,7 +33,7 @@ if($action=='list'||$tjts){
 	if($tjts){
 		$sqladd="and sort=$tjts ";
 	}
-	if($s){
+	if(isset($_GET['s'])){
 		$sqladd="and sort=$s ";
 		$tjts=$s;
 	} // else
@@ -78,11 +78,8 @@ if($action=='list'||$tjts){
 		$p[$row['sort']]=$row['a'];
 	}
  
-	if($s){
-		if($s==-1)
-			$sqladd="and sort=0 ";
-		else
-		  $sqladd="and sort=$s ";
+	if(isset($_GET['s'])){
+		$sqladd="and sort=$s ";
 		$tjts=$s;
 	} // else
 	  // $sqladd="and sort>98 ";

@@ -263,3 +263,4 @@ ALTER TABLE  `jt_asklog` ADD  `good` DOUBLE NOT NULL DEFAULT  '0' AFTER  `cid`
 
 ALTER TABLE  `jt_childname` ADD  `birth` DATE NOT NULL
 ALTER TABLE  `jt_childname` ADD  `die` DATE NOT NULL
+ update `jt_concept` c,sorts s set c.`sort`=-s.sid where c.sort0=s.jid
