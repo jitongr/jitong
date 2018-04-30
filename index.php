@@ -86,7 +86,7 @@ if($action=='list'||$tjts){
 	$sql2="SELECT count(1) as a  FROM jt_concept where 1 $sqladd ";
 	$row2=$DB->once_fetch_array($sql2);
 	
-	$index_lognum=200;
+	$index_lognum=20;
 	$page=isset($_GET['page'])?abs(intval($_GET['page'])):1;
 	$start=($page-1)*$index_lognum;
 	

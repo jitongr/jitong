@@ -28,9 +28,9 @@ function dch(id){
 	});
 }
 </script>
- <a href="?action=li&s=-1">未分</a> 
+
 <? foreach($p as $k=>$v){ ?>
-	 <a href="?action=li&s=<?=$k?>">[<?=$k?>]<?=getcptype($k)?><?=$v?></a> 
+	 <a href="?action=li&s=<?=$k?>"><?=getcptype($k)?><?=$v?></a> 
 	<? } ?>
 <div id="m">
 <?php while ($value = $DB->fetch_array($query)) { ?><div id="k<?=$value['id']?>">
@@ -41,7 +41,7 @@ function dch(id){
 ): ?>
 <form id="d<?=$value['id']?>">
 <? if($value['text']==""){ ?>cp<input style="width:200px;" value=""  name="text" />
-<input style="width:150px;" value=""  name="info" /><? }?>
+<input style="width:50px;" value=""  name="info" /><? }?>
 <select name="sort" > <?php foreach (getcptype() as $k=>$v) {	
 ?><option value="<?=$k?>" <? if($k==$value['sort']) echo 'selected="selected"';?>><?=$v.$p[$k]?></option>	<?php } ?></select>
 <? if($value['img']==""){ ?>img<input style="width:400px;" value="/jty/"  name="img" /><? }?>

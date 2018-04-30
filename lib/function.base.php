@@ -69,7 +69,9 @@ function getcptype($i=-1){
 	$CACHE=Cache::getInstance();
     $sos=$CACHE->readCache('sort');
 
-	if($i>=0){
+	if($i==0){
+	return '未分';
+	}else if($i>0){ 
     	return $sos[$i]['name'];
 	}else{
 		$so=array();

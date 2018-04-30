@@ -10,9 +10,9 @@ if(isset($_GET['scanff'])){
 	$dir=EMLOG_ROOT;
 	if(empty($bpath)){
 		echo 'bpath ?';
-		$bpath="/tu";
+		$bpath="/t u/e es";
 	}
-	$id=2;
+	$id=1;
 	echo '<b>'.$dir.$bpath.":</b><br>";
 	if(is_dir($dir.$bpath)){
 		if($dh=opendir($dir.$bpath)){
@@ -41,9 +41,10 @@ if(isset($_GET['scanff'])){
 							 $nn=str_replace(" ","",$nn);
 							if(preg_match("/[\x7f-\xff]/",$nn)){
 								$msg=preg_replace("/[\x7f-\xff]/","",$nn);
-							//	$sql2="SELECT max(id)+1 as a  FROM jt_concept   ";
-							//	$row2=$DB->once_fetch_array($sql2);$row2['a']
-								$nfme="z".$id.$msg;
+								$sql2="SELECT max(id)+1 as a  FROM jt_concept   ";
+								$row2=$DB->once_fetch_array($sql2);
+								$nfme="z".$row2['a'].$msg;
+								//$nfme="z".$id.$msg;
 							}else
 								$nfme=$nn;
 							echo "*";
@@ -75,7 +76,7 @@ if(isset($_GET['scanff'])){
 							$id++;
 						//	$DB->query($ddde);
 						}else{
-							$ddde="INSERT INTO jt_concept (id,text,img,edittime,filesize,otime,content,ow,oh) VALUES ({$id},'".addslashes(substr($nn,0,-4))."','$nmm',$ltime,'$fz','$mtime','".addslashes($nn)."','{$size[0]}','{$size[1]}' )";
+							$ddde="INSERT INTO jt_concept (text,img,edittime,filesize,otime,content,ow,oh) VALUES ('".addslashes(substr($nn,0,-4))."','$nmm',$ltime,'$fz','$mtime','".addslashes($nn)."','{$size[0]}','{$size[1]}' )";
 						//	 echo $ddde;
 							 
 							$DB->query($ddde);

@@ -17,6 +17,7 @@ function ed(id){
 </script>
 <div id="m">
 <a href="?s=-1">全图问</a> 
+<a href="?s=0">未分<?=$p[0]?></a> 
 <? foreach(getcptype() as $k=>$v){ ?>
 	 <a href="?s=<?=$k?>"><?=$v.$p[$k]?></a> 
 	<? } ?>
@@ -43,7 +44,7 @@ function ed(id){
 ): ?>
 <form method='post' action='docp.php?cp=<?=$value['id']?>&ecdid=<?=$value['id']?>&s=<?=$s?>'>
 <? if($value['text']==""){ ?>cp<input style="width:200px;" value=""  name="text" />
-<input style="width:150px;" value=""  name="info" /><? }?>
+<input style="width:50px;" value=""  name="info" /><? }?>
 <select name="sort" > <?php foreach (getcptype() as $k=>$v) {	
 ?><option value="<?=$k?>" <? if($k==$value['sort']) echo 'selected="selected"';?>><?=$v.$p[$k]?></option>	<?php } ?></select>
 <? if($value['img']==""){ ?>img<input style="width:400px;" value=""  name="img" /><? }?>
