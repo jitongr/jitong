@@ -10,8 +10,9 @@ if(isset($_GET['scanff'])){
 	$dir=EMLOG_ROOT;
 	if(empty($bpath)){
 		echo 'bpath ?';
-		$bpath="/jty";
+		$bpath="/tu";
 	}
+	$id=2;
 	echo '<b>'.$dir.$bpath.":</b><br>";
 	if(is_dir($dir.$bpath)){
 		if($dh=opendir($dir.$bpath)){
@@ -36,12 +37,13 @@ if(isset($_GET['scanff'])){
 						// echo $ext;
 						if(preg_match("/[\x7f-\xff]/",$file2)){
 							$nn=str_replace("图片","",$file2);
-							// $nn=str_replace("复件","",$nn);
+							 $nn=str_replace("截图","",$nn);
+							 $nn=str_replace(" ","",$nn);
 							if(preg_match("/[\x7f-\xff]/",$nn)){
 								$msg=preg_replace("/[\x7f-\xff]/","",$nn);
-								$sql2="SELECT max(id)+1 as a  FROM jt_concept   ";
-								$row2=$DB->once_fetch_array($sql2);
-								$nfme="z".$row2['a'].$msg;
+							//	$sql2="SELECT max(id)+1 as a  FROM jt_concept   ";
+							//	$row2=$DB->once_fetch_array($sql2);$row2['a']
+								$nfme="z".$id.$msg;
 							}else
 								$nfme=$nn;
 							echo "*";
@@ -50,21 +52,35 @@ if(isset($_GET['scanff'])){
 							$nmm=$bpath."/".$nfme;
 							rename($path,$dir.$nmm);
 						}else{
-							$nmm=$bpath."/".$file;
+							$nnt=str_replace(" ","",$file,$n1);
+							if($n1>1){
+								$nn=$file;
+							} 
+							if($n1>0){
+								echo "#";echo $nnt;
+							rename($path,$dir.$bpath."/".$nnt);
+							 
+							}							
+							$nmm=$bpath."/".$nnt;
 						}
 						$ltime=time();
 						$nmm=addslashes($nmm);
 						$sql2d="SELECT id  FROM jt_concept where img like '$nmm'";
 						$row2d=$DB->once_fetch_array($sql2d);
 						if($row2d['id']){
-							$ddde="update jt_concept set filesize='$fz',otime='$mtime',
-	ow='{$size[0]}',oh='{$size[1]}' where id=".$row2d['id'];
+						//	$ddde="update jt_concept set filesize='$fz',otime='$mtime',
+//	ow='{$size[0]}',oh='{$size[1]}' where id=".$row2d['id'];
 							echo "【u】";
-							$DB->query($ddde);
+							echo $id.' ';
+							$id++;
+						//	$DB->query($ddde);
 						}else{
-							$ddde="INSERT INTO jt_concept (text,img,edittime,filesize,otime,content,ow,oh) VALUES ('".substr($nn,0,-4)."','$nmm',$ltime,'$fz','$mtime','$nn','{$size[0]}','{$size[1]}' )";
-							// echo $ddde;
+							$ddde="INSERT INTO jt_concept (id,text,img,edittime,filesize,otime,content,ow,oh) VALUES ({$id},'".addslashes(substr($nn,0,-4))."','$nmm',$ltime,'$fz','$mtime','".addslashes($nn)."','{$size[0]}','{$size[1]}' )";
+						//	 echo $ddde;
+							 
 							$DB->query($ddde);
+							echo $id.' ';
+						$id++;
 						}
 						// echo crtallimgs($mtime,0,$file,$fz,'..'.$bpath.'/'.$file);
 					}
