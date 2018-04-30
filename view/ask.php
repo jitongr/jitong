@@ -17,8 +17,8 @@ function ed(id){
 </script>
 <div id="m">
 <a href="?s=-1">全图问</a> 
-<? foreach($p as $k=>$v){ ?>
-	 <a href="?s=<?=$k?>"><?=isset($sorts[substr($k,1)])?$sorts[substr($k,1)]['name'].$v:'['.substr($k,1).']'.$v?></a> 
+<? foreach(getcptype() as $k=>$v){ ?>
+	 <a href="?s=<?=$k?>"><?=$v.$p[$k]?></a> 
 	<? } ?>
 <a href="?a=cz1">测字1</a> 
 <a href="?a=cz2">测字2</a> 
@@ -36,7 +36,7 @@ function ed(id){
 </form>
 </div>
 <? if(isset($value['id'])){ ?>
- <div class="title"><a href="/jitong/?cp=<?php echo $value['id']; ?>"><?php echo $value['id'].' '.$value['text']; ?> <?php echo $value['info']; ?></a>[<?php echo $sorts[-$value['sort']]['name']; ?>] <?php echo strlen($value['content']); ?><?php echo $value['birth'].'-'.$value['die']; ?><?php echo $value['age']; ?>  <font color=red><?php echo $_SESSION['askedgd']; ?></font> </div>
+ <div class="title"><a href="/jitong/?cp=<?php echo $value['id']; ?>"><?php echo $value['id'].' '.$value['text']; ?> <?php echo $value['info']; ?></a>[<?php echo getcptype($value['sort']); ?>] <?php echo strlen($value['content']); ?><?php echo $value['birth'].'-'.$value['die']; ?><?php echo $value['age']; ?>  <font color=red><?php echo $_SESSION['askedgd']; ?></font> </div>
 <? if($value['img']){ ?><img src="<?=$value['img']?>" style="max-width:1200px"><? }?>
 <div class="info2">
 <?php if(ISLOGIN //&&($value['sort']==0||$value['text']==""||$value['img']=="")
@@ -44,7 +44,7 @@ function ed(id){
 <form method='post' action='docp.php?cp=<?=$value['id']?>&ecdid=<?=$value['id']?>&s=<?=$s?>'>
 <? if($value['text']==""){ ?>cp<input style="width:200px;" value=""  name="text" />
 <input style="width:150px;" value=""  name="info" /><? }?>
-<select name="sort" > <?php foreach ($sorts as $k=>$v) {	
+<select name="sort" > <?php foreach (getcptype() as $k=>$v) {	
 ?><option value="<?=$k?>" <? if($k==$value['sort']) echo 'selected="selected"';?>><?=$v.$p[$k]?></option>	<?php } ?></select>
 <? if($value['img']==""){ ?>img<input style="width:400px;" value=""  name="img" /><? }?>
 <input type="hidden" name="id" value="<?=$value['id']?>"><input  type='submit' value='提交'/></form>

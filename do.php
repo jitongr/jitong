@@ -14,7 +14,7 @@ $usersina_id=0;
 	$DB = MySql::getInstance();
 
 if ($action == 'delok') {
-	 $sql = "SELECT * FROM conceptnet_concept WHERE visible=0 limit 10000";
+	 $sql = "SELECT * FROM conct_concept WHERE visible=0 limit 10000";
 	 //limit 0,10000
 		$res = $DB->query($sql);
 		while ($row = $DB->fetch_array($res)) {
@@ -27,6 +27,36 @@ if ($action == 'delok') {
 		}
 		echo $sql.' ';
 		echo  $row['text'].$res2."-".$res3;
+}
+if ($action == 'dels') {
+	 $sql = "SELECT * FROM jt_concept WHERE sort=999";
+	 //limit 0,10000
+		$res = $DB->query($sql);
+		while ($row = $DB->fetch_array($res)) {
+		echo $row['text'].' '.$row['img'].' ';
+        if (unlink('..'.$row['img']))
+         echo 'ok';
+	     else 
+			 echo '【x】';
+		echo '<br>';
+		}
+		echo 'ok';
+
+}
+if ($action == 'movid') {
+	$lid=0;
+	for($id=3348;$id>0;$id--){
+		$res2 = $DB->once_fetch_array('select id from jt_concept where id='.$id);
+		if(empty($res2['id'])){
+		echo $id.'-->';
+		$re = $DB->once_fetch_array('select min(id) as a from jt_concept where id>'.$lid);
+		echo $re['a'].'<br>';
+		$lid=$re['a'];
+		}
+	}
+	 
+		echo 'ok';
+
 }
 if ($action == 'updnum') {
 	 $sql = "SELECT * FROM jt_concept";

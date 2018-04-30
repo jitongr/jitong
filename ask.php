@@ -89,9 +89,6 @@ $res=$DB->query($sql);
 while($row=$DB->fetch_array($res)){
 	$p[$row['sort']]=$row['a'];
 }
-$CACHE=Cache::getInstance();
-$sorts=$CACHE->readCache('sort');
-//print_r($sorts);
 if(isset($_GET['a'])){
 	$a=$_GET['a'];
 	if(empty($_SESSION['cezied'])||isset($_POST['redo'])){

@@ -29,8 +29,8 @@ function dch(id){
 }
 </script>
  <a href="?action=li&s=-1">未分</a> 
-<? foreach(getcptype() as $k=>$v){ ?>
-	 <a href="?action=li&s=<?=$k?>"><?=$v.$p[$k]?></a> 
+<? foreach($p as $k=>$v){ ?>
+	 <a href="?action=li&s=<?=$k?>">[<?=$k?>]<?=getcptype($k)?><?=$v?></a> 
 	<? } ?>
 <div id="m">
 <?php while ($value = $DB->fetch_array($query)) { ?><div id="k<?=$value['id']?>">

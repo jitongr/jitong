@@ -65,29 +65,24 @@ function getzis(){
   $k= chr(mt_rand(161,215)).chr(mt_rand(161,249));
  return iconv('GBK', 'UTF-8', $k);
 	}	
-function getcptype1($i=-1){
-	$sub[0]='未分类';$sub[1]='概念';
-	$sub[2]='历史';
-	$sub[3]='记事';$sub[4]='人物';
-	$sub[5]='地方';$sub[6]='时间';$sub[7]='科学';$sub[8]='技术';
-	$sub[60]='天主';$sub[61]='祈福赞美';$sub[62]='圣婴圣家';$sub[63]='教堂';
-	$sub[64]='弥撒';$sub[65]='主童';$sub[66]='苦路';
-	$sub[80]='随主';$sub[81]='圣人';
-	$sub[82]='圣死';$sub[83]='我';$sub[70]='我祭';$sub[71]='朋友';$sub[72]='见童';
-	$sub[85]='耶稣';
-	$sub[88]='祈祷';$sub[91]='可童';$sub[89]='他灵';
-	$sub[92]='志童';$sub[93]='亲友';$sub[94]='助学';$sub[95]='孩童';
-	$sub[96]='他灵';$sub[97]='乐童';$sub[98]='情感';
-	$sub[99]='童贞';$sub[100]='灾难';$sub[101]='祭童';
-	$sub[102]='难童';$sub[103]='苦难';$sub[104]='刑受';$sub[113]='捆绑';$sub[105]='吊打';
-	$sub[106]='钉十字架';$sub[107]='犹太';$sub[108]='灵童';$sub[109]='童身';
-	$sub[111]='灵修';$sub[120]='圣童';
-	$sub[199]='删除';$sub[198]='修改';
-	if($i>=0)
-	return $sub[$i];
-	else
-	return $sub;
+function getcptype($i=-1){
+	$CACHE=Cache::getInstance();
+    $sos=$CACHE->readCache('sort');
+
+	if($i>=0){
+    	return $sos[$i]['name'];
+	}else{
+		$so=array();
+		foreach($sos as $k11=>$v11){
+		if($v11['jnum']>0){
+		if(strlen($k11)>1)$so[$k11].= '&nbsp;&nbsp;';
+		if(strlen($k11)>2)$so[$k11].='&nbsp;&nbsp;';
+		$so[$k11].=$v11['name'];
+		}
+		}
+	   return $so;
 	}
+}
 /**
  * 获取用户ip地址
  */

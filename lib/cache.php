@@ -51,8 +51,10 @@ class Cache {
 	 */
 	function readCache($cacheName) {
 		if ($this->{$cacheName.'_cache'} != null) {
-			return '';
+			//echo 'M';
+			return $this->{$cacheName.'_cache'};
 		} else {
+			//echo 'RD';
 			$cachefile = '../up/cache/' . $cacheName;
 
 			if ($fp = fopen($cachefile, 'r')) {
