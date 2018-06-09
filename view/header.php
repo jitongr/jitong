@@ -31,10 +31,12 @@ a:link,a:visited,a:hover,a:active {text-decoration: none;color:#333;}
 <a href="/" >返回</a> 
 <a href="./" <?php if($action=='')echo 'id="active"'; ?>>首祭</a> 
 <a href="ask.php" <?php if($action=='ask')echo 'id="active"'; ?>>启示</a>
-<a href="./?action=list" >祭坛</a>
+<a href="./?action=list" >文文</a>
 <a href="./?action=li" <?php if($action=='li')echo 'id="active"'; ?>>祭文</a>
 <a href="jt.php" <?php if($action=='jt')echo 'id="active"'; ?>>刑受</a> 
 <a href="jitong.php" <?php if($action=='jitong')echo 'id="active"'; ?>>祭童</a>
+<a href="jitongr.php" <?php if($action=='jitongr')echo 'id="active"'; ?>>祭儿</a>
+<a href="cruciedboy.php" <?php if($action=='cruciedboy')echo 'id="active"'; ?>>我祭</a>
 <a href="tongtu.php" <?php if($action=='tongtu')echo 'id="active"'; ?>>童图</a>
 <a href="xing.php" <?php if($action=='xing')echo 'id="active"'; ?>>行图</a>
 <a href="tona.php" <?php if($action=='tona')echo 'id="active"'; ?>>童难</a>

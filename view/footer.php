@@ -1,3 +1,3 @@
-<div id="footer">andao,13 years old;tongke,6 years old;cruboy,21 years old</div>
+<div id="footer">andao,age 13;tongke,age 6;cruboy,age 21</div>
 </body>
 </html>

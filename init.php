@@ -24,11 +24,12 @@ if(!isset($_SESSION['views']))
 }
 else 
 $_SESSION['views']++;
+$seid=session_id();
 if($_SESSION['views']==1||$savlog==1){
-	 $DB->query("INSERT INTO jt_accelog (method,tou,lastu,expler,vdate,aip,times) VALUES (
+	 $DB->query("INSERT INTO jt_accelog (method,tou,lastu,expler,vdate,aip,times,seid) VALUES (
 		'".$_SERVER[REQUEST_METHOD]."','".addslashes($_SERVER[REQUEST_URI])."','".
 addslashes($_SERVER[HTTP_REFERER])."','".addslashes($_SERVER[HTTP_USER_AGENT])."','$ltime','".
-$_SERVER['REMOTE_ADDR']."','".$_SESSION['views']."')");
+$_SERVER['REMOTE_ADDR']."','".$_SESSION['views']."','$seid')");
 }
 require_once EMLOG_ROOT.'/lib/function.login.php';
 

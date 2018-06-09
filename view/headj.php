@@ -28,7 +28,7 @@ a:link,a:visited,a:hover,a:active {text-decoration: none;color:#333;}
 </head>
 <body  onkeydown="down(event.keyCode)" >
 <div id="top">
-<div id="blogname"><a href='<? echo BLOG_URL;?>' style='color:#FFF'>十字架上的<?php echo $blogname; ?></a>
+<div id="blogname"><a href='<? echo BLOG_URL;?>' style='color:#FFF'><?php if($action=='cruciedboy') echo '祭献自己钉于十字架上的男孩cruboy';else echo '祭献自己给天主的三祭童'; ?></a>
 </div>
 </div>
 <div id="navi">

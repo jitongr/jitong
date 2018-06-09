@@ -28,12 +28,12 @@ $_SESSION['mycnt']=$cnt;
 }
 
 if(isset($_GET['list'])){
-		$sql = "SELECT name FROM jt_children where content!=''";
+		$sql = "SELECT * FROM jt_children ";
 	$res = $DB->query($sql);
 	include View::getView('headj');
 	
 	while ($value = $DB->fetch_array($res)) {
-		echo '<span title="">'.$value['name'].'</span>';
+		echo '<span title="'.$value['vdate'].$value['content'].'">'.$value['name'].'</span>  ';
 	}
 	include View::getView('footerj');
 	View::output();
