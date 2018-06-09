@@ -11,37 +11,25 @@ header('Content-Type: text/html; charset=UTF-8');
 
 define('EMLOG_ROOT', dirname(__FILE__));
 date_default_timezone_set('PRC'); 
-if (!isset($_SERVER["HTTP_APPNAME"])) {//非SAE平台下运行，加载普通核心
-    define("IS_SAE",FALSE);
-}else{
-    define("IS_SAE",TRUE);
-	//sae Storage domain
-	define('S_DOMAIN','emlog');
-}
 
-if(IS_SAE){
-	require_once EMLOG_ROOT.'/sae.config.php';
-	require_once EMLOG_ROOT.'/lib/function.sae.base.php';
-
-}else{
-	require_once EMLOG_ROOT.'/config.php';
-	require_once EMLOG_ROOT.'/lib/function.base.php';
-}
+require_once EMLOG_ROOT.'/config.php';
+require_once EMLOG_ROOT.'/lib/function.base.php';
 
 //print_r($_SERVER);
 $ltime=date('Y-m-d H:i:s');
 $DB = MySql::getInstance();
-if( isset($_SESSION['views']))  
+if(!isset($_SESSION['views']))  
 {
 	$_SESSION['views']=1;
-    $DB->query("INSERT INTO jt_accelog (method,tou,lastu,expler,vdate,aip,times) VALUES (
+}
+else 
+$_SESSION['views']++;
+if($_SESSION['views']==1||$savlog==1){
+	 $DB->query("INSERT INTO jt_accelog (method,tou,lastu,expler,vdate,aip,times) VALUES (
 		'".$_SERVER[REQUEST_METHOD]."','".addslashes($_SERVER[REQUEST_URI])."','".
 addslashes($_SERVER[HTTP_REFERER])."','".addslashes($_SERVER[HTTP_USER_AGENT])."','$ltime','".
 $_SERVER['REMOTE_ADDR']."','".$_SESSION['views']."')");
 }
-else 
-$_SESSION['views']++;
-
 require_once EMLOG_ROOT.'/lib/function.login.php';
 
 doStripslashes();

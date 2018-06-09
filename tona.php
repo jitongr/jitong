@@ -1,5 +1,10 @@
 <?php
+require_once 'init.php';
+$action='tona';
+include "view/header.php";
 echo "Now gent is :<br>";
+$gip=getIp();
+$uid=UID;
 
 $energy=10;
 for($i=4;$i<85;$i++){
@@ -20,7 +25,7 @@ for($i=4;$i<85;$i++){
 	
 	switch(rand(0,27)%13){
 		case 1:
-			$text=$text."Bodhisattva";
+			$text=$text."self";
 			$energy+=3;
 			break;
 		case 2:
@@ -459,7 +464,7 @@ for($i=4;$i<85;$i++){
 			$text=$text."preexistence revenant";
 			break;
 		case 12:
-			$text=$text."Bodhisattva";
+			$text=$text."friends";
 			break;
 		case 13:
 			$text=$text."revenant";
@@ -500,7 +505,7 @@ for($i=4;$i<85;$i++){
 			$text=$text."stand up";
 			break;
 		case 9:
-			$text=$text."become stanch";
+			$text=$text."become stanch love in god";
 			$energy+=3;
 			break;
 		case 0:
@@ -511,7 +516,7 @@ for($i=4;$i<85;$i++){
 	$text=$text." and he ";
 	switch(rand(0,30)%10){
 		case 1:
-			$text=$text."die quickly";
+			$text=$text."die quickly to love god";
 			$energy-=1;
 			break;
 		case 2:
@@ -546,104 +551,12 @@ for($i=4;$i<85;$i++){
 	}
 	
 	echo $text.'.<br>';
+	$rtime=date('Y-m-d H:i:s');
+	$DB->query("INSERT INTO jt_tonalog (age,viewid,edate,uid,content,ip,seid) VALUES (
+				$i,'".$_SESSION['views']."','$rtime','$uid','".addslashes($text)."','$gip','".session_id()."')");
 	if($energy<0)
 		break;
 }
 
-/////////////////////////////////////////////////////////////////////////////
 
-
-/*
-	char *place[]={"adytum","bathroom","house","forest","stonehill","executiornd","street",\
-		"mortuary","grave","church","playground","kindergarten",\
-          "riverain","seashore","island","temple"};
-	char *dress[]={"mark dirty ","nude virgin","nack trunk ","dress poor ","mark label ",\
-		"nacked"," "};
-	char *suffer[]={"bind toget$her","genuflectie","tiehandsback","bindtree","liespreadfst",\
-		"firmtie limb","pillory","pillory 3day",\
-		"tiehanback beat","faspread tree","haghands","foohang",\
-		"haghand lash","foohang lash",\
-		"faspread tree lash","lash haghand 3day","destroy face","destroy hand",\
-		"broil body","destroy foot",\
-		"crucified","fire","lash whip die",\
-		"bind drowm","hang","bury animated",""};
-
-
-
-	$diee =new array{"die corpse","suffering die","die fortitude","die relive"};
-	$bbh[]={"suffer bear","badly hurt","hurt","weaker"};
-		$cbbh[]={"dump","live","foster","godliness"};
-		$dbbh[]={"purity","rescue","stanch","godliness"};
-	switch(suf)
-	{
-	case 1:
-        tr=rand()%4;
-		$text = $text .diee[tr];
-		energy=0;
-		if (tr==3&&who) energy=1;
-		break;
-	case 2:	
-		$text = $text .bbh[rand()%4];
-		energy-=5;
-		break;
-	case 3:
-		$text = $text .cbbh[rand()%4];
-		break;
-	case 4:	
-		$text = $text .dbbh[rand()%4];
-		break;
-	}
-return(3);
-}
-
-
-{switch (rand()%17)
-{
-    case 1:
-	$text = $text . "Bodhisattva";
-	energy+=3;
-	break;case 2:
-	$text = $text . "angel";
-	energy+=2;
-	break;case 16:
-	$text = $text . "prayer";
-	energy+=1;
-	break;case 15:
-	$text = $text . "guarder";
-	energy+=1;
-
-	break;case 3:
-	$text = $text . "parent";
-	break;case 4:
-	$text = $text . "brot$her";
-	break;case 5:
-	$text = $text . "follower";
-	break;case 6:
-	$text = $text . "children";
-	break;case 7:
-	$text = $text . "preexistence";
-	break;case 8:
-	$text = $text . "God";
-	break;case 9:
-	$text = $text . "revenant";
-	break;case 10:
-	$text = $text . "karma";
-	break;case 11:
-	$text = $text . "little lives";
-
-	break;case 14:
-	$text = $text . "rascal";
-	energy-=1;
-	break;case 13:
-	$text = $text . "jurenile";
-	energy-=1;
-	break;case 12:
-	$text = $text . "mob";
-	energy-=2;
-	break;case 0:
-	$text = $text . "evil";
-	energy-=3;
-}
-	return(4);
-}
-*/
+include "view/footer.php";

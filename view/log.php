@@ -19,7 +19,7 @@ function dch(id){
 				type:'POST',
 				data:$('#d'+id).serialize(),
 				success: function(data){
-					<? if($s){?>
+					<? {?>
                      if($("select[name=sort]",$form).val()!=<?=$s==-1?0:$s?>){
 	                 $("#k"+id).hide();
 	                  }
