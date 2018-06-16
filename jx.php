@@ -84,7 +84,7 @@
 				  <div><img src="/jty/little-saint-william-norwich-crucifixion-jews-443x381.jpg" ></div>
 				  <div><img src="/jty/201212171207100f7907a9a6d7f442c0e12b248c81.jpg" ></div>
 				   <div><img src="/jitong/view/cruboys.jpg" ></div>
-				   
+				   <img src="/tu/aitz/Museed'Orsay.Tarcisius,chritianmartyr(1867)byAlexandreFalguiere.jpg" ></div>
 				</div>
 			</div>
 		</div>
@@ -161,6 +161,88 @@
 						</div>
 					</div>
 				</div>
+
+				<div class="row row-bottom-padded-sm">
+					<div class="col-md-4">
+						<div class="fh5co-service text-center">
+							<img src="/jty/childdeath.jpg" class="img-responsive img-bordered" >
+							<h3>被遗弃的儿童</h3>
+							<p>被捆绑四肢，倒着扔掉的孩童</p>
+							<p><a href="#" class="btn btn-primary btn-outline">View more</a></p>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="fh5co-service text-center">
+							<img src="/jty/crucfon1.jpg" class="img-responsive img-bordered" >
+							<h3>反背手钉十字架的孩子</h3>
+							<p>反背手，钉的时候更痛；头只能蜷缩的低着，大钉子穿透双脚</p>
+							
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="fh5co-service text-center">
+							<img src="/jty/e24576670_134bd70e668g215.jpg" class="img-responsive img-bordered" >
+							<h3>幼童受难</h3>
+							<p>幼童受难，喜悦的死亡.</p>
+							<p><a href="#" class="btn btn-primary btn-outline">View more</a></p>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="fh5co-service text-center">
+							<img src="/jty/asbzyl.jpg" class="img-responsive img-bordered" >
+							<h3>钉十字架的林儿</h3>
+							<p>赤身裸体，尽情享受死亡</p>
+						
+						</div>
+					</div>
+				
+					<div class="col-md-4">
+						<div class="fh5co-service text-center">
+							<img src="/jty/Hung_Well_by_EvanHath.jpg" class="img-responsive img-bordered" >
+							<h3>伸展捆绑四肢</h3>
+							<p>地下刑室的墙边，架子上绑着的男孩，铁链，铁锁扣。</p>
+						
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="fh5co-service text-center">
+							<img src="/jty/Little_Warrior_In_Trouble_by_kiowah.jpg" class="img-responsive img-bordered" >
+							<h3>绑在树上的英雄小孩</h3>
+							<p>一看是个勇敢的小孩子.</p>
+							
+						</div>
+					</div>
+
+					<div class="col-md-4">
+						<div class="fh5co-service text-center">
+							<img src="/jty/Cristo.jpg" class="img-responsive img-bordered" >
+							<h3>十字架上的圣婴</h3>
+							<p>婴孩的来世间，是为完成使命，洁净灵魂</p>
+							<p><a href="#" class="btn btn-primary btn-outline">View more</a></p>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="fh5co-service text-center">
+							<img src="/tu/aitz/Museed'Orsay.StJohntheBaptist(1881)byJeanDampt..jpg" class="img-responsive img-bordered" alt="Free HTML5 Bootstrap Template by FreeHTML5.co">
+							<h3>殉道圣童</h3>
+							<p>祈祷，我愿意接受苦难.</p>
+							
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="fh5co-service text-center">
+							<img src="/jty/jewish-ritual-murder.jpg" class="img-responsive img-bordered" >
+							<h3>孩子太小钉不着脚</h3>
+							<p>小圣童，献祭自己幼弱的身体</p>
+							<p><a href="#" class="btn btn-primary btn-outline">View more</a></p>
+						</div>
+					</div>
+				</div>
+
+				
+
+		
+		</div>
 
 			</div>
 		</div>
