@@ -32,6 +32,7 @@ function dch(id){
 <? foreach($p as $k=>$v){ ?>
 	 <a href="?action=li&s=<?=$k?>"><?=getcptype($k)?><?=$v?></a> 
 	<? } ?>
+	<a href="?action=li&s=-2"> 经历</a> 
 <div id="m">
 <?php while ($value = $DB->fetch_array($query)) { ?><div id="k<?=$value['id']?>">
 <div class="title"><a href="/jitong/?cp=<?php echo $value['id']; ?>"><?php echo $value['id'].' '.$value['text']; ?> <?php echo $value['info']; ?></a>[<?php echo getcptype($value['sort']); ?>] <?php echo strlen($value['content']); ?></div>

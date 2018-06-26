@@ -127,11 +127,16 @@ if(isset($_GET['s'])){
 		if($s>-1)
 			$sql.=' where sort='.$s;
 		if($s!=199){
-			if($s<0)
+			if($s==-2)
+				$sql.=" where me=1 ";
+				else{
+			if($s==-1)
 				$sql.=' where ';
 			else
 				$sql.=' and ';
 			$sql.=' sort!=199';
+				}
+				
 		}
 		$sql.=" order by rand() limit 1";
 		$value=$DB->once_fetch_array($sql);

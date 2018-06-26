@@ -21,6 +21,7 @@ function ed(id){
 <? foreach(getcptype() as $k=>$v){ ?>
 	 <a href="?s=<?=$k?>"><?=$v.$p[$k]?></a> 
 	<? } ?>
+	<a href="?s=-2">经历</a> 
 <a href="?a=cz1">测字1</a> 
 <a href="?a=cz2">测字2</a> 
 <a href="?a=cz3">测字3</a>
