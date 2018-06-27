@@ -82,7 +82,7 @@ if($action=='list'||$tjts){
 		$sqladd="and sort=$s ";
 		$tjts=$s;
 		if($_GET['s']==-2)
-			$sqladd="and me=1";
+			$sqladd="and me=1 order by text";
 	} // else
 	  // $sqladd="and sort>98 ";
   

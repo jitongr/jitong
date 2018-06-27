@@ -11,7 +11,8 @@ body{background-color:#FFFFFF; font-size:14px; margin: 0; padding:0;}
   <form id="fttz" method='post' action='docp.php?cp=<?=$cpid?>&ecdid=<?=$pDa['id']?>'>
   <table style=" font-size:14px;">
  <? if(ROLE=='admin'):?>    
-  <tr><td>名称<input style="width:100px;" value="<?php echo $pDa['text']; ?>"  name="text" /></td><td>标题<input style="width:260px;" value="<?php echo $pDa['info']; ?>"name="info" /></td>
+  <tr><td>名称<input style="width:100px;" value="<?php echo $pDa['text']; ?>"  name="text" /></td><td>me<input style="width:60px;" value="<?php echo $pDa['me']; ?>" name="me" />
+  标题<input style="width:100px;" value="<?php echo $pDa['info']; ?>" name="info" /></td>
   </tr>
   <? endif;?> 
    <tr>
