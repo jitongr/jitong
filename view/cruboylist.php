@@ -43,7 +43,7 @@ while ($value = $DB->fetch_array($res)) {
 &nbsp;&nbsp;
 <a href="<?=$lik?><?php echo $value['id'].$kk; ?>"
  style="font-size:<? if($value['f3']>20)echo '24';elseif($value['f3']>10)echo '22';elseif($value['f3']>5)echo '20';elseif($value['f3']>1)echo '18';else echo "16";?>px" title="<?php echo $value['id'].':'.$value['f3']; ?>">
-<? if($value['img']){ ?><img src="/m/images/image_s.gif"><? }?><?php echo $value['text']; ?></a>
+<? if($value['img']){ ?><img src="data:image/jpeg;base64,<?=base64_encode($value['imgc'])?>"><? }?><?php echo $value['text']; ?></a>
 <?php } ?>
 </div>
 <div id="page"><?php echo $pageurl;?></div>

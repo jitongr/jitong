@@ -34,6 +34,7 @@ if(isset($_GET['ecdid'])){
 	$sq1="SELECT * FROM  ".$tabf."_concept WHERE id='$id'";
 	$pDa=$DB->once_fetch_array($sq1);
 	$pDa['content']=addslashes($pDa['content']);
+	unset($pDa['imgc']);
 	$DB->query("INSERT INTO jt_vasslog (cpid,rid,method,edate,uid,content,ip,seid) VALUES (
 				$id,0,'editcp','$rtime','$uid','".serialize($pDa)."','$gip','".session_id()."')");
 	$_POST['edittime']=$ltime;

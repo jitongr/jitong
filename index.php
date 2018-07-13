@@ -108,8 +108,9 @@ if(empty($action)&&empty($logid)&&empty($cpid)){
 	$ltime=date('Y-m-d H:i:s');
 	$gip=getIp();
 	$uid=UID;
-	$CACHE=Cache::getInstance();
-	$cpr=$CACHE->readCache('cpr');
+	//$CACHE=Cache::getInstance();
+	//$cpr=$CACHE->readCache('cpr');
+	include 'lib/cache.php';
 	$o="";
 	if(empty($_SESSION['jtimg'])){
 		$w=date('W');
@@ -196,8 +197,9 @@ if(!empty($cpid)){
 	$gip=getIp();
 	$uid=UID;
 	$vsid=intval($_SESSION['views']);
-	$CACHE=Cache::getInstance();
-	$cpr=$CACHE->readCache('cpr');
+	//$CACHE=Cache::getInstance();
+	//$cpr=$CACHE->readCache('cpr');
+	include 'lib/cache.php';
 	$ltime=date('Y-m-d H:i:s');
 	if(ISLOGIN!==true&&empty($_SESSION['u_name'])){
 		$vfr="jtunlog";

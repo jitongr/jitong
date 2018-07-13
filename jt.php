@@ -25,8 +25,9 @@ $vsid=intval($_SESSION['views']);
 $action='jt';
 $cpid=isset($_GET['cp'])?intval($_GET['cp']):intval($_GET['id']);
 $tabf='jt';
-$CACHE=Cache::getInstance();
-$cpr=$CACHE->readCache('cpr');
+//$CACHE=Cache::getInstance();
+//$cpr=$CACHE->readCache('cpr');
+include 'lib/cache.php';
 if(!empty($cpid)){
 	$ltime=date('Y-m-d H:i:s');
 	$aineth=1;

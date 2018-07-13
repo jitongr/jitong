@@ -4,7 +4,7 @@
  * @copyright jitong
  */
 
-error_reporting(7);
+//error_reporting(7);
 ob_start();
 session_start();
 header('Content-Type: text/html; charset=UTF-8');
@@ -14,7 +14,8 @@ date_default_timezone_set('PRC');
 
 require_once EMLOG_ROOT.'/config.php';
 require_once EMLOG_ROOT.'/lib/function.base.php';
-
+require_once EMLOG_ROOT.'/lib/mysql.php';
+require_once EMLOG_ROOT.'/lib/view.php';
 //print_r($_SERVER);
 $ltime=date('Y-m-d H:i:s');
 $DB = MySql::getInstance();

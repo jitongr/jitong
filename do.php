@@ -68,57 +68,73 @@ if ($action == 'updnum') {
 		$res = $DB->query($sql);
 		while ($row = $DB->fetch_array($res)) {
 		
-		$sql2 = "SELECT count(*) FROM jt_assertion WHERE concept1_id=".$row['id'];
+		$sql2 = "SELECT count(*) as a FROM jt_assertion WHERE concept1_id=".$row['id'];
 		$res2 = $DB->once_fetch_array($sql2);
-		$comNum1 = $res2['count(*)'];
-		$sql3 = "SELECT count(*) FROM jt_assertion WHERE concept2_id=".$row['id'];
+		$comNum1 = $res2['a'];
+		$sql3 = "SELECT count(*) as a FROM jt_assertion WHERE concept2_id=".$row['id'];
 		$res3 = $DB->once_fetch_array($sql3);
-		$comNum2 = $res3['count(*)'];
+		$comNum2 = $res3['a'];
 		$comNum=$comNum1+$comNum2;//f1=".$comNum1.",f2=".$comNum2.",
-		$DB->query("UPDATE conceptnet_concept SET f3=".$comNum.
-		" WHERE id=".$row['id']);
+		$DB->query("UPDATE jt_concept SET f3=".$comNum." WHERE id=".$row['id']);
 		
 		}
 		echo ' ok';
 		
 }
-// 按frame统计.
-if ($action == 'frame') {
-		$a=0;
+
+// .按relation统计
+if ($action == 'relation') {
+	//set_time_limit(0);
+    $sql = "SELECT * FROM conceptnet_relation order by id";
+		$res = $DB->query($sql);
+		while ($row = $DB->fetch_array($res)) {
+			$wd=$row['name']; 
+			$dd=$row['id'];
+		$sql2 = "SELECT count(*) FROM jt_assertion WHERE relation_id=".$dd;
+		$res2 = $DB->once_fetch_array($sql2);
+		$comNum = $res2['count(*)'];
+	//	$sql3 = "SELECT count(*) FROM jt_assertion WHERE score>2 AND relation_id=".$dd;
+	//	$res3 = $DB->once_fetch_array($sql3);
+	//	$comNum3 = $resl3['count(*)'];
+		echo $dd." ".$wd.":".$comNum."--".$comNum3."<br>";
+		}
+				$a=0;
     $sql = "SELECT * FROM conceptnet_frame order by relation_id";
 		$res = $DB->query($sql);
 		while ($row = $DB->fetch_array($res)) {
 			$wd=$row['text']; 
 			$a++;
 			$dd=$row['id'];
-		$sql2 = "SELECT count(*) FROM conceptnet_assertion WHERE best_frame_id=".$dd;
+		$sql2 = "SELECT count(*) FROM jt_assertion WHERE best_frame_id=".$dd;
 		$res2 = $DB->once_fetch_array($sql2);
 		$comNum = $res2['count(*)'];
-		$sql3 = "SELECT count(*) FROM conceptnet_assertion WHERE score>2 AND best_frame_id=".$dd;
-		$res3 = $DB->once_fetch_array($sql3);
-		$comNum3 = $res3['count(*)'];
+		//$sql3 = "SELECT count(*) FROM jt_assertion WHERE score>2 AND best_frame_id=".$dd;
+		//$res3 = $DB->once_fetch_array($sql3);
+		//$comNum3 = $res3['count(*)'];
 		echo $a." ".$row['relation_id'].":".$dd." ".$wd.":".$comNum."--".$comNum3."<br>";
 		
 		}
 }
-// .按relation统计
-if ($action == 'relation') {
-	set_time_limit(0);
+if ($action == 'cache') {
     $sql = "SELECT * FROM conceptnet_relation order by id";
 		$res = $DB->query($sql);
 		while ($row = $DB->fetch_array($res)) {
-			$wd=$row['name']; 
-			$dd=$row['id'];
-		$sql2 = "SELECT count(*) FROM conceptnet_assertion WHERE relation_id=".$dd;
-		$res2 = $DB->once_fetch_array($sql2);
-		$comNum = $res2['count(*)'];
-		$sql3 = "SELECT count(*) FROM conceptnet_assertion WHERE score>2 AND relation_id=".$dd;
-		$res3 = $DB->once_fetch_array($sql3);
-		$comNum3 = $resl3['count(*)'];
-		echo $dd." ".$wd.":".$comNum."--".$comNum3."<br>";
-		}
+			echo '$cpr['.$row['id'].']=\''.$row['name'].'\';<br>';
+			}
+			   $sql = "SELECT * FROM conceptnet_frame order by id";
+		$res = $DB->query($sql);
+		while ($row = $DB->fetch_array($res)) {
+			echo '$cpr['.$row['id'].']=\''.$row['text'].'\';<br>';
+			}
 }
-
+if ($action == 'cache2') {
+    $sql = "SELECT * FROM sorts where jnum>0 order by sid";
+		$res = $DB->query($sql);
+		while ($row = $DB->fetch_array($res)) {
+			echo '$sos['.$row['sid'].']=\''.$row['sortname'].'\';//'.$row['jnum'].'<br>';
+			}
+			   
+}
 // concept.
 if ($action == '') {
 $ltime = time();

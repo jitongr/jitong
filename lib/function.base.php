@@ -1,25 +1,9 @@
 <?php
 /**
- * 基础函数库
- * @copyright (c) Emlog All Rights Reserved
- * $Id: function.base.php 2030 2011-09-13 15:49:40Z qiyuuu@gmail.com $
+ * 基础库
+ * @copyright (c) cruboy jitong
  */
 
-function __autoload($class) {
-	$class = strtolower($class);
-	//if($class=="cache")$class="cacheback";
-  //  if (file_exists(EMLOG_ROOT . '/include/model/'. $class . '.php')) {
-  //  	require_once(EMLOG_ROOT . '/include/model/'. $class . '.php');
-  //  } else
-    if (file_exists(EMLOG_ROOT . '/lib/'. $class . '.php')) {
-        require_once(EMLOG_ROOT . '/lib/'. $class . '.php');
-    } //elseif (file_exists(EMLOG_ROOT . '/include/controller/'. $class . '.php')) {
-     //   require_once(EMLOG_ROOT . '/include/controller/'. $class . '.php');
-   // } 
-    else{
-    	emMsg($class.'加载失败。', BLOG_URL);
-    }
-}
 
 /**
  * 去除多余的转义字符
@@ -66,23 +50,75 @@ function getzis(){
  return iconv('GBK', 'UTF-8', $k);
 	}	
 function getcptype($i=-1){
-	$CACHE=Cache::getInstance();
-    $sos=$CACHE->readCache('sort');
-
+	$sos[1]='信仰';//7
+$sos[11]='天主';//4
+$sos[111]='教理圣教';//39
+$sos[112]='圣婴圣家';//47
+$sos[113]='主耶稣';//100
+$sos[115]='先知';//4
+$sos[116]='宗徒';//14
+$sos[117]='苦路';//54
+$sos[118]='十架圣死';//52
+$sos[12]='主生活';//26
+$sos[121]='主童';//67
+$sos[122]='教堂';//18
+$sos[123]='弥撒';//26
+$sos[13]='圣经';//2
+$sos[15]='圣人';//42
+$sos[156]='天使';//19
+$sos[157]='随主十架';//34
+$sos[158]='殉道圣童';//72
+$sos[16]='祈祷赞美';//33
+$sos[161]='祈祷';//64
+$sos[17]='动态';//4
+$sos[18]='慕道';//5
+$sos[19]='近道';//13
+$sos[2]='课学';//4
+$sos[29]='机器人';//33
+$sos[33]='历史';//8
+$sos[39]='概念';//128
+$sos[4]='科学';//11
+$sos[42]='医学';//2
+$sos[5]='技术';//35
+$sos[6]='资料';//3
+$sos[74]='百态';//7
+$sos[76]='助学';//176
+$sos[77]='乐童';//163
+$sos[78]='志童';//108
+$sos[79]='公益';//1
+$sos[81]='音乐';//1
+$sos[82]='美术';//3
+$sos[821]='人物';//39
+$sos[822]='儿童';//94
+$sos[83]='孩童';//176
+$sos[84]='童贞';//154
+$sos[85]='苦难';//132
+$sos[851]='灾难';//34
+$sos[852]='难童';//117
+$sos[88]='情感';//132
+$sos[91]='我';//39
+$sos[932]='星座';//1
+$sos[94]='个人记事';//33
+$sos[95]='亲友';//65
+$sos[952]='朋友';//6
+$sos[96]='见童';//37
+$sos[97]='刑受';//162
+$sos[971]='捆绑';//88
+$sos[972]='吊打';//123
+$sos[973]='钉十字架';//162
+$sos[98]='祭童';//197
+$sos[981]='我祭';//52
+$sos[982]='童身';//165
+$sos[983]='童灵';//131
+$sos[991]='外道';//211
+$sos[992]='犹太';//73
+$sos[999]='删除';//25
 	if($i==0){
 	return '未分';
 	}else if($i>0){ 
-    	return $sos[$i]['name'];
+    	return $sos[$i];
 	}else{
-		$so=array();
-		foreach($sos as $k11=>$v11){
-		if($v11['jnum']>0){
-		if(strlen($k11)>1)$so[$k11].= '&nbsp;&nbsp;';
-		if(strlen($k11)>2)$so[$k11].='&nbsp;&nbsp;';
-		$so[$k11].=$v11['name'];
-		}
-		}
-	   return $so;
+	   return $sos;
 	}
 }
 /**
