@@ -4,8 +4,6 @@
 */
 require_once 'init.php';
 
-define('TEMPLATE_PATH',EMLOG_ROOT.'/view/');
-
 $gip=getIp();
 $uid=UID;
 $ltime=time();

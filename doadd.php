@@ -5,7 +5,6 @@
 */
 require_once 'init.php';
 
-define('TEMPLATE_PATH',EMLOG_ROOT.'/view/');
 $acid=intval($_POST['cid']);
 if($acidd>0&&ISLOGIN!==true){
 	echo "非法访问！请先登录！";

@@ -4,7 +4,7 @@
  * @copyright (c) Emlog All Rights Reserved
  * $Id: function.login.php 1955 2011-05-03 15:01:41Z emloog $
  */
-
+include "PasswordHash.php";
 /**
  * 验证用户是否处于登录状态
  *
