@@ -2,17 +2,17 @@
 if($pDa['img']!=''&&$pDa['imgsize']==-1)
 $backimg=$pDa['img'];
 else{
-	$backimg="/jitong/jt/bgo.jpg";
+	$backimg="/jt/bgo.jpg";
 	}
 $mtop=70;
 $fts=array("方正兰亭超细黑简体", "方正舒体", "方正姚体", "仿宋", "汉仪家书简", "汉仪楷体简", "汉仪太极体简", "汉仪娃娃篆简", "汉仪丫丫体简","汉仪丫丫体简", "仿宋", "汉仪家书简", "汉仪楷体简", "汉仪太极体简", "汉仪娃娃篆简", "汉仪丫丫体简", "黑体", "华文彩云", "华文仿宋", "华文行楷", "华文细黑", "华文新魏", "华文中宋", "经典综艺体简", "楷体", "隶书", "宋体", "微软雅黑", "新宋体", "幼圆", "华康娃娃体W5", "华康娃娃体W5", "华康娃娃体W5", "华康娃娃体W5(P)", "華康少女文字W6", "華康娃娃體(P)", "華康娃娃體", );
 //if($pDa['ctop']<50)$pDa['ctop']=50;
 ?>
-<script type="text/javascript" src="/asset/base/artDialog/artDialog.js?skin=green"></script>
-<script type="text/javascript" src="/asset/base/artDialog/jquery.artDialog.js"></script>
-<script src="/asset/base/artDialog/plugins/iframeTools.js"></script>
-<script type="text/javascript" src="/note/js/jquery.min.js"></script>
-<script src="/note/js/jquery-ui.min.js"></script> 
+<script type="text/javascript" src="/view/artDialog/artDialog.js?skin=green"></script>
+<script type="text/javascript" src="/view/artDialog/jquery.artDialog.js"></script>
+<script src="/view/artDialog/plugins/iframeTools.js"></script>
+<script type="text/javascript" src="/view/jss/jquery.min.js"></script>
+<script src="/view/jss/jquery-ui.min.js"></script> 
 <script type="text/javascript"> 
 var editt=<? if($pDa['ctop']>0||$pDa['cleft']>0)echo '1';else echo '-1';?>;
 var theid=0;
@@ -91,11 +91,11 @@ style="cursor:pointer;position:absolute;top:<?=$pDa['ctop']?>px;left:<?=$pDa['cl
 <div class="ui-widget-content" >
 <a onClick="ax(<?=$pDa['id']?>3)">☆</a><span id='th<?=$pDa['id']?>3'><?php echo $pDa['text']; ?>&nbsp;<?php echo $pDa['info']; ?></span>
  <? if($pDa['age']){ ?> <img src="/m/images/hug.gif" ><? }?><?php echo $pDa['birth'].'-'.$pDa['die']; ?><?php echo $pDa['age']; ?>
-<img src="/m/images/os2.gif" title="关联数"><?php echo $pDa['f3']; ?>
+<img src="/view/jss/os2.gif" title="关联数"><?php echo $pDa['f3']; ?>
  [<?php echo getcptype($pDa['sort']); ?>]
- <img src="/m/images/fav.gif" title="查看次数"><?php echo $pDa['words']; ?> 
+ <img src="/view/jss/fav.gif" title="查看次数"><?php echo $pDa['words']; ?> 
 
- <a href="/jitong/?cp=<?=$pDa['id']?>">列表</a>
+ <a href="/?cp=<?=$pDa['id']?>">列表</a>
  <a href="jt.php?id=<?=$pDa['id']?>">预览</a>
 
 <span onclick='ch()' id='thech' style='cursor:pointer;' title='点击切换'>s</span>
@@ -145,15 +145,10 @@ $value['atop']=$value['atop']==0?$mtop+=20:$value['atop'];
 	关系：
     <select dir="ltr" name="addrel" id="darom" >
            <?
-		   if(ROLE!='admin') $dadda="where n2>0";
-      $sql2p="select * from conceptnet_frame $dadda order by relation_id asc,n1 desc";
-	  $res=$DB->query($sql2p);
-         while($arr=$DB->fetch_array($res))
-                {
+	foreach($cpr as $k=>$v)
+		 { if($k<33)continue;
             ?>
-   <option value="<?=$arr['id']?>" <? if($arr['id']==83) echo "selected";?>>
-         【<?=$arr['relation_id']?>】<?=$arr['text']?>(<?=$arr['n2']?>)
-        </option>
+   <option value="<?=$k?>" <? if($d==83) echo "selected";?>><?=$v?></option>
         <?  }	?>
 	</select> 分类<select name="sort" >
 	 <?php 
@@ -168,13 +163,13 @@ foreach (getcptype() as $k=>$v) {
     <input type="hidden" name="cid" value="<?php echo $cpid; ?>" />
         <input type="hidden" name="valid" value="<?php echo $valid;?>" /><br>
 	<div style="width:500px;text-align:center;"><a onClick=" $.ajax({
-				url:'/jitong/doadd.php?action=addcp',
+				url:'/doadd.php?action=addcp',
 				type:'POST',
 				data:$('#addcp<?php echo $valid;?>').serialize(),
 				success: function(data){
                      alert(data);
 					}
-		});" title="添加"><img src="/m/images/tijiao.gif"></a></div>
+		});" title="添加"><img src="/view/jss/tijiao.gif"></a></div>
 	</form>
 </div>
 <script> 

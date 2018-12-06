@@ -2,7 +2,7 @@
 if($pDa['img']!=''&&$pDa['imgsize']==-1)
 $backimg=$pDa['img'];
 else{
-	$backimg="/jitong/jt/bgo.jpg";
+	$backimg="/jt/bgo.jpg";
 	}
 $mtop=60;
 //$fts=array("方正兰亭超细黑简体", "方正舒体", "方正姚体", "仿宋", "汉仪家书简", "汉仪楷体简", "汉仪
@@ -12,8 +12,8 @@ $mtop=60;
 //"华康娃娃体W5", "华康娃娃体W5", "华康娃娃体W5(P)", "華康少女文字W6", "華康娃娃體(P)", "華康娃娃體", );
 //style="font-family:=$fts[rand(0,36)];"
 ?>
-<script type="text/javascript" src="/note/js/jquery.min.js"></script>
-<script src="/note/js/jquery-ui.min.js"></script> 
+<script type="text/javascript" src="/view/jss/jquery.min.js"></script>
+<script src="/view/jss/jquery-ui.min.js"></script> 
 <style>
 .ui-widget-content{cursor:pointer;position:absolute;}
 </style>
@@ -25,14 +25,14 @@ style="top:<?=$pDa['ctop']?>px;left:<?=$pDa['cleft']?>px;">
 <?php } ?>
 <div class="ui-widget-content" >
 ☆<span ><?php echo $pDa['text']; ?>&nbsp;<?php echo $pDa['info']; ?></span>
- <? if($pDa['age']){ ?> <img src="/m/images/hug.gif" ><? }?><?php echo $pDa['birth'].'-'.$pDa['die']; ?><?php echo $pDa['age']; ?>
-<img src="/m/images/os2.gif" title="关联数"><?php echo $pDa['f3']; ?>
+ <? if($pDa['age']){ ?> <img src="/view/jss/hug.gif" ><? }?><?php echo $pDa['birth'].'-'.$pDa['die']; ?><?php echo $pDa['age']; ?>
+<img src="/view/jss/os2.gif" title="关联数"><?php echo $pDa['f3']; ?>
  [<?php echo getcptype($pDa['sort']); ?>]
- <img src="/m/images/fav.gif" title="查看次数"><?php echo $pDa['words']; ?> 
+ <img src="/view/jss/fav.gif" title="查看次数"><?php echo $pDa['words']; ?> 
 
- <a href="/jitong/?cp=<?=$pDa['id']?>">列表</a>
- <?php if(ISLOGIN === true):?>
- <a href="jt.php?cp=<?=$pDa['id']?>">编辑</a><? endif;?>
+ <a href="/?cp=<?=$pDa['id']?>">列表</a>
+ <?php //if(ISLOGIN === true):?>
+ <a href="jt.php?cp=<?=$pDa['id']?>">编辑</a><? //endif;?>
 </div> 
 <br><br><div style="width:500px"><?php echo $pDa['content']; ?></div>
 <?php 

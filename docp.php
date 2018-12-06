@@ -10,11 +10,11 @@ $ltime=time();
 $rtime=date('Y-m-d H:i:s');
 $DB=MySql::getInstance();
 
-if(ISLOGIN!==true){
+//if(ISLOGIN!==true){
 	
-	echo "请先登录或授权！";
-	exit();
-}
+//	echo "请先登录或授权！";
+//	exit();
+//}
 
 $cpid=intval($_GET['cp']);
 

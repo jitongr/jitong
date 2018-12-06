@@ -21,7 +21,7 @@ foreach($concepts as $value):
 
 <div class="comcont">
 &nbsp;&nbsp;
-<? if($value['img']){ ?><img src="/m/images/image_s.gif"><? }?>
+<? if($value['img']){ ?><img width="30" src="<?=$value['img']?>"><? }?>
 <a href="?cp=<?php echo $value['id']; ?>">
 <?php echo $value['text']; ?>&nbsp;<?php echo $value['info'];?></a>
 

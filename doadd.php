@@ -1,8 +1,4 @@
 <?php
-/**
- * mynet forzyl@gmail.com
- * @copyright (zhangyulin
-*/
 require_once 'init.php';
 
 $acid=intval($_POST['cid']);
