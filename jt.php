@@ -1,18 +1,17 @@
 <?php
 /**
- * jitong cruboy.com
- * @copyright cruboy
+ * jitong 
 */
 require_once 'init.php';
 
 define('TEMPLATE_PATH',EMLOG_ROOT.'/view/');
 
-if(isset($_GET['cp'])&&ISLOGIN!==true){
-	
-	$msg='请登录。';
-	emDirect("/jitong/?action=login");
-	exit();
-}
+// if(isset($_GET['cp'])&&ISLOGIN!==true){
+
+// $msg='请登录。';
+// emDirect("/jitong/?action=login");
+// exit();
+// }
 
 $DB=MySql::getInstance();
 $concepts=array();
@@ -25,8 +24,8 @@ $vsid=intval($_SESSION['views']);
 $action='jt';
 $cpid=isset($_GET['cp'])?intval($_GET['cp']):intval($_GET['id']);
 $tabf='jt';
-//$CACHE=Cache::getInstance();
-//$cpr=$CACHE->readCache('cpr');
+// $CACHE=Cache::getInstance();
+// $cpr=$CACHE->readCache('cpr');
 include 'lib/cache.php';
 if(!empty($cpid)){
 	$ltime=date('Y-m-d H:i:s');
@@ -134,10 +133,10 @@ if(!empty($cpid)){
 	$s=intval($_GET['s']);
 	
 	$sql="SELECT * FROM jt_concept where 1";
-    if(isset($_GET['s']))
+	if(isset($_GET['s']))
 		$sql.=' and sort='.$s;
 	else
-		$sql.=' and f3>0' ;
+		$sql.=' and f3>0';
 	$res=$DB->query($sql);
 	
 	include View::getView('cruboylist');

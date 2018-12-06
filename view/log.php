@@ -35,7 +35,7 @@ function dch(id){
 	<a href="?action=li&s=-2"> 经历</a> 
 <div id="m">
 <?php while ($value = $DB->fetch_array($query)) { ?><div id="k<?=$value['id']?>">
-<div class="title"><a href="/jitong/?cp=<?php echo $value['id']; ?>"><?php echo $value['id'].' '.$value['text']; ?> <?php echo $value['info']; ?></a>[<?php echo getcptype($value['sort']); ?>] <?php echo strlen($value['content']); ?></div>
+<div class="title"><a href="?cp=<?php echo $value['id']; ?>"><?php echo $value['id'].' '.$value['text']; ?> <?php echo $value['info']; ?></a>[<?php echo getcptype($value['sort']); ?>] <?php echo strlen($value['content']); ?></div>
 <? if($value['img']){ ?><img src="<?=$value['img']?>" style="max-width:600px"><? }?>
 <div class="info2">
 <?php if(ISLOGIN //&&($value['sort']==0||$value['text']==""||$value['img']=="")

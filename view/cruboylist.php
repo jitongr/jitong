@@ -27,7 +27,7 @@ function ed(id){
 <div id="m">
 
     <li>
-	<h3><a href='jt.php?s=<?=$s?>'><span>cruboy </span></a>
+	<h3><a href='jt.php?s=<?=$s?>'><span>jt</span></a>
 	<a href='jt.php?s=<?=$s?>&show'><span>shows</span></a>
 	<a href='jt.php?s=<?=$s?>&edit'>edit</a>
     <a href='jt.php?fre'><span>关联</span></a>

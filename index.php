@@ -81,10 +81,7 @@ if($action=='list'||$tjts){
 	if(isset($_GET['s'])){
 		$sqladd="and sort=$s ";
 		$tjts=$s;
-		if($_GET['s']==-2)
-			$sqladd="and me=1 order by text";
-	} // else
-	  // $sqladd="and sort>98 ";
+	} 
   
 	$sql2="SELECT count(1) as a  FROM jt_concept where 1 $sqladd ";
 	$row2=$DB->once_fetch_array($sql2);
@@ -104,12 +101,10 @@ if($action=='list'||$tjts){
 }
 
 if(empty($action)&&empty($logid)&&empty($cpid)){
-	$atitle="祭献自己给天主：";
+	$atitle="祭献自己给主：";
 	$ltime=date('Y-m-d H:i:s');
 	$gip=getIp();
 	$uid=UID;
-	//$CACHE=Cache::getInstance();
-	//$cpr=$CACHE->readCache('cpr');
 	include 'lib/cache.php';
 	$o="";
 	if(empty($_SESSION['jtimg'])){
@@ -154,7 +149,7 @@ if(empty($action)&&empty($logid)&&empty($cpid)){
 	$res=$DB->query($sql);
 	while($row=$DB->fetch_array($res)){
 		$o.=$row['id'].$row[text].' ';
-		// $sql2 = "SELECT * FROM cruboy_assertion WHERE concept1_id='$row[id]' or concept2_id='$row[id]' LIMIT 2";
+
 		$sql2="SELECT a.concept1_id,a.concept2_id,
 		a.relation_id,a.best_frame_id,c.text FROM jt_assertion a LEFT JOIN
 		jt_concept c ON a.concept2_id=c.id
