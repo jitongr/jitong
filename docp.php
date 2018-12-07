@@ -9,7 +9,7 @@ $uid=UID;
 $ltime=time();
 $rtime=date('Y-m-d H:i:s');
 $DB=MySql::getInstance();
-
+define('TEMPLATE_PATH',EMLOG_ROOT.'/view/');
 //if(ISLOGIN!==true){
 	
 //	echo "请先登录或授权！";
@@ -33,8 +33,8 @@ if(isset($_GET['ecdid'])){
 	$pDa=$DB->once_fetch_array($sq1);
 	$pDa['content']=addslashes($pDa['content']);
 	unset($pDa['imgc']);
-	$DB->query("INSERT INTO jt_vasslog (cpid,rid,method,edate,uid,content,ip,seid) VALUES (
-				$id,0,'editcp','$rtime','$uid','".serialize($pDa)."','$gip','".session_id()."')");
+	//$DB->query("INSERT INTO jt_vasslog (cpid,rid,method,edate,uid,content,ip,seid) VALUES (
+	//			$id,0,'editcp','$rtime','$uid','".serialize($pDa)."','$gip','".session_id()."')");
 	$_POST['edittime']=$ltime;
 	$Item=array();
 	foreach($_POST as $key=>$data){
@@ -60,8 +60,8 @@ if(isset($_GET['ecdid'])){
 		$_POST['relation_id']=$pDad['relation_id'];
 	}
 	
-	$DB->query("INSERT INTO jt_vasslog (cpid,rid,method,edate,uid,content,ip,seid) VALUES (
-				0,$id,'editass','$rtime','$uid','".serialize($pDa)."','$gip','".session_id()."')");
+//	$DB->query("INSERT INTO jt_vasslog (cpid,rid,method,edate,uid,content,ip,seid) VALUES (
+//				0,$id,'editass','$rtime','$uid','".serialize($pDa)."','$gip','".session_id()."')");
 	$_POST['edittime']=$ltime;
 	$Item=array();
 	foreach($_POST as $key=>$data){

@@ -78,7 +78,7 @@ if($action=='list'||$tjts){
 		$p[$row['sort']]=$row['a'];
 	}
  
-	if(isset($_GET['s'])){
+	if(!empty($_GET['s'])){
 		$sqladd="and sort=$s ";
 		$tjts=$s;
 	} 
@@ -271,6 +271,7 @@ if($action=='auth'){
 	}
 }
 if($action=='new'){
+	require_once EMLOG_ROOT.'/lib/user_model.php';
 	$login=isset($_POST['user'])?addslashes(trim($_POST['user'])):'';
 	$password=isset($_POST['pw'])?addslashes(trim($_POST['pw'])):'';
 	$password2=isset($_POST['pw2'])?addslashes(trim($_POST['pw2'])):'';
@@ -285,7 +286,7 @@ if($action=='new'){
 		mMsg('两次密码不一致！','./?action=reg');
 	}
 	if($password3!='jitong')
-		mMsg('注册码不正确！','./?action=reg');
+		mMsg('注册码不正确jitong！','./?action=reg');
 	
 	$User_Model=new User_Model();
 	if($User_Model->isUserExist($login)){
@@ -296,10 +297,7 @@ if($action=='new'){
 	$password=$PHPASS->HashPassword($password);
 	
 	$User_Model->addUser($login,$password,$role);
-	$CACHE->updateCache(array(
-			'sta',
-			'user'
-	));
+
 	mMsg('注册成功！','./?action=login');
 }
 

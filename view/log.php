@@ -46,7 +46,7 @@ function dch(id){
 <select name="sort" > <?php foreach (getcptype() as $k=>$v) {	
 ?><option value="<?=$k?>" <? if($k==$value['sort']) echo 'selected="selected"';?>><?=$v.$p[$k]?></option>	<?php } ?></select>
 <? if($value['img']==""){ ?>img<input style="width:400px;" value="/jty/"  name="img" /><? }?>
-<input type="hidden" name="id" value="<?=$value['id']?>"><a onClick="dch(<?=$value['id']?>)" ><img src="/m/images/tijiao.gif"></a></form>
+<input type="hidden" name="id" value="<?=$value['id']?>"><a onClick="dch(<?=$value['id']?>)" ><img src="/view/jss/tijiao.gif"></a></form>
 <?php endif;?>
 <?=date('Y-m-d H:i:s',$value['edittime'])?> <?php echo $value['birth'].'-'.$value['die']; ?><?php echo $value['age']; ?>
 关联:<?php echo $value['f3']; ?> 阅读:<?php echo $value['words']; ?> 

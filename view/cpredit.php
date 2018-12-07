@@ -1,9 +1,9 @@
 <?php if(!defined('EMLOG_ROOT')) {exit('error!');}?>
 
- <img src="/m/images/fav.gif" title="<?php echo $value['concept1_id'].'与'.$value['concept2_id']; ?>">
+ <img src="/view/jss/fav.gif" title="<?php echo $value['concept1_id'].'与'.$value['concept2_id']; ?>">
 <?=$value['relation_id'].".".$value['best_frame_id']?>
-<img src="/m/images/moderator.gif"><?=date('Y-m-d H:i:s',$value['edittime'])?>
-  <img src="/m/images/info.gif" title="a1 <?=$value['atop1']?>,<?=$value['aleft1']?> a2 <?=$value['atop2']?>,<?=$value['aleft2']?> i1 <?=$value['itop1']?>,<?=$value['ileft1']?> i2 <?=$value['itop2']?>,<?=$value['ileft2']?>" />
+<img src="/view/jss/moderator.gif"><?=date('Y-m-d H:i:s',$value['edittime'])?>
+  <img src="/view/jss/info.gif" title="a1 <?=$value['atop1']?>,<?=$value['aleft1']?> a2 <?=$value['atop2']?>,<?=$value['aleft2']?> i1 <?=$value['itop1']?>,<?=$value['ileft1']?> i2 <?=$value['itop2']?>,<?=$value['ileft2']?>" />
   <form method='post' action='docp.php?cp=<?=$cpid?>&aid=<?=$rid?>' >
  <table>
  

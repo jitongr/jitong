@@ -40,6 +40,6 @@ define('BLOG_URL',"/");
 // 模板库地址
 define('TPLS_URL',BLOG_URL.'content/templates/');
 // 模板库路径
-define('TPLS_PATH',EMLOG_ROOT.'/views/');
+define('TPLS_PATH',EMLOG_ROOT.'/view/');
 
 $blogname="祭献自己给主的小童";
